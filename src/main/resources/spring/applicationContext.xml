@@ -15,23 +15,30 @@
             http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <!--  1.开启注解扫描,spring处理service和dao，controller由springMVC处理 -->
-    <context:component-scan base-package="com.eocom">
+    <context:component-scan base-package="it.eogroup">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
-    <!--  2.配置数据库  -->
-    <!--  2.1. 引入外部文件c3p0-->
-    <context:property-placeholder location="classpath:c3p0.properties"/>
-    <!--  2.1.1 配置连接池-->
-    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-        <property name="driverClass" value="${c3p0.driver}"></property>
-        <property name="jdbcUrl" value="${c3p0.url}"></property>
-        <property name="user" value="${c3p0.username}"></property>
-        <property name="password" value="${c3p0.password}"></property>
+    <!--引入druid配置文件-->
+    <context:property-placeholder location="classpath:sqlConnectPool.properties" />
+    <!--druid连接池-->
+    <bean name="druidDataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="url" value="${druid.url}" />
+        <property name="driverClassName" value="${druid.driverClassName}" />
+        <property name="username" value="${druid.username}" />
+        <property name="password" value="${druid.password}" />
+        <property name="initialSize" value="${druid.initialSize}"/>
+        <property name="maxActive" value="${druid.maxActive}" />
+        <property name="minIdle" value="${druid.minIdle}" />
+        <property name="maxWait" value="${druid.maxWait}" />
+        <property name="poolPreparedStatements" value="${druid.poolPreparedStatements}" />
+        <property name="maxOpenPreparedStatements" value="${druid.maxOpenPreparedStatements}" />
     </bean>
-    <!--  2.2 配置mybatis的SqlSessionFactory,获取datasource-->
+
+    <!--  2.配置数据库  -->
+    <!--  2.2 配置mybatis的SqlSessionFactory,获取datasource(即mybatis与druid连接)-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
+        <property name="dataSource" ref="druidDataSource"/>
     </bean>
     <!--  2.2.1 配置Dao接口所在包-->
     <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
@@ -40,7 +47,7 @@
 
     <!--  2.3 配置事务管理器，控制datasource-->
     <bean id="dataSourceTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource"/>
+        <property name="dataSource" ref="druidDataSource"/>
     </bean>
     <!--  2.3.1. 配置声明式事务管理器-->
     <tx:advice transaction-manager="dataSourceTransactionManager" id="txAdvice">
@@ -51,7 +58,7 @@
     </tx:advice>
     <!--  2.3.2. AOP增强-->
     <aop:config>
-        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.eocom.service.impl.*ServiceImpl.*())"/>
+        <aop:advisor advice-ref="txAdvice" pointcut="execution(* it.eogroup.service.impl.*ServiceImpl.*())"/>
     </aop:config>
 
 </beans>
