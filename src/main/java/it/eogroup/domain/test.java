@@ -17,6 +17,7 @@ import java.sql.SQLException;
 public class test {
     @Resource
     private DruidDataSource dataSource;
+    //测试数据源能否自动注入
     @Test
     public void insert() throws SQLException {
         String name = "Tom";
