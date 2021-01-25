@@ -9,7 +9,10 @@
 <html>
 <head>
     <title>Hello world</title>
+    账号：<input name="username">
+    密码：<input name="password">
     <a>登录</a>
+    <a>注册</a>
 </head>
 <body>
 </body>
