@@ -1,4 +1,4 @@
-package it.eogroup.domain;
+package it.eogroup.test;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import org.junit.Test;
