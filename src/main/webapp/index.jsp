@@ -9,6 +9,7 @@
 <html>
 <head>
     <title>Hello world</title>
+    <a>登录</a>
 </head>
 <body>
 </body>
