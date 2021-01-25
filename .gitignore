@@ -1,3 +1,5 @@
 /target/
 /.idea/
 /lib/
+/axis.log/
+/logs/

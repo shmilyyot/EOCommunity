@@ -33,6 +33,26 @@
         <property name="maxWait" value="${druid.maxWait}" />
         <property name="poolPreparedStatements" value="${druid.poolPreparedStatements}" />
         <property name="maxOpenPreparedStatements" value="${druid.maxOpenPreparedStatements}" />
+        <!-- 配置监控统计拦截的filters,采用log4j2作为日志实现 -->
+        <property name="filters" value="stat,log4j2" />
+        <!-- proxyFilters属性配置,通过bean的方式配置 -->
+        <property name="proxyFilters">
+            <list>
+                <ref bean="log-filter"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 上面的druid的配置 -->
+    <bean id="log-filter" class="com.alibaba.druid.filter.logging.Log4j2Filter">
+        <!-- 所有连接相关的日志 -->
+        <property name="connectionLogEnabled" value="false"/>
+        <!-- 所有Statement相关的日志 -->
+        <property name="statementLogEnabled" value="false"/>
+        <!-- 是否显示结果集 -->
+        <property name="resultSetLogEnabled" value="true"/>
+        <!-- 是否显示SQL语句 -->
+        <property name="statementExecutableSqlLogEnable" value="true"/>
     </bean>
 
     <!--  2.配置数据库  -->

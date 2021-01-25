@@ -13,7 +13,7 @@
     </context-param>
 
     <!-- 1.配置过滤器filter -->
-    <!-- 1.1设置编码（配置编码过滤器filter） -->
+    <!-- 1.1设置编码（解决中文乱码） -->
     <filter>
         <filter-name>characterEncodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -68,6 +68,5 @@
         <servlet-name>dispatcherServlet</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-
 
 </web-app>

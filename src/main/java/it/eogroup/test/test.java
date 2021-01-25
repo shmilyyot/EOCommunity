@@ -12,12 +12,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+//测试Druid数据源能否自动注入
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:spring/applicationContext.xml"})
 public class test {
     @Resource
     private DruidDataSource dataSource;
-    //测试数据源能否自动注入
     @Test
     public void insert() throws SQLException {
         String name = "Tom";
