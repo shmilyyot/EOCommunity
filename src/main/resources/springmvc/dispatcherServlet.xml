@@ -28,5 +28,4 @@
 
     <!--开启SpringMVC注解的支持-->
     <mvc:annotation-driven/>
-
 </beans>

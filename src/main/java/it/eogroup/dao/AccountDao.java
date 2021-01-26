@@ -8,7 +8,6 @@ import java.util.List;
 /*
  * 用户账户数据持久层
  */
-
 @Repository
 public interface AccountDao {
     //查询所有账户信息

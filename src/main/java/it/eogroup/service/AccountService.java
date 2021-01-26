@@ -1,7 +1,6 @@
 package it.eogroup.service;
 
 import it.eogroup.domain.Account;
-import org.apache.ibatis.annotations.Select;
 import java.util.List;
 
 /*
@@ -10,6 +9,5 @@ import java.util.List;
 * */
 public interface AccountService{
     //查询所有账户信息
-    @Select("select * from account")
     public List<Account> findAll();
 }

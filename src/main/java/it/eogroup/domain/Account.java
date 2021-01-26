@@ -16,10 +16,10 @@ import java.util.Date;
 @Setter
 @ToString
 public class Account {
-    private String name;
-    private String password;
-    private Date birthday;
-    private String email;
-    private String phoneNumber;
-    private String address;
+    private int accountId;
+    private String accountName;
+    private String accountPassword;
+    private Date accountBirthday;
+    private String accountEmail;
+    private String accountAddress;
 }
