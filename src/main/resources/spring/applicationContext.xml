@@ -62,7 +62,7 @@
     </bean>
     <!--  2.2.1 配置Dao接口所在包-->
     <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.eocom.dao"/>
+        <property name="basePackage" value="it.eogroup.dao"/>
     </bean>
 
     <!--  2.3 配置事务管理器，控制datasource-->
