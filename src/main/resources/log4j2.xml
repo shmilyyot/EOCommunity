@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
+<!--部署到服务器的时候，一定要把日志的d盘路径改过来-->
+
+
+
 <configuration status="OFF">
     <appenders>
-
         <Console name="Console" target="SYSTEM_OUT">
             <!--只接受程序中DEBUG级别的日志进行处理-->
             <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
