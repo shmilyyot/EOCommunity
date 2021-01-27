@@ -1,0 +1,118 @@
+/*body {*/
+/*    margin: 0px;*/
+/*    padding: 0px;*/
+/*    !*background-image: url("../imgs/dark.jpg");*!*/
+/*    background-repeat: no-repeat;*/
+/*    background-size: 100% auto;*/
+/*}*/
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body {
+    /*border: 1px solid red;*/
+    background: url("../pictures/a.png") no-repeat;
+
+    width: 100%;
+    height: 100%;
+    background-size: 100% 100%;
+    overflow: hidden;
+}
+
+#footer {
+    position: absolute; /*相对于父元素contanier定位*/
+    width: 100%;
+    bottom: 0; /*始终距离它的父元素的底部为0px.则是处于父元素的最底*/
+}
+
+.open_showLogin {
+    position: absolute;
+    top: 50%;
+    left: 45%;
+
+}
+
+.open_showLogin input {
+    border: 0px;
+    border-bottom: whitesmoke;
+    border-radius: 10px;
+    height: 40px;
+    width: 180px;
+    font-size: 25px;
+    background-color: #FFFFFF50;
+    color: whitesmoke;
+    cursor: pointer;
+
+}
+
+#showLogin {
+    /*position: absolute;*/
+    margin: 100px auto 0;
+    padding: 20px 50px;
+    background-color: #00bcd450;
+    color: black;
+    text-align: center;
+    width: 600px;
+    height: 400px;
+    visibility: hidden;
+    /*left: -100%;*/
+}
+
+#showLogin h1 {
+    padding: 60px 0 0;
+    font-size: 30px;
+}
+
+#showLogin .inputBox {
+    margin-top: 30px;
+}
+
+#showLogin .input_text {
+    margin-top: 20px;
+}
+
+#showLogin .input_text input {
+    border: 0;
+    padding: 6px;
+    border-bottom: 1px solid black;
+    background-color: #FFFFFF00;
+    color: black;
+}
+
+#showLogin .input_btn {
+    margin: 20px 0 0;
+    border: 0px;
+    width: 120px;
+    height: 30px;
+    border-radius: 20px;
+}
+
+#register_btn {
+    margin-top: 40px;
+    color: black;
+    font-size: 17px;
+}
+
+#register_btn a {
+    color: #1b6d85;
+}
+
+#hide_login_btn {
+    color: black;
+    position: absolute;
+    margin: 10px 500px 10px;
+    cursor: pointer;
+    /*: 510px;*/
+}
+
+#hide_login_btn input {
+    background-color: #FFFFFF00;
+    color: black;
+    border: 0px;
+}
+
+.close {
+
+}
