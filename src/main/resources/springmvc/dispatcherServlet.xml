@@ -11,7 +11,7 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
     <!--开启注解扫描，只扫描Controller注解-->
-    <context:component-scan base-package="it.eogroup">
+    <context:component-scan base-package="it.eogroup" use-default-filters="false">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
     </context:component-scan>
 
@@ -28,5 +28,8 @@
 
     <!--开启SpringMVC注解的支持-->
     <mvc:annotation-driven/>
+
+    <!-- 开通静态资源和动态资源访问   -->
+    <mvc:default-servlet-handler/>
 
 </beans>
