@@ -9,6 +9,6 @@ public class testlog4j {
     @Test
     public void test(){
         Logger logger = LogManager.getLogger(testlog4j.class);
-        logger.info("信息......");
+        logger.info("打印了xxx");
     }
 }

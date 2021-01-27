@@ -11,7 +11,6 @@ import java.util.Date;
 *
 * 通常是JavaBean，与数据库表对应
 * */
-@Repository
 @Getter
 @Setter
 @ToString

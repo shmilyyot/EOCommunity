@@ -5,6 +5,8 @@ import it.eogroup.domain.Account;
 import it.eogroup.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 import java.util.List;
 
 /*
@@ -12,8 +14,10 @@ import java.util.List;
 * */
 @Service("accountService")
 public class AccountServiceImpl implements AccountService {
-    @Autowired
+
+    @Resource
     private AccountDao accountDao;
+
     @Override
     public List<Account> findAll(){
         System.out.println("业务层查询所有账户信息");

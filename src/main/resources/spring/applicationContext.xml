@@ -59,6 +59,7 @@
     <!--  2.2 配置mybatis的SqlSessionFactory,获取datasource(即mybatis与druid连接)-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="druidDataSource"/>
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
     </bean>
     <!--  2.2.1 配置Dao接口所在包-->
     <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
