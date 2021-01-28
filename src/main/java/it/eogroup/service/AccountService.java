@@ -8,6 +8,13 @@ import java.util.List;
 * Servlet和Dao之间的缓冲层，解耦，是Dao层变化不会影响上层服务层
 * */
 public interface AccountService{
+
     //查询所有账户信息
-    public List<Account> findAll();
+    List<Account> findAll();
+
+    //用户注册
+    Boolean CreateAccount(Account account);
+
+    //用户登录（检查用户名和密码）
+    Boolean accountLogin(Account account);
 }

@@ -12,5 +12,15 @@ import java.util.List;
 public interface AccountDao {
     //查询所有账户信息
     @Select("select * from account")
-    public List<Account> findAll();
+    List<Account> findAll();
+
+    //插入新账户信息
+    void insertAccount(Account account);
+
+    //根据用户名查找账户
+    Account accountExistByName(String accountName);
+
+    //根据用户id查找账户
+    Account accountExistById(Integer accountId);
+
 }

@@ -32,4 +32,16 @@
     <!-- 开通静态资源和动态资源访问   -->
     <mvc:default-servlet-handler/>
 
+    <mvc:annotation-driven conversion-service="conversionService"/>
+
+    <!--开启前端String类型日期自动转java LocalDate类型-->
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="converters">
+            <list>
+                <bean class="it.eogroup.service.DateConverter"/>
+            </list>
+        </property>
+    </bean>
+
+
 </beans>

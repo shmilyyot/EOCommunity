@@ -17,7 +17,6 @@
     <script src="js/bootstrap.min.js"></script>
 
     <!--                                引入Bootstrap                             -->
-
     <script type="text/javascript" src="js/include.js"></script>
     <link href="css/login.css" rel="stylesheet">
     <title>Register</title>
@@ -33,15 +32,40 @@
     <div id="hide_login_btn">
         <input type="button" value="X">
     </div>
-    <H1> REGISTER</H1>
+    <H1> 注册</H1>
     <div class="inputBox">
-        <form action="user/register" method="post">
-            <div class="input_text"><input name="username" placeholder="username" autocomplete="off"></div>
-            <div class="input_text"><input type="password" name="password" placeholder="password" autocomplete="off">
+        <form action="/account/register" method="post">
+            <div class="input_text">
+                <label>
+                <input type="text" name="accountName" placeholder="小明" autocomplete="off">
+                </label>
             </div>
+            <div class="input_text">
+                <label>
+                <input type="password" name="accountPassword" placeholder="123456" autocomplete="off">
+                </label>
+            </div>
+            <div class="input_text">
+                <label>
+                <input type="date" name="accountBirthday">
+                </label>
+            </div>
+            <div class="input_text">
+                <label>
+                <input type="email" name="accountEmail" placeholder="123456789@qq.com" autocomplete="off">
+                </label>
+            </div>
+            <div class="input_text">
+                <label>
+                <input type="text" name="accountAddress" placeholder="江苏省南京市玄武区" autocomplete="off">
+                </label>
+            </div>
+
+            <!--明天添加表单校验-->
+
             <input class="input_btn" type="submit" value="Register"><br>
         </form>
-        <div id="register_btn">Already have account？<a href="login.html">login</a></div>
+        <div id="register_btn">已经有账户？点击<a href="login.html">登录</a></div>
     </div>
 </div>
 <div id="footer"></div>

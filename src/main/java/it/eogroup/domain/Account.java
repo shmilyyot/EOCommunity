@@ -1,24 +1,21 @@
 package it.eogroup.domain;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /*
 *
 * 通常是JavaBean，与数据库表对应
+* 封装数据禁止使用基本类型，必须使用包装类（包装类允许为null，而基本类型不行，会报异常）
 * */
-@Getter
-@Setter
-@ToString
+@Data
 public class Account {
-    private int accountId;
+    private Integer accountId;
     private String accountName;
     private String accountPassword;
-    private Date accountBirthday;
+    private LocalDate accountBirthday;
     private String accountEmail;
     private String accountAddress;
 }

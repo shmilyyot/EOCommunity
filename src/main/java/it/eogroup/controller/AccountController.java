@@ -6,7 +6,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import javax.annotation.Resource;
 import java.util.List;
 
@@ -22,8 +21,35 @@ public class AccountController {
     @RequestMapping("/findAll")
     public String findAll(){
         List<Account> list = accountService.findAll();
-        System.out.println("展示层：查询所有账户");
         logger.info("展示层：查询所有账户");
         return "success";
+    }
+
+    @RequestMapping("/login")
+    public String loginAccount(Account account) {
+        System.out.println(account);
+        Boolean res = accountService.accountLogin(account);
+        if (res) {
+            logger.info("展示层：用户存在，服务器同意登陆");
+            //登录应该添加cookies信息并跳转
+            //待添加......
+            return "success";
+        } else {
+            return "failed";
+        }
+    }
+
+    @RequestMapping("/register")
+    public String registerAccount(Account account) {
+        Boolean res = accountService.CreateAccount(account);
+        if(res){
+            logger.info("展示层：注册成功");
+            //注册完跳转首页，提示用户重新登陆
+            return "success";
+        }else{
+            logger.info("展示层：用户名已存在，请重新选取用户名");
+            //这里前端要清空输入框，允许重新提交
+            return "failed";
+        }
     }
 }
