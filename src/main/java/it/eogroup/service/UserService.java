@@ -10,4 +10,5 @@ import org.springframework.stereotype.Service;
 
 public interface UserService {
     Boolean isLogin(User user);
+    Boolean isRegister(User user);
 }

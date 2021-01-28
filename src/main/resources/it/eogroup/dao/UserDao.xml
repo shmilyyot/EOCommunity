@@ -8,4 +8,8 @@
         FROM USER
         where username=#{username} and password=#{password}
     </select>
+
+    <insert id="isRegister" parameterType="it.eogroup.domain.User">
+        INSERT INTO USER values (#{username}, #{password})
+    </insert>
 </mapper>

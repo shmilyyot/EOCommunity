@@ -27,4 +27,15 @@ public class UserController {
             return "failed";
         }
     }
+
+    @RequestMapping("/register")
+    public String register(User user) {
+        System.out.println(user);
+        Boolean b = userService.isRegister(user);
+        if (b) {
+            return "success";
+        } else {
+            return "failed";
+        }
+    }
 }

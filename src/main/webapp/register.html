@@ -20,7 +20,7 @@
 
     <script type="text/javascript" src="js/include.js"></script>
     <link href="css/login.css" rel="stylesheet">
-    <title>Title</title>
+    <title>Register</title>
 
     <!--    判断用户是否登录-->
     <script type="text/javascript" src="js/is_login.js"></script>
@@ -29,8 +29,31 @@
 </head>
 <body>
 <div id="header"></div>
+<div id="showLogin">
+    <div id="hide_login_btn">
+        <input type="button" value="X">
+    </div>
+    <H1> REGISTER</H1>
+    <div class="inputBox">
+        <form action="user/register" method="post">
+            <div class="input_text"><input name="username" placeholder="username" autocomplete="off"></div>
+            <div class="input_text"><input type="password" name="password" placeholder="password" autocomplete="off">
+            </div>
+            <input class="input_btn" type="submit" value="Register"><br>
+        </form>
+        <div id="register_btn">Already have account？<a href="login.html">login</a></div>
+    </div>
+</div>
 <div id="footer"></div>
-
 </body>
-
+<script type="text/javascript">
+    $("#show_btn_login").click(function () {
+        $("#showLogin").css("visibility", "inherit")
+        $(".show_btn_register").css("visibility", "hidden")
+    })
+    $("#hide_login_btn").click(function () {
+        // $(".open_showLogin").css("visibility", "inherit")
+        $("#showLogin").css("visibility", "hidden")
+    })
+</script>
 </html>

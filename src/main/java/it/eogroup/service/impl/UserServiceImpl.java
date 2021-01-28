@@ -20,4 +20,10 @@ public class UserServiceImpl implements UserService {
         User U = userDao.isLogin(user);
         return U != null;
     }
+
+    @Override
+    public Boolean isRegister(User user) {
+        Boolean b = userDao.isRegister(user);
+        return b;
+    }
 }

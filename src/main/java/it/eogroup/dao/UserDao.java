@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserDao {
     User isLogin(User user);
+    Boolean isRegister(User user);
 }
