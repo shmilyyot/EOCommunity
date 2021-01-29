@@ -21,10 +21,11 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
-<!--    &lt;!&ndash;过滤静态资源&ndash;&gt;-->
-<!--    <mvc:resources location="/css/" mapping="/css/**" />-->
-<!--    <mvc:resources location="/images/" mapping="/images/**" />-->
-<!--    <mvc:resources location="/js/" mapping="/js/**" />-->
+    <!--过滤静态资源-->
+    <mvc:resources location="/css/" mapping="/css/**" />
+    <mvc:resources location="/images/" mapping="/images/**" />
+    <mvc:resources location="/js/" mapping="/js/**" />
+    <mvc:resources location="/fonts/" mapping="/fonts/**" />
 
     <!--开启SpringMVC注解的支持-->
     <mvc:annotation-driven/>
@@ -33,7 +34,6 @@
     <mvc:default-servlet-handler/>
 
     <mvc:annotation-driven conversion-service="conversionService"/>
-
     <!--开启前端String类型日期自动转java LocalDate类型-->
     <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
         <property name="converters">
@@ -42,6 +42,5 @@
             </list>
         </property>
     </bean>
-
 
 </beans>

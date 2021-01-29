@@ -1,3 +1,21 @@
+
+<!--form表单非空判断-->
+function checkNull(form){
+    var accountName = $("#accountName").val();
+    var accountPassword = $("#accountPassword").val();
+    if(form.accountName.value == null || form.accountName.value == ""){
+        alert("用户名不能为空");
+        form.accountName.focus();
+        return false;
+    }
+    if(form.accountPassword.value == null || form.accountPassword.value == ""){
+        alert("密码不能为空");
+        form.accountPassword.focus();
+        return false;
+    }
+    return true;
+}
+
 /*
 判断用户是否登录
  */

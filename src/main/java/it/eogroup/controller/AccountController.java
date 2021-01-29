@@ -18,16 +18,17 @@ public class AccountController {
     //log4j2日志打印对象（代替System.out.println，前者只能给控制台看，在服务器没有控制台，只能看本地文件）
     private static Logger logger = LogManager.getLogger(AccountController.class);
 
+    //(管理员)查询所有用户信息
     @RequestMapping("/findAll")
     public String findAll(){
-        List<Account> list = accountService.findAll();
+        List<Account> accounts = accountService.findAll();
         logger.info("展示层：查询所有账户");
         return "success";
     }
 
+    //用户登录
     @RequestMapping("/login")
     public String loginAccount(Account account) {
-        System.out.println(account);
         Boolean res = accountService.accountLogin(account);
         if (res) {
             logger.info("展示层：用户存在，服务器同意登陆");
@@ -39,6 +40,7 @@ public class AccountController {
         }
     }
 
+    //用户注册
     @RequestMapping("/register")
     public String registerAccount(Account account) {
         Boolean res = accountService.CreateAccount(account);

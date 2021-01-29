@@ -17,4 +17,7 @@ public interface AccountService{
 
     //用户登录（检查用户名和密码）
     Boolean accountLogin(Account account);
+
+    //用户密码加密
+    String encodingPassword(String password);
 }

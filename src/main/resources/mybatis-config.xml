@@ -3,6 +3,9 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <settings>
+        <!--log4j2映射-->
         <setting name="logImpl" value="LOG4J2" />
+        <!--插入空值时映射-->
+        <setting name="jdbcTypeForNull" value="NULL" />
     </settings>
 </configuration>

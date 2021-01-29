@@ -16,6 +16,6 @@
     </select>
 
     <insert id="insertAccount" parameterType="it.eogroup.domain.Account">
-        INSERT INTO ACCOUNT values (null,#{accountName}, #{accountPassword}, #{accountBirthday}, #{accountEmail}, #{accountAddress})
+        INSERT INTO ACCOUNT values (null,#{accountName,jdbcType=VARCHAR}, #{accountPassword,jdbcType=VARCHAR}, #{accountBirthday,jdbcType=DATE}, #{accountEmail,jdbcType=VARCHAR}, #{accountAddress,jdbcType=VARCHAR})
     </insert>
 </mapper>
