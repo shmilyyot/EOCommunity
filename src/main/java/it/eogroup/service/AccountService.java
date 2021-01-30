@@ -1,13 +1,14 @@
 package it.eogroup.service;
 
 import it.eogroup.domain.Account;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import java.util.List;
 
 /*
 * 账户业务层
 * Servlet和Dao之间的缓冲层，解耦，是Dao层变化不会影响上层服务层
 * */
-public interface AccountService{
+public interface AccountService extends UserDetailsService {
 
     //查询所有账户信息
     List<Account> findAll();
@@ -15,9 +16,9 @@ public interface AccountService{
     //用户注册
     Boolean CreateAccount(Account account);
 
-    //用户登录（检查用户名和密码）
-    Boolean accountLogin(Account account);
-
-    //用户密码加密
-    String encodingPassword(String password);
+//    //用户登录（检查用户名和密码）
+//    Boolean accountLogin(Account account);
+//
+//    //用户密码加密,已废弃
+//    String encodingPassword(String password);
 }

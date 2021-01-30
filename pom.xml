@@ -71,6 +71,16 @@
             <artifactId>spring-jdbc</artifactId>
             <version>${spring.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>5.2.7.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>5.2.7.RELEASE</version>
+        </dependency>
         <!--  单元测试  -->
         <dependency>
             <groupId>junit</groupId>
@@ -222,6 +232,17 @@
                     <artifactId>maven-deploy-plugin</artifactId>
                     <version>2.8.2</version>
                 </plugin>
+<!--                &lt;!&ndash; 配置Tomcat8插件 &ndash;&gt;-->
+<!--                <plugin>-->
+<!--                    <groupId>org.apache.tomcat.maven</groupId>-->
+<!--                    <artifactId>tomcat8-maven-plugin</artifactId>-->
+<!--                    <configuration>-->
+<!--                        <port>8090</port>-->
+<!--                        &lt;!&ndash; 项目名称，访问路径为  localhost:8080/projectName &ndash;&gt;-->
+<!--                        &lt;!&ndash; 当设置为 / 时， 即为 localhost:8080/， 但是注意会覆盖ROOT项目 &ndash;&gt;-->
+<!--                        <path>/</path>-->
+<!--                    </configuration>-->
+<!--                </plugin>-->
             </plugins>
         </pluginManagement>
     </build>
