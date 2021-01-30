@@ -13,10 +13,10 @@
 
 body {
     /*border: 1px solid red;*/
-    background: url("/images/极限竞速7.jpg") no-repeat;
+    background: url("/images/bg2.jpg") no-repeat;
 
     width: 100%;
-    height: 100%;
+    height: 800px;
     background-size: 100% 100%;
     overflow: hidden;
 }
@@ -49,9 +49,9 @@ body {
 
 #showLogin {
     /*position: absolute;*/
-    margin: 100px auto 0;
+    margin: 20px auto 0;
     padding: 20px 50px;
-    background-color: #00bcd450;
+    background-color: #dbdcdfc7;
     color: black;
     text-align: center;
     width: 600px;
@@ -79,6 +79,7 @@ body {
     border-bottom: 1px solid black;
     background-color: #FFFFFF00;
     color: black;
+    width: 200px;
 }
 
 #showLogin .input_btn {
