@@ -7,3 +7,9 @@ CREATE TABLE IF NOT EXISTS `account` (
 	`accountAddress` VARCHAR(40),
 	PRIMARY KEY (`accountId`)
 )
+
+CREATE TABLE IF NOT EXISTS `accountRole` (
+	`accountId` INT,
+	PRIMARY KEY (`accountId`),
+	CONSTRAINT `accountRole` FOREIGN KEY (`accountId`) REFERENCES `account`(`accountId`)
+)
