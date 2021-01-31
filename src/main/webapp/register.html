@@ -31,37 +31,43 @@
         <form action="/account/register" method="post" onsubmit="return checkNull(this)">
             <div class="input_text">
                 <label>
+                    <span>*</span>用户账号
+                </label>
                 <input type="text" name="accountName" placeholder="（必填）请输入用户名" autocomplete="off">
-                </label>
             </div>
             <div class="input_text">
                 <label>
-                <input type="password" name="accountPassword" placeholder="（必填）请输入密码" autocomplete="off">
+                    <span>*</span>密&#12288&#12288码
                 </label>
+                <input type="password" name="accountPassword" placeholder="（必填）请输入密码"
+                       autocomplete="off">
             </div>
             <div class="input_text">
                 <label>
-                    <input type="password" name="accountPassword2" placeholder="（必填）请再次输入密码" autocomplete="off">
+                    <span>*</span>密码确认
                 </label>
+                <input type="password" name="accountPassword2" placeholder="（必填）请再次输入密码"
+                       autocomplete="off">
             </div>
             <div class="input_text">
                 <label>
+                    生&#12288&#12288日
+                </label>
                 <input type="date" name="accountBirthday">
-                </label>
             </div>
             <div class="input_text">
                 <label>
+                    邮&#12288&#12288箱
+                </label>
                 <input type="email" name="accountEmail" placeholder="（选填）请输入邮箱" autocomplete="off">
-                </label>
             </div>
             <div class="input_text">
                 <label>
-                <input type="text" name="accountAddress" placeholder="（选填）请输入地址" autocomplete="off">
+                    家庭住址
                 </label>
+                <input type="text" name="accountAddress" placeholder="（选填）请输入地址" autocomplete="off">
             </div>
-
             <!--明天添加表单校验-->
-
             <input class="input_btn" type="submit" value="注册"><br>
         </form>
         <div id="register_btn">已经有账户？点击<a href="login.html">登录</a></div>

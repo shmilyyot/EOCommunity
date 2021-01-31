@@ -55,7 +55,7 @@ body {
     color: black;
     text-align: center;
     width: 600px;
-    height: 600px;
+    /*height: 600px;*/
     /*visibility: hidden;*/
     /*left: -100%;*/
 }
@@ -80,6 +80,7 @@ body {
     background-color: #FFFFFF00;
     color: black;
     width: 200px;
+
 }
 
 #showLogin .input_btn {
@@ -91,13 +92,17 @@ body {
 }
 
 #register_btn {
-    margin-top: 40px;
+    margin-top: 20px;
     color: black;
     font-size: 17px;
 }
 
 #register_btn a {
     color: #1b6d85;
+}
+
+.input_text span {
+    color: red;
 }
 
 #hide_login_btn {
