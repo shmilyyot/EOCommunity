@@ -16,6 +16,17 @@ function checkNull(form){
     return true;
 }
 
+/*检查两次提交密码是否重复*/
+function passwordCompare(form){
+    var password1 = $("#accountPassword").val();
+    var password2 = $("#accountPassword2").val();
+    if(form.password1.value != form.password2.value){
+        alert("两次输入密码不一致！！！")
+        return false;
+    }
+    return true;
+}
+
 /*
 判断用户是否登录
  */
