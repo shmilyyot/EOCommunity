@@ -20,7 +20,7 @@
     <script src="js/is_login.js"></script>
 
 </head>
-<body>
+<body onload="registerCheckSuccess();registerCheckError()">
 <div id="header"></div>
 <div id="showLogin">
     <div id="hide_login_btn">
@@ -28,26 +28,26 @@
     </div>
     <H1> 注册</H1>
     <div class="inputBox">
-        <form action="/account/register" method="post" onsubmit="return checkNull(this)">
+        <form action="/account/register" method="post" onsubmit="return registerCheckNull(this)">
             <div class="input_text">
                 <label>
                     <span>*</span>用户账号
                 </label>
-                <input type="text" name="accountName" placeholder="（必填）请输入用户名" autocomplete="off">
+                <input type="text" name="accountName" placeholder="请输入用户名" autocomplete="off"> <span id="errinfo1"></span>
             </div>
             <div class="input_text">
                 <label>
                     <span>*</span>密&#12288&#12288码
                 </label>
-                <input type="password" name="accountPassword" placeholder="（必填）请输入密码"
-                       autocomplete="off">
+                <input type="password" name="accountPassword" placeholder="请输入密码"
+                       autocomplete="off"> <span id="errinfo2"></span>
             </div>
             <div class="input_text">
                 <label>
                     <span>*</span>密码确认
                 </label>
-                <input type="password" name="accountPassword2" placeholder="（必填）请再次输入密码"
-                       autocomplete="off">
+                <input type="password" name="accountPassword2" placeholder="请再次输入密码"
+                       autocomplete="off"> <span id="errinfo3"></span> <span id="errinfo4"></span>
             </div>
             <div class="input_text">
                 <label>
@@ -59,13 +59,13 @@
                 <label>
                     邮&#12288&#12288箱
                 </label>
-                <input type="email" name="accountEmail" placeholder="（选填）请输入邮箱" autocomplete="off">
+                <input type="email" name="accountEmail" placeholder="请输入邮箱" autocomplete="off">
             </div>
             <div class="input_text">
                 <label>
                     家庭住址
                 </label>
-                <input type="text" name="accountAddress" placeholder="（选填）请输入地址" autocomplete="off">
+                <input type="text" name="accountAddress" placeholder="请输入地址" autocomplete="off">
             </div>
             <!--明天添加表单校验-->
             <input class="input_btn" type="submit" value="注册"><br>

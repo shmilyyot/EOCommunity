@@ -32,9 +32,8 @@
         <security:form-login
                 login-page="/index.html"
                 login-processing-url="/login.do"
-                default-target-url="/pages/success.jsp"
-                authentication-failure-url="/pages/failed.jsp"
-                authentication-success-forward-url="/pages/success.jsp"
+                default-target-url="/index.html"
+                authentication-failure-url="/login.html?error=true"
                 username-parameter="accountName" password-parameter="accountPassword"
         />
 

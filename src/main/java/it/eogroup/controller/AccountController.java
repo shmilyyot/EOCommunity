@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;
 import javax.annotation.Resource;
-import java.util.List;
 
 //展示层
 @Controller
@@ -50,11 +49,11 @@ public class AccountController {
         if(res){
             logger.info("展示层：注册成功");
             //注册完跳转首页，提示用户重新登陆
-            return "redirect:/pages/success.jsp";
+            return "redirect:/register.html?Success=true";
         }else{
             logger.info("展示层：用户名已存在，请重新选取用户名");
             //这里前端要清空输入框，允许重新提交
-            return "redirect:/pages/failed.jsp";
+            return "redirect:/register.html?Error=true";
         }
     }
 }

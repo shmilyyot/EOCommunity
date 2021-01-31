@@ -48,7 +48,7 @@ public class AccountServiceImpl implements AccountService {
             accountDao.insertAccount(account);
             return true;
         }else{
-            logger.info("账户信息冲突，请重新输入新的账户信息");
+            logger.info("该用户名已存在");
             return false;
         }
     }
@@ -109,6 +109,7 @@ public class AccountServiceImpl implements AccountService {
                 logger.info("查询到账户:"+ resAccount.getAccountName());
             }else{
                 logger.info("查询不到账户："+resAccount.getAccountName());
+                return null;
             }
         }catch (Exception e){
             e.printStackTrace();

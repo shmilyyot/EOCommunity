@@ -27,7 +27,7 @@
 
 
 </head>
-<body>
+<body onload="loginCheckError()">
 <div id="header"></div>
 <div id="showLogin">
     <div id="hide_login_btn">
@@ -35,15 +35,16 @@
     </div>
     <H1> 登录</H1>
     <div class="inputBox">
-        <form action="/login.do" method="post" onsubmit="return checkNull(this)">
+        <div class="input_text"><span id="loginError"></span></div>
+        <form action="/login.do" method="post" onsubmit="return loginCheckNull(this)">
             <div class="input_text">
                 <label>
-                    &#12288用户名：<input type="text" name="accountName" placeholder="请输入用户名" autocomplete="off">
+                    <span>*</span>&#12288用户名：<input type="text" name="accountName" placeholder="请输入用户名" autocomplete="off"> <span id="errinfo1"></span>
                 </label>
             </div>
             <div class="input_text">
                 <label>
-                    密&#12288&#12288码：<input type="password" name="accountPassword" placeholder="请输入密码" autocomplete="off">
+                    <span>*</span>密&#12288&#12288码：<input type="password" name="accountPassword" placeholder="请输入密码" autocomplete="off"> <span id="errinfo2"></span>
                 </label>
             </div>
             <input class="input_btn" type="submit" value="登录"><br>
