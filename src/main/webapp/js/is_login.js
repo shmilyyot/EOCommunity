@@ -1,19 +1,19 @@
 
 <!--注册form表单非空判断-->
 function registerCheckNull(form){
-    if(form.accountName.value == null){
+    if(form.accountName.value == null || form.accountName.value == ""){
         document.getElementById("errinfo1").innerText = "用户名不能为空";
         document.getElementById("errinfo1").style.display = "";
         form.accountName.focus();
         return false;
     }
-    if(form.accountPassword.value == null){
+    if(form.accountPassword.value == null || form.accountPassword.value == ""){
         document.getElementById("errinfo2").innerText = "密码不能为空";
         document.getElementById("errinfo2").style.display = "";
         form.accountPassword.focus();
         return false;
     }
-    if(form.accountPassword2.value == null){
+    if(form.accountPassword2.value == null || form.accountPassword2.value == ""){
         document.getElementById("errinfo3").innerText = "密码不能为空";
         document.getElementById("errinfo3").style.display = "";
         form.accountPassword2.focus();
@@ -32,13 +32,13 @@ function registerCheckNull(form){
 
 <!--注册form表单非空判断-->
 function loginCheckNull(form){
-    if(form.accountName.value == null){
+    if(form.accountName.value == null || form.accountName.value == ""){
         document.getElementById("errinfo1").innerText = "用户名不能为空";
         document.getElementById("errinfo1").style.display = "";
         form.accountName.focus();
         return false;
     }
-    if(form.accountPassword.value == null){
+    if(form.accountPassword.value == null || form.accountPassword.value == ""){
         document.getElementById("errinfo2").innerText = "密码不能为空";
         document.getElementById("errinfo2").style.display = "";
         form.accountPassword.focus();
