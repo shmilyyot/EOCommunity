@@ -1,22 +1,19 @@
 
 <!--注册form表单非空判断-->
 function registerCheckNull(form){
-    var accountName = $("#accountName").val();
-    var accountPassword = $("#accountPassword").val();
-    var accountPassword2 = $("#accountPassword2").val();
-    if(form.accountName.value == null || form.accountName.value == ""){
+    if(form.accountName.value == null){
         document.getElementById("errinfo1").innerText = "用户名不能为空";
         document.getElementById("errinfo1").style.display = "";
         form.accountName.focus();
         return false;
     }
-    if(form.accountPassword.value == null || form.accountPassword.value == ""){
+    if(form.accountPassword.value == null){
         document.getElementById("errinfo2").innerText = "密码不能为空";
         document.getElementById("errinfo2").style.display = "";
         form.accountPassword.focus();
         return false;
     }
-    if(form.accountPassword2.value == null || form.accountPassword2.value == ""){
+    if(form.accountPassword2.value == null){
         document.getElementById("errinfo3").innerText = "密码不能为空";
         document.getElementById("errinfo3").style.display = "";
         form.accountPassword2.focus();
@@ -25,25 +22,23 @@ function registerCheckNull(form){
     document.getElementById("errinfo1").style.display = "none";
     document.getElementById("errinfo2").style.display = "none";
     document.getElementById("errinfo3").style.display = "none";
-    if(form.accountPassword.value != form.accountPassword2.value){
+    if(form.accountPassword.value === form.accountPassword2.value) return true;
+    else{
         document.getElementById("errinfo4").innerText = "两次密码输入不一致！！！";
         document.getElementById("errinfo4").style.display = "";
         return false;
     }
-    return true;
 }
 
 <!--注册form表单非空判断-->
 function loginCheckNull(form){
-    var accountName = $("#accountName").val();
-    var accountPassword = $("#accountPassword").val();
-    if(form.accountName.value == null || form.accountName.value == ""){
+    if(form.accountName.value == null){
         document.getElementById("errinfo1").innerText = "用户名不能为空";
         document.getElementById("errinfo1").style.display = "";
         form.accountName.focus();
         return false;
     }
-    if(form.accountPassword.value == null || form.accountPassword.value == ""){
+    if(form.accountPassword.value == null){
         document.getElementById("errinfo2").innerText = "密码不能为空";
         document.getElementById("errinfo2").style.display = "";
         form.accountPassword.focus();

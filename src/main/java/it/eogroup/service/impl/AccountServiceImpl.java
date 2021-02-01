@@ -5,7 +5,6 @@ import it.eogroup.domain.Account;
 import it.eogroup.service.AccountService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,7 +27,7 @@ public class AccountServiceImpl implements AccountService {
     private AccountDao accountDao;
     @Resource
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-    private static Logger logger = LogManager.getLogger(AccountServiceImpl.class);
+    private static final Logger logger = LogManager.getLogger(AccountServiceImpl.class);
 
     @Override
     //查找所有用户信息
@@ -53,49 +52,51 @@ public class AccountServiceImpl implements AccountService {
         }
     }
 
+/*
 
-//    @Override
-//    //用户登录
-//    public Boolean accountLogin(Account account) {
-//        logger.info("accountLogin执行了");
-//        Account resAccount = null;
-//        try{
-//            resAccount =  accountDao.accountExistByName(account.getAccountName());
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-//        if(resAccount != null){
-//            if(resAccount.getAccountPassword().equals(encodingPassword(account.getAccountPassword()))){
-//                logger.info("密码比对成功");
-//                return true;
-//            }else return false;
-//        }
-//        logger.info("无效的用户名或密码");
-//        return false;
-//    }
-//
-//    @Override
-//    //用户密码加密
-//    //spring-security自带，无需手写，废弃
-//    public String encodingPassword(String password) {
-//        StringBuffer sb = new StringBuffer();
-//        try{
-//            MessageDigest digest = MessageDigest.getInstance("MD5");
-//            byte[] bs = digest.digest(password.getBytes());
-//            for (byte b:bs){
-//                int x = b & 255;
-//                String s = Integer.toHexString(x);
-//                if(x < 16){
-//                    sb.append("0");
-//                }
-//                sb.append(s);
-//            }
-//        }catch (Exception e){
-//            logger.info("密码加密失败");
-//        }
-//        logger.info("encodingPassword密码加密执行了");
-//        return sb.toString();
-//    }
+    @Override
+    //用户登录
+    public Boolean accountLogin(Account account) {
+        logger.info("accountLogin执行了");
+        Account resAccount = null;
+        try{
+            resAccount =  accountDao.accountExistByName(account.getAccountName());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        if(resAccount != null){
+            if(resAccount.getAccountPassword().equals(encodingPassword(account.getAccountPassword()))){
+                logger.info("密码比对成功");
+                return true;
+            }else return false;
+        }
+        logger.info("无效的用户名或密码");
+        return false;
+    }
+
+    @Override
+    //用户密码加密
+    //spring-security自带，无需手写，废弃
+    public String encodingPassword(String password) {
+        StringBuffer sb = new StringBuffer();
+        try{
+            MessageDigest digest = MessageDigest.getInstance("MD5");
+            byte[] bs = digest.digest(password.getBytes());
+            for (byte b:bs){
+                int x = b & 255;
+                String s = Integer.toHexString(x);
+                if(x < 16){
+                    sb.append("0");
+                }
+                sb.append(s);
+            }
+        }catch (Exception e){
+            logger.info("密码加密失败");
+        }
+        logger.info("encodingPassword密码加密执行了");
+        return sb.toString();
+    }
+*/
 
 
     @Override
@@ -108,14 +109,17 @@ public class AccountServiceImpl implements AccountService {
             if(resAccount != null){
                 logger.info("查询到账户:"+ resAccount.getAccountName());
             }else{
-                logger.info("查询不到账户："+resAccount.getAccountName());
+                logger.info("查询不到账户："+accountName);
                 return null;
             }
         }catch (Exception e){
             e.printStackTrace();
         }
         //处理自己的用户对象封装成UserDetails
-        User user = new User(resAccount.getAccountName(),resAccount.getAccountPassword(),getAuthority());
+        User user = null;
+        if (resAccount != null) {
+            user = new User(resAccount.getAccountName(),resAccount.getAccountPassword(),getAuthority());
+        }
         logger.info("封装账户给Spring Security");
         System.out.println(user);
         return user;

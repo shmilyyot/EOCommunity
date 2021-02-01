@@ -16,6 +16,7 @@
     <script type="text/javascript" src="js/include.js"></script>
     <link href="css/login.css" rel="stylesheet">
     <title>EO社区注册</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <!--    判断用户是否登录-->
     <script src="js/is_login.js"></script>
 
@@ -33,39 +34,51 @@
                 <label>
                     <span>*</span>用户账号
                 </label>
-                <input type="text" name="accountName" placeholder="请输入用户名" autocomplete="off"> <span id="errinfo1"></span>
+                <label>
+                    <input type="text" name="accountName" placeholder="请输入用户名" autocomplete="off">
+                </label> <span id="errinfo1"></span>
             </div>
             <div class="input_text">
                 <label>
                     <span>*</span>密&#12288&#12288码
                 </label>
-                <input type="password" name="accountPassword" placeholder="请输入密码"
-                       autocomplete="off"> <span id="errinfo2"></span>
+                <label>
+                    <input type="password" name="accountPassword" placeholder="请输入密码"
+                           autocomplete="off">
+                </label> <span id="errinfo2"></span>
             </div>
             <div class="input_text">
                 <label>
                     <span>*</span>密码确认
                 </label>
-                <input type="password" name="accountPassword2" placeholder="请再次输入密码"
-                       autocomplete="off"> <span id="errinfo3"></span> <span id="errinfo4"></span>
+                <label>
+                    <input type="password" name="accountPassword2" placeholder="请再次输入密码"
+                           autocomplete="off">
+                </label> <span id="errinfo3"></span> <span id="errinfo4"></span>
             </div>
             <div class="input_text">
                 <label>
                     生&#12288&#12288日
                 </label>
-                <input type="date" name="accountBirthday">
+                <label>
+                    <input type="date" name="accountBirthday">
+                </label>
             </div>
             <div class="input_text">
                 <label>
                     邮&#12288&#12288箱
                 </label>
-                <input type="email" name="accountEmail" placeholder="请输入邮箱" autocomplete="off">
+                <label>
+                    <input type="email" name="accountEmail" placeholder="请输入邮箱" autocomplete="off">
+                </label>
             </div>
             <div class="input_text">
                 <label>
                     家庭住址
                 </label>
-                <input type="text" name="accountAddress" placeholder="请输入地址" autocomplete="off">
+                <label>
+                    <input type="text" name="accountAddress" placeholder="请输入地址" autocomplete="off">
+                </label>
             </div>
             <!--明天添加表单校验-->
             <input class="input_btn" type="submit" value="注册"><br>
