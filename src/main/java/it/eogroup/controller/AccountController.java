@@ -6,7 +6,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import javax.annotation.Resource;
 
 //展示层
@@ -48,12 +50,21 @@ public class AccountController {
     @RequestMapping("/register")
     public String registerAccount(Account account) {
         Boolean res = accountService.CreateAccount(account);
-        if(res){
+        if (res) {
             logger.info("展示层：注册成功");
             return "redirect:/register.html?Success=true";
-        }else{
+        } else {
             logger.info("展示层：用户名已存在，请重新选取用户名");
             return "redirect:/register.html?Error=true";
         }
+    }
+
+    @RequestMapping("/accountInfo")
+    public String getAccountInfo(Model m) {
+        Account account = new Account();
+        account.setAccountName("张三");
+        account.setAccountAddress("江苏省南京市");
+        m.addAttribute("account", account);
+        return "userInfo";
     }
 }

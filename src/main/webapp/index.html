@@ -21,7 +21,7 @@
     <script type="text/javascript" src="js/include.js"></script>
     <link href="css/login.css" rel="stylesheet">
     <title>EOCommunity社区首页</title>
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
     <!--    判断用户是否登录-->
     <script type="text/javascript" src="js/is_login.js"></script>
 
@@ -29,8 +29,56 @@
 </head>
 <body>
 <div id="header"></div>
+<div class="row">
+    <div class="col-lg-3">
+    </div>
+    <form action="/account/accountInfo" method="post">
+        <div class="col-lg-6">
+            <div><h3>基本信息</h3></div>
+
+            <div class="panel panel-default">
+
+                <div class="panel-body">
+                    <label>用户账号：</label>
+                    <input class="info_text" style="width: 90%;height:30px;border: white" type="text"
+                           value="${requestScope.account.accountName}" readonly="true">
+                </div>
+                <div class="panel-body">
+                    <label>生&#12288&#12288日：</label>
+                    <input class="info_text" style="width: 90%;height:30px;border: white" type="text"
+                           value="${requestScope.account.accountBirthday}" readonly="true">
+                </div>
+                <div class="panel-body">
+                    <label>邮&#12288&#12288箱：</label>
+                    <input class="info_text" style="width: 90%;height:30px;border: white" type="text"
+                           value="${requestScope.account.accountEmail}" readonly="true">
+                </div>
+                <div class="panel-body">
+                    <label>家庭住址：</label>
+                    <input class="info_text" style="width: 90%;height:30px;border: white" type="text"
+                           value="${requestScope.account.accountAddress}" readonly="true">
+                </div>
+            </div>
+
+            <div id="update_div" style="float: right">
+                <input type="button" id="update_btn" class="btn btn-default" value="修改" onclick="update()">
+            </div>
+        </div>
+    </form>
+    <div class="col-lg-3"></div>
+</div>
 <div id="footer"></div>
 
 </body>
+<script type="text/javascript">
+    function update() {
+        $("#update_div").html('<input type="button" id="quxiao_btn" class="btn btn-default" value="取消" onclick="quxaio()">'
+            + '<input type="submit" id="save_btn" class="btn btn-default" value="保存">')
+        $(".info_text").removeAttr("readonly")
+    }
+    function quxaio() {
+        location.reload(true)
+    }
 
+</script>
 </html>
