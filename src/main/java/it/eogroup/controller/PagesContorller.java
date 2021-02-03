@@ -53,4 +53,9 @@ public class PagesContorller {
         return "register";
     }
 
+    @RequestMapping("/accountInfo")
+    public String toAccountInfo() {
+        return "userInfo";
+    }
+
 }
