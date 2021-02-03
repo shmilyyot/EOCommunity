@@ -50,4 +50,10 @@ public class AccountServiceImpl implements AccountService {
         }
     }
 
+    @Override
+    public Account getAccount(String username) {
+        return accountDao.accountExistByName(username);
+    }
+
+
 }

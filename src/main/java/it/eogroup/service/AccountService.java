@@ -16,4 +16,7 @@ public interface AccountService {
     //用户注册
     Boolean CreateAccount(Account account);
 
+    //获得用户
+    Account getAccount(String username);
+
 }
