@@ -16,6 +16,13 @@
     </select>
 
     <insert id="insertAccount" parameterType="it.eogroup.domain.Account">
-        INSERT INTO ACCOUNT values (null,#{accountName,jdbcType=VARCHAR}, #{accountPassword,jdbcType=VARCHAR}, #{accountBirthday,jdbcType=DATE}, #{accountEmail,jdbcType=VARCHAR}, #{accountAddress,jdbcType=VARCHAR})
+        INSERT INTO ACCOUNT values (null,#{accountName,jdbcType=VARCHAR}, #{accountPassword,jdbcType=VARCHAR}, #{accountBirthday,jdbcType=DATE}, #{accountRegisterDate,jdbcType=DATE}, #{accountEmail,jdbcType=VARCHAR}, #{accountAddress,jdbcType=VARCHAR})
     </insert>
+
+    <insert id="insertRole" parameterType="it.eogroup.domain.Account">
+        INSERT INTO ACCOUNTROLE values (#{accountId,jdbcType=INTEGER},"USER","普通用户")
+    </insert>
+
+
+
 </mapper>

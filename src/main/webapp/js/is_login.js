@@ -1,4 +1,3 @@
-
 <!--注册form表单非空判断-->
 function registerCheckNull(form){
     if(form.accountName.value == null || form.accountName.value == ""){
@@ -63,40 +62,3 @@ function loginCheckError() {
         document.getElementById("loginError").style.display = "";
     }
 }
-// 检查有没有获取到register
-function registerCheckSuccess(){
-    let res = getUrlParam("Success");
-    if (res != null) {
-        alert("注册成功,点击确认即跳转登陆界面");
-        location.assign("login.html");
-    }
-}
-function registerCheckError(){
-    let res = getUrlParam("Error");
-    if (res != null) {
-        document.getElementById("errinfo1").innerText = "此用户名已被占用";
-        document.getElementById("errinfo1").style.display = "";
-    }
-}
-
-// /*
-// 判断用户是否登录
-//  */
-// $(function () {
-//     $.post('user/is_loginServlet', {}, function (info) {
-//         let login_exit = $("#h_login_exit");
-//         if (info.flag) {
-//             // 已登录
-//             let msg = "<b style='color:#000000;'>" + info.data.name + "</b>" + " ，欢迎您";
-//             $("#h_userMsg").html(msg);
-//             // 退出，删除session，返回主页
-//             login_exit.html("退出");
-//             login_exit.prop("href", "user/exitLoginServlet");
-//
-//         } else {
-//             // 未登录
-//             login_exit.html("请登录");
-//             login_exit.prop("href", "login.html");
-//         }
-//     })
-// })

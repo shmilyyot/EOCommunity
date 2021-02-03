@@ -6,6 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class BCryptPasswordEncoderUtils {
     private static final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
     public static String encodePassword(String password){
+        System.out.println("密码加密成功");
         return bCryptPasswordEncoder.encode(password);
     }
 }

@@ -16,6 +16,7 @@ public class Account {
     private String accountName;
     private String accountPassword;
     private LocalDate accountBirthday;
+    private LocalDate accountRegisterDate;
     private String accountEmail;
     private String accountAddress;
 }

@@ -1,15 +1,25 @@
 CREATE TABLE IF NOT EXISTS `account` (
 	`accountId` INT AUTO_INCREMENT,
-	`accountName` VARCHAR(30) NOT NULL,
-	`accountPassword` VARCHAR(60) NOT NULL,
+	`accountName` VARCHAR(64) NOT NULL,
+	`accountPassword` VARCHAR(64) NOT NULL,
 	`accountBirthday` DATE,
-	`accountEmail` VARCHAR(30),
-	`accountAddress` VARCHAR(40),
+	`accountRegisterDate` DATE,
+	`accountEmail` VARCHAR(32),
+	`accountAddress` VARCHAR(64),
 	PRIMARY KEY (`accountId`)
 )
 
 CREATE TABLE IF NOT EXISTS `accountRole` (
 	`accountId` INT,
+	`accountRole` VARCHAR(10),
+	`accountName` VARCHAR(20),
 	PRIMARY KEY (`accountId`),
 	CONSTRAINT `accountRole` FOREIGN KEY (`accountId`) REFERENCES `account`(`accountId`)
+)
+
+CREATE TABLE IF NOT EXISTS `persistent_logins`(
+	`username` VARCHAR(64),
+	`series` VARCHAR(64),
+	`Token` VARCHAR(64),
+	`last_used` DATETIME
 )
