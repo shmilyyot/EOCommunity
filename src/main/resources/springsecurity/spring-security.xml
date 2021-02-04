@@ -32,7 +32,7 @@
                 login-page="/pages/login"
                 login-processing-url="/login.do"
                 default-target-url="/index.html"
-                authentication-failure-url="/login.html?error=true"
+                authentication-failure-url="/pages/login.html?error=true"
                 username-parameter="accountName" password-parameter="accountPassword"
         />
         <security:remember-me remember-me-parameter="remembermeParamater" token-validity-seconds="1800" data-source-ref="druidDataSource"/>

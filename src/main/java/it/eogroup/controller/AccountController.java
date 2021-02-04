@@ -9,8 +9,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 
 //展示层
@@ -23,7 +27,7 @@ public class AccountController {
     private static final Logger logger = LogManager.getLogger(AccountController.class);
 
     //采用用户信息
-    @RequestMapping("userInfo")
+    @RequestMapping("/userInfo")
     public ModelAndView toAccountInfo() {
         ModelAndView modelAndView = new ModelAndView();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -37,6 +41,20 @@ public class AccountController {
         modelAndView.addObject("account",account);
         logger.info("请求用户信息已返回");
         return modelAndView;
+    }
+
+    @RequestMapping("/findByName")
+    @ResponseBody
+    public Map<String,String> checkAccountName(HttpServletRequest request){
+        logger.info("执行了");
+        String name = request.getParameter("username");
+        System.out.println("用户名："+name);
+        Map<String,String> map = new HashMap<>();
+        if(accountService.getAccount(name) != null){
+            logger.info("展示层：用户名已存在，请重新选取用户名");
+            map.put("username","true");
+        }
+        return map;
     }
 
     @RequestMapping("/userFav")

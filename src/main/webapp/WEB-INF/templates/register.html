@@ -20,7 +20,7 @@
     <!--    判断用户是否登录-->
     <script src="../../js/is_login.js"></script>
 </head>
-<body onload="registerCheckSuccess()">
+<body >
 <div id="header"></div>
 <script>
     $("#header").load("../../pages/header");
@@ -30,12 +30,9 @@
         <input type="button" value="X">
     </div>
     <H1> 注册</H1>
-    <span id="errinfo1"></span>
-    <span id="errinfo2"></span>
-    <span id="errinfo3"></span>
-    <span id="errinfo4"></span>
+    <span id="errinfo"></span>
     <div class="inputBox">
-        <form action="/pages/CreateAccount" method="post" onsubmit="return registerCheckNull(this)">
+        <form action="/pages/registerAccount" method="post" onsubmit="return (registerCheckNull(this) && registerCheckExist(this)) ">
             <div class="input_text">
                 <label>
                     <span>*</span>用户账号
@@ -100,21 +97,5 @@
     $("#hide_login_btn").click(function () {
         $("#showLogin").css("visibility", "hidden")
     })
-</script>
-<script th:inline="javascript">
-    function registerCheckSuccess(){
-        var Status=[[${status}]];
-        if(Status == null) return;
-        if(Status == true) {
-            alert("注册成功,点击确认即跳转登陆界面");
-            window.location.replace("login")
-            // location.assign("pages/login");
-        }
-        if(Status == false){
-            window.location.replace("pages/register")
-            document.getElementById("errinfo1").innerText = "此用户名已被占用";
-            document.getElementById("errinfo1").style.display = "";
-        }
-    }
 </script>
 </html>
