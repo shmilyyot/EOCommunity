@@ -29,7 +29,11 @@
     </div>
     <form action="/account/accountInfo" method="post">
         <div class="col-lg-6">
-            <div><h3>基本信息</h3></div>
+            <ul class="nav nav-tabs">
+                <li role="presentation" class="active"><a href="/account/userInfo">基本信息</a></li>
+                <li role="presentation"><a href="/account/userFav">我的收藏</a></li>
+                <li role="presentation"><a href="/account/userSet">设置</a></li>
+            </ul>
             <div class="panel panel-default">
                 <div class="panel-body">
                     <label>用户账号：</label> <label th:text = "${account.accountName}"></label>
@@ -49,10 +53,13 @@
                     <input class="info_text" style="width: 90%;height:30px;border: white" type="text"
                            th:value="${account.accountAddress}" readonly="true">
                 </div>
+                <div class="panel-body">
+                    <div id="update_div" style="float: right">
+                        <input type="button" id="update_btn" class="btn btn-default" value="修改" onclick="update()">
+                    </div>
+                </div>
             </div>
-            <div id="update_div" style="float: right">
-                <input type="button" id="update_btn" class="btn btn-default" value="修改" onclick="update()">
-            </div>
+
         </div>
     </form>
     <div class="col-lg-3"></div>

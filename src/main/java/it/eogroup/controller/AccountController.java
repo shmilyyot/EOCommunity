@@ -39,4 +39,16 @@ public class AccountController {
         return modelAndView;
     }
 
+    @RequestMapping("/userFav")
+    public ModelAndView toUserFav() {
+        ModelAndView modelAndView = new ModelAndView();
+        return modelAndView;
+    }
+
+    @RequestMapping("/userSet")
+    public ModelAndView toUserSet() {
+        ModelAndView modelAndView = new ModelAndView();
+        return modelAndView;
+    }
+
 }
