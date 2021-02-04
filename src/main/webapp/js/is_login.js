@@ -7,7 +7,6 @@ function registerCheckNull(form){
         return false;
     }
     if(form.accountPassword.value == null || form.accountPassword.value === ""){
-        document.getElementById("errinfo").innerText = "";
         document.getElementById("errinfo").innerText = "密码不能为空";
         document.getElementById("errinfo").style.display = "";
         form.accountPassword.focus();
@@ -30,14 +29,12 @@ function registerCheckNull(form){
 <!--登录form表单非空判断-->
 function loginCheckNull(form){
     if(form.accountName.value == null || form.accountName.value === ""){
-        document.getElementById("errinfo").innerText = "";
         document.getElementById("errinfo").innerText = "用户名不能为空";
         document.getElementById("errinfo").style.display = "";
         form.accountName.focus();
         return false;
     }
     if(form.accountPassword.value == null || form.accountPassword.value === ""){
-        document.getElementById("errinfo").innerText = "";
         document.getElementById("errinfo").innerText = "密码不能为空";
         document.getElementById("errinfo").style.display = "";
         form.accountPassword.focus();
@@ -56,8 +53,9 @@ function getUrlParam(name) {
 function loginCheckError() {
     let res = getUrlParam("error");
     if (res != null) {
-        document.getElementById("loginError").innerText = "用户名或者密码错误";
-        document.getElementById("loginError").style.display = "";
+        document.getElementById("errinfo").innerText = "";
+        document.getElementById("errinfo").innerText = "用户名或者密码错误";
+        document.getElementById("errinfo").style.display = "";
     }
 }
 
