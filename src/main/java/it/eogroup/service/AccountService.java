@@ -25,4 +25,7 @@ public interface AccountService {
     //更新用户信息
     void updateAccountProfile(Account account);
 
+    //更新密码
+    void updateAccountPassword(Account account);
+
 }

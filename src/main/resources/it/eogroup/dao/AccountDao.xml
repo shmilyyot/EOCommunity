@@ -28,4 +28,10 @@
         SET accountBirthday = #{account.accountBirthday},accountEmail = #{account.accountEmail},accountAddress = #{account.accountAddress}
         WHERE accountName = #{account.accountName}
     </update>
+
+    <update id="updatePassword" parameterType="it.eogroup.domain.Account">
+        UPDATE account
+        SET accountPassword = #{account.accountPassword}
+        WHERE accountName = #{account.accountName}
+    </update>
 </mapper>

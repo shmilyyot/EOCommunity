@@ -46,4 +46,8 @@ public interface AccountDao {
 
     //更新账户信息
     void updateAccount(@Param("account") Account account);
+
+    //更新密码
+    void updatePassword(@Param("account") Account account);
+
 }

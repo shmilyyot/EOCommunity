@@ -67,8 +67,15 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    //更新用户信息
     public void updateAccountProfile(Account account) {
         accountDao.updateAccount(account);
+    }
+
+    @Override
+    //更新密码
+    public void updateAccountPassword(Account account) {
+        accountDao.updatePassword(account);
     }
 
 }
