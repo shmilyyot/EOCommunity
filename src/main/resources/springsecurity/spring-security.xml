@@ -24,8 +24,10 @@
         <security:intercept-url pattern="/index.html" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')"/>
         <security:intercept-url pattern="/pages/header" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')"/>
         <security:intercept-url pattern="/pages/login" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')"/>
-        <security:intercept-url pattern="/pages/register" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')"/>
-        <security:intercept-url pattern="/account/accountInfo" access="hasRole('ROLE_USER')"/>
+        <security:intercept-url pattern="/pages/**" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')"/>
+        <security:intercept-url pattern="/account/findByName" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')"/>
+        <security:intercept-url pattern="/account/**" access="hasRole('ROLE_USER')"/>
+
 
         <!-- 定义跳转的具体的页面 -->
         <security:form-login

@@ -31,27 +31,31 @@
         <div class="col-lg-6">
             <ul class="nav nav-tabs">
                 <li role="presentation" class="active"><a href="/account/userInfo">基本信息</a></li>
+                <li role="presentation"><a href="/account/userPost">我的帖子</a></li>
                 <li role="presentation"><a href="/account/userFav">我的收藏</a></li>
                 <li role="presentation"><a href="/account/userSet">设置</a></li>
             </ul>
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <label>用户账号：</label> <label th:text = "${account.accountName}"></label>
+                    <label>用户账号：</label> <label th:text = "${accountName}"></label>
+                </div>
+                <div class="panel-body">
+                    <label>用户组：</label> <label th:text = "${roleName}"></label>
                 </div>
                 <div class="panel-body">
                     <label>生&#12288&#12288日：</label>
                     <input class="info_text" style="width: 90%;height:30px;border: white" type="text"
-                           th:value="${account.accountBirthday}" readonly="true">
+                           th:value="${accountBirthday}" readonly="true">
                 </div>
                 <div class="panel-body">
                     <label>邮&#12288&#12288箱：</label>
                     <input class="info_text" style="width: 90%;height:30px;border: white" type="text"
-                           th:value="${account.accountEmail}" readonly="true">
+                           th:value="${accountEmail}" readonly="true">
                 </div>
                 <div class="panel-body">
                     <label>家庭住址：</label>
                     <input class="info_text" style="width: 90%;height:30px;border: white" type="text"
-                           th:value="${account.accountAddress}" readonly="true">
+                           th:value="${accountAddress}" readonly="true">
                 </div>
                 <div class="panel-body">
                     <div id="update_div" style="float: right">

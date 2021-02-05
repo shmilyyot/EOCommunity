@@ -2,6 +2,7 @@ package it.eogroup.service.impl;
 
 import it.eogroup.dao.AccountDao;
 import it.eogroup.domain.Account;
+import it.eogroup.domain.Role;
 import it.eogroup.service.AccountService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -35,7 +36,8 @@ public class AccountServiceImpl implements AccountService {
     @Override
     //用户注册
     public Boolean CreateAccount(Account account) {
-        Account resAccount =  accountDao.accountExistByName(account.getAccountName());
+        String username = account.getAccountName();
+        Account resAccount =  accountDao.accountExistByName(username);
         if(resAccount == null){
             logger.info("该用户名可以注册，即将提交注册");
             account.setAccountPassword(bCryptPasswordEncoder.encode(account.getAccountPassword()));
@@ -51,9 +53,17 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    //根据账户名获得账户
     public Account getAccount(String username) {
         return accountDao.accountExistByName(username);
     }
 
+    @Override
+    //查找用户角色
+    public Role getRole(String username) {
+        Integer id = accountDao.findAccountId(username);
+        Role role = accountDao.roleExistById(id);
+        return role;
+    }
 
 }

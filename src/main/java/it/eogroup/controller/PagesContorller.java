@@ -7,19 +7,19 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import javax.annotation.Resource;
 
+/*页面跳转控制器*/
 @Controller
 @Repository("pagesController")
 @RequestMapping("/pages")
 public class PagesContorller {
+
     @Resource
     private AccountService accountService;
     private static final Logger logger = LogManager.getLogger(AccountController.class);
 
     //检测Thymeleaf是否可用
-
     @RequestMapping("/header")
     public String toHeader() {
         logger.info("跳转header");
@@ -38,14 +38,29 @@ public class PagesContorller {
         return "register";
     }
 
+//    @RequestMapping("/registerAccount")
+//    public String registerAccount(Account account) {
+//        Boolean res = accountService.CreateAccount(account);
+//        if(res){
+//            logger.info("展示层：注册成功");
+//        }else{
+//            logger.info("账号注册失败");
+//        }
+//        return "redirect:login.html";
+//    }
+
+    //注册账户并顺便判断用户名是否冲突
     @RequestMapping("/registerAccount")
     public String registerAccount(Account account) {
         Boolean res = accountService.CreateAccount(account);
-        if(res){
-            logger.info("展示层：注册成功");
-        }else{
-            logger.info("账号注册失败");
-        }
+        logger.info("注册成功");
+//        if(res){
+//            logger.info("注册成功");
+//            model.addAttribute("status","true");
+//        }else{
+//            logger.info("用户名已存在，注册失败");
+//            model.addAttribute("status","false");
+//        }
         return "redirect:login.html";
     }
 

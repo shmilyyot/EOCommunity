@@ -1,7 +1,7 @@
 package it.eogroup.service;
 
 import it.eogroup.domain.Account;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import it.eogroup.domain.Role;
 import java.util.List;
 
 /*
@@ -18,5 +18,7 @@ public interface AccountService {
 
     //获得用户
     Account getAccount(String username);
+
+    Role getRole(String username);
 
 }

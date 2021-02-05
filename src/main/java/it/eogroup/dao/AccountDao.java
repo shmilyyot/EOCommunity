@@ -1,6 +1,7 @@
 package it.eogroup.dao;
 
 import it.eogroup.domain.Account;
+import it.eogroup.domain.Role;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
@@ -8,6 +9,7 @@ import java.util.List;
 
 /*
  * 用户账户数据持久层
+ * 回头全部改注解，取消xml
  */
 @Repository
 public interface AccountDao {
@@ -23,6 +25,10 @@ public interface AccountDao {
 
     //根据用户id查找账户
     Account accountExistById(Integer accountId);
+
+    //根据用户id查找角色
+    @Select("SELECT * FROM ACCOUNTROLE WHERE accountId=#{accountId}")
+    Role roleExistById(Integer accountId);
 
     //插入账户角色
     void insertRole(Integer accountId);

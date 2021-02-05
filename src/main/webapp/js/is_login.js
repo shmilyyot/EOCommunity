@@ -3,25 +3,49 @@ function registerCheckNull(form){
     if(form.accountName.value == null || form.accountName.value === ""){
         document.getElementById("errinfo").innerText = "用户名不能为空";
         document.getElementById("errinfo").style.display = "";
+        $("#accountName").attr("style","border:red 1px solid");
+        $("#accountPassword").attr("style","border:black 1px solid");
+        $("#accountPassword2").attr("style","border:black 1px solid");
         form.accountName.focus();
         return false;
+    }else{
+        $("#accountName").attr("style","border:black 1px solid");
     }
     if(form.accountPassword.value == null || form.accountPassword.value === ""){
         document.getElementById("errinfo").innerText = "密码不能为空";
         document.getElementById("errinfo").style.display = "";
+        $("#accountPassword").attr("style","border:red 1px solid");
+        $("#accountName").attr("style","border:black 1px solid");
+        $("#accountPassword2").attr("style","border:black 1px solid");
         form.accountPassword.focus();
         return false;
+    }else{
+        $("#accountPassword").attr("style","border:black 1px solid");
     }
     if(form.accountPassword2.value == null || form.accountPassword2.value === ""){
         document.getElementById("errinfo").innerText = "密码不能为空";
         document.getElementById("errinfo").style.display = "";
+        $("#accountPassword2").attr("style","border:red 1px solid");
+        $("#accountPassword").attr("style","border:black 1px solid");
+        $("#accountName").attr("style","border:black 1px solid");
         form.accountPassword2.focus();
         return false;
+    }else{
+        $("#accountPassword2").attr("style","border:black 1px solid");
     }
-    if(form.accountPassword.value === form.accountPassword2.value) return true;
+    if(form.accountPassword.value === form.accountPassword2.value) {
+        $("#accountPassword2").attr("style","border:black 1px solid");
+        $("#accountPassword").attr("style","border:black 1px solid");
+        $("#accountName").attr("style","border:black 1px solid");
+        return true;
+    }
     else{
         document.getElementById("errinfo").innerText = "两次密码输入不一致！！！";
         document.getElementById("errinfo").style.display = "";
+        $("#accountPassword").attr("style","border:red 1px solid");
+        $("#accountPassword2").attr("style","border:red 1px solid");
+        $("#accountName").attr("style","border:black 1px solid");
+        form.accountPassword.focus();
         return false;
     }
 }
@@ -31,12 +55,16 @@ function loginCheckNull(form){
     if(form.accountName.value == null || form.accountName.value === ""){
         document.getElementById("errinfo").innerText = "用户名不能为空";
         document.getElementById("errinfo").style.display = "";
+        $("#accountName").attr("style","border:red 1px solid");
+        $("#accountPassword").attr("style","border:black 1px solid");
         form.accountName.focus();
         return false;
     }
     if(form.accountPassword.value == null || form.accountPassword.value === ""){
         document.getElementById("errinfo").innerText = "密码不能为空";
         document.getElementById("errinfo").style.display = "";
+        $("#accountName").attr("style","border:black 1px solid");
+        $("#accountPassword").attr("style","border:red 1px solid");
         form.accountPassword.focus();
         return false;
     }
@@ -56,30 +84,57 @@ function loginCheckError() {
         document.getElementById("errinfo").innerText = "";
         document.getElementById("errinfo").innerText = "用户名或者密码错误";
         document.getElementById("errinfo").style.display = "";
+        form.accountName.focus();
     }
 }
 
-//后期需要改进成鼠标失去焦点就自动检查
-//检查用户名是否被占用
+// // 检查有没有获取到false
+// function registerCheckExist() {
+//     let res = getUrlParam("status");
+//     if(res == null) return;
+//     alert(res);
+//     if (res != false) {
+//         document.getElementById("errinfo").innerText = "用户名已存在";
+//         document.getElementById("errinfo").style.display = "";
+//     }else{
+//         alert("注册成功，即将跳转登录页");
+//         location.assign("login.html");
+//     }
+// }
+
+// 后期需要改进成鼠标失去焦点就自动检查
+// 检查用户名是否被占用
 function registerCheckExist(form){
-    var username = form.accountName.value;
-    var status = true;
+    var username = $("#accountName").val();
     $.ajax({
         url:"/account/findByName",    //请求的url地址
-        async:false,//请求是否异步，默认为异步，这也是ajax重要特性
-        dataType:'json',
-        data:{'username':username},    //参数值
-        type:"POST",   //请求方式
+        data:{"username":username},    //参数值
+        type:"post",   //请求方式
         success:function(data){
-            temp = JSON.parse(JSON.stringify(data))
-            if(temp.username === "true"){
-                status = false;
+            if(data == "false"){
+                $("#accountName").attr("style","border:red 1px solid");
+                $("#input_btn").prop("disabled",true);
                 document.getElementById("errinfo").innerText = "用户名已存在";
                 document.getElementById("errinfo").style.display = "";
             }else{
-                alert("注册成功，即将跳转登录页");
+                $("#accountName").attr("style","border:black 1px solid");
+                document.getElementById("errinfo").innerText = "该用户名有效";
+                $("#input_btn").prop("disabled",false);
             }
         }
     })
-    return status;
 }
+
+// function registerCheckExist(){
+//     var status = $("#pickStatus").val();
+//     if(status == null) return;
+//     if(status === "false"){
+//         document.getElementById("errinfo").innerText = "用户名已存在";
+//         document.getElementById("errinfo").style.display = "";
+//         return false;
+//     }else{
+//         alert("注册成功，即将跳转登录页");
+//         location.assign("login.html");
+//         return true;
+//     }
+// }
