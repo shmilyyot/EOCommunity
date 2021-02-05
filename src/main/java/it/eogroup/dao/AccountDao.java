@@ -2,7 +2,10 @@ package it.eogroup.dao;
 
 import it.eogroup.domain.Account;
 import it.eogroup.domain.Role;
+import net.sf.jsqlparser.schema.Sequence;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -41,4 +44,6 @@ public interface AccountDao {
     @Select("SELECT accountRole FROM ACCOUNTROLE where accountId in (select accountId from account where accountName = #{accountName})")
     String findAccountRole(String accountName);
 
+    //更新账户信息
+    void updateAccount(@Param("account") Account account);
 }

@@ -1,4 +1,7 @@
 <!--注册form表单非空判断-->
+
+/*要改成只要非空就不能提交*/
+
 function registerCheckNull(form){
     if(form.accountName.value == null || form.accountName.value === ""){
         document.getElementById("errinfo").innerText = "用户名不能为空";

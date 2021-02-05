@@ -52,7 +52,7 @@ public class PagesContorller {
 //        return "redirect:login.html";
 //    }
 
-    //注册账户并顺便判断用户名是否冲突
+    //注册账户并跳转登陆页面
     @RequestMapping("/registerAccount")
     public String registerAccount(Account account,HttpServletResponse response){
         Boolean res = accountService.CreateAccount(account);

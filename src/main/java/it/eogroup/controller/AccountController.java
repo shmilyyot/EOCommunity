@@ -101,4 +101,11 @@ public class AccountController {
         return modelAndView;
     }
 
+    @RequestMapping("/saveProfile")
+    public ModelAndView profileUpdate(Account account){
+        accountService.updateAccountProfile(account);
+        logger.info("账户信息更新成功");
+        return new ModelAndView("account/userSet","status","success");
+    }
+
 }

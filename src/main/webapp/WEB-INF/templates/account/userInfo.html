@@ -40,27 +40,19 @@
                     <label>用户账号：</label> <label th:text = "${accountName}"></label>
                 </div>
                 <div class="panel-body">
-                    <label>用户组：</label> <label th:text = "${roleName}"></label>
+                    <label>用户组：&#12288</label> <label th:text = "${roleName}"></label>
                 </div>
                 <div class="panel-body">
-                    <label>生&#12288&#12288日：</label>
-                    <input class="info_text" style="width: 90%;height:30px;border: white" type="text"
-                           th:value="${accountBirthday}" readonly="true">
+                    <label>生&#12288&#12288日：</label><label th:text="${accountBirthday}"></label>
                 </div>
                 <div class="panel-body">
-                    <label>邮&#12288&#12288箱：</label>
-                    <input class="info_text" style="width: 90%;height:30px;border: white" type="text"
-                           th:value="${accountEmail}" readonly="true">
+                    <label>邮&#12288&#12288箱：</label><label th:text="${accountEmail}"></label>
                 </div>
                 <div class="panel-body">
-                    <label>家庭住址：</label>
-                    <input class="info_text" style="width: 90%;height:30px;border: white" type="text"
-                           th:value="${accountAddress}" readonly="true">
+                    <label>家庭住址：</label><label th:text="${accountAddress}"></label>
                 </div>
                 <div class="panel-body">
-                    <div id="update_div" style="float: right">
-                        <input type="button" id="update_btn" class="btn btn-default" value="修改" onclick="update()">
-                    </div>
+                    <label>注册时间：</label><label th:text="${registerDate}"></label>
                 </div>
             </div>
 
@@ -69,15 +61,4 @@
     <div class="col-lg-3"></div>
 </div>
 </body>
-<script type="text/javascript">
-    function update() {
-        $("#update_div").html('<input type="button" id="quxiao_btn" class="btn btn-default" value="取消" onclick="quxaio()">'
-            + '<input type="submit" id="save_btn" class="btn btn-default" value="保存">')
-        $(".info_text").removeAttr("readonly")
-    }
-
-    function quxaio() {
-        location.reload();
-    }
-</script>
 </html>

@@ -19,6 +19,10 @@ public interface AccountService {
     //获得用户
     Account getAccount(String username);
 
+    //获得用户角色
     Role getRole(String username);
+
+    //更新用户信息
+    void updateAccountProfile(Account account);
 
 }

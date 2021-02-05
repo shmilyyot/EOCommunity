@@ -18,7 +18,7 @@
     <title>用户中心</title>
     <link rel="shortcut icon" href="../../../favicon.ico" type="image/x-icon"/>
 </head>
-<body>
+<body onload="checkSaveSuccess()">
 <div id="header"></div>
 <script>
     $("#header").load("../../pages/header");
@@ -34,43 +34,39 @@
             <li role="presentation" class="active"><a href="/account/userSet">设置</a></li>
         </ul>
         <div class="panel panel-default">
-            <div class="panel-body">
-                <label>用户账号：</label> <label th:text = "${account.accountName}"></label>
-            </div>
-            <div class="panel-body">
-                <label>生&#12288&#12288日：</label>
-                <input class="info_text" style="width: 90%;height:30px;border: white" type="text"
-                       th:value="${account.accountBirthday}" readonly="true">
-            </div>
-            <div class="panel-body">
-                <label>邮&#12288&#12288箱：</label>
-                <input class="info_text" style="width: 90%;height:30px;border: white" type="text"
-                       th:value="${account.accountEmail}" readonly="true">
-            </div>
-            <div class="panel-body">
-                <label>家庭住址：</label>
-                <input class="info_text" style="width: 90%;height:30px;border: white" type="text"
-                       th:value="${account.accountAddress}" readonly="true">
-            </div>
-            <div class="panel-body">
-                <div id="update_div" style="float: right">
-                    <input type="button" id="update_btn" class="btn btn-default" value="修改" onclick="update()">
+            <form action="/account/saveProfile" method="post">
+                <div class="panel-body">
+                    <label>用户账号：</label> <label th:text = "${account.accountName}"></label>
+                    <input class="input_text" name="accountName" type="hidden"  th:value="${account.accountName}" >
                 </div>
-            </div>
+                <div class="panel-body">
+                    <label>生&#12288&#12288日：</label>
+                    <input class="info_text" name="accountBirthday" type="date" th:value="${account.accountBirthday}">
+                </div>
+                <div class="panel-body">
+                    <label>邮&#12288&#12288箱：</label>
+                    <input class="info_text" name="accountEmail" type="text" th:value="${account.accountEmail}">
+                </div>
+                <div class="panel-body">
+                    <label>家庭住址：</label>
+                    <input class="info_text" name="accountAddress" type="text" th:value="${account.accountAddress}">
+                </div>
+                <input type="submit" id="update_btn" class="btn btn-default" value="保存">
+            </form>
         </div>
     </div>
     <div class="col-lg-3"></div>
 </div>
+<input type="hidden" id="pickStatus" th:value="${status}">
 </body>
-<script type="text/javascript">
-    function update() {
-        $("#update_div").html('<input type="button" id="quxiao_btn" class="btn btn-default" value="取消" onclick="quxaio()">'
-            + '<input type="submit" id="save_btn" class="btn btn-default" value="保存">')
-        $(".info_text").removeAttr("readonly")
-    }
-
-    function quxaio() {
-        location.reload();
+<script>
+    function checkSaveSuccess(){
+        var status = $("#pickStatus").val();
+        if(status == null || status === "") return;
+        if(status != null){
+            alert("资料更新成功！");
+            $("#pickStatus").val("");
+        }
     }
 </script>
 </html>

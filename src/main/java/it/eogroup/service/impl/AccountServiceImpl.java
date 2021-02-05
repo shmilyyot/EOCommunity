@@ -66,4 +66,9 @@ public class AccountServiceImpl implements AccountService {
         return role;
     }
 
+    @Override
+    public void updateAccountProfile(Account account) {
+        accountDao.updateAccount(account);
+    }
+
 }
