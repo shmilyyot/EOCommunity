@@ -8,6 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 /*页面跳转控制器*/
 @Controller
@@ -51,16 +54,22 @@ public class PagesContorller {
 
     //注册账户并顺便判断用户名是否冲突
     @RequestMapping("/registerAccount")
-    public String registerAccount(Account account) {
+    public String registerAccount(Account account,HttpServletResponse response){
         Boolean res = accountService.CreateAccount(account);
-        logger.info("注册成功");
-//        if(res){
-//            logger.info("注册成功");
-//            model.addAttribute("status","true");
-//        }else{
-//            logger.info("用户名已存在，注册失败");
-//            model.addAttribute("status","false");
-//        }
+        response.setContentType("text/html;charset=UTF-8");
+        if(res){
+            logger.info("注册成功");
+            try{
+                //不生效，不知道为什么，先不改
+                PrintWriter out = response.getWriter();
+                out.print("<script type='text/javascript'>alert('注册成功');</script>");
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }else{
+            logger.info("发生意外错误，注册失败");
+            return "redirect:register.html";
+        }
         return "redirect:login.html";
     }
 

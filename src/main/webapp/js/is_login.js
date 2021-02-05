@@ -102,7 +102,6 @@ function loginCheckError() {
 //     }
 // }
 
-// 后期需要改进成鼠标失去焦点就自动检查
 // 检查用户名是否被占用
 function registerCheckExist(form){
     var username = $("#accountName").val();
