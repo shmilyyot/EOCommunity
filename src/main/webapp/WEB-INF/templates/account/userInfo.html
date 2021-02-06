@@ -30,9 +30,12 @@
                 <li role="presentation" class="active"><a href="/account/userInfo">基本信息</a></li>
                 <li role="presentation"><a href="/account/userPost">我的帖子</a></li>
                 <li role="presentation"><a href="/account/userFav">我的收藏</a></li>
-                <li role="presentation"><a href="/account/userSet">设置</a></li>
+                <li role="presentation"><a href="/account/userFace">设置</a></li>
             </ul>
             <div class="panel panel-default">
+                <div>
+                    <label>当前头像：</label><img th:src="@{(${accountAvatar})}" style="width:100px; height: 100px;"/>
+                </div>
                 <div class="panel-body">
                     <label>用户账号：</label> <label th:text = "${accountName}"></label>
                 </div>

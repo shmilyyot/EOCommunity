@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -41,21 +42,10 @@ public class PagesContorller {
         return "register";
     }
 
-//    @RequestMapping("/registerAccount")
-//    public String registerAccount(Account account) {
-//        Boolean res = accountService.CreateAccount(account);
-//        if(res){
-//            logger.info("展示层：注册成功");
-//        }else{
-//            logger.info("账号注册失败");
-//        }
-//        return "redirect:login.html";
-//    }
-
     //注册账户并跳转登陆页面
     @RequestMapping("/registerAccount")
-    public String registerAccount(Account account,HttpServletResponse response){
-        Boolean res = accountService.CreateAccount(account);
+    public String registerAccount(HttpServletRequest request,Account account, HttpServletResponse response){
+        Boolean res = accountService.CreateAccount(request,account);
         response.setContentType("text/html;charset=UTF-8");
         if(res){
             logger.info("注册成功");

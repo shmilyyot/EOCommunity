@@ -48,6 +48,11 @@
     <mvc:resources location="/js/" mapping="/js/**" />
     <mvc:resources location="/fonts/" mapping="/fonts/**" />
 
+    <!-- 配置文件上传 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="1048576"></property>
+    </bean>
+
     <!--开启SpringMVC注解的支持-->
     <mvc:annotation-driven/>
 

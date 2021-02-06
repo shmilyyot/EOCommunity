@@ -2,7 +2,12 @@ package it.eogroup.service;
 
 import it.eogroup.domain.Account;
 import it.eogroup.domain.Role;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 /*
 * 账户业务层
@@ -14,7 +19,7 @@ public interface AccountService {
     List<Account> findAll();
 
     //用户注册
-    Boolean CreateAccount(Account account);
+    Boolean CreateAccount(HttpServletRequest request,Account account);
 
     //获得用户
     Account getAccount(String username);
@@ -26,6 +31,15 @@ public interface AccountService {
     void updateAccountProfile(Account account);
 
     //更新密码
-    void updateAccountPassword(Account account);
+    ModelAndView updateAccountPassword(HttpServletRequest request);
+
+    //上传头像
+    void updateAvatar(HttpServletRequest request, MultipartFile accountFace);
+
+    //获得用户信息
+    Map<String,String> getAccountInfo();
+
+    //获得用户头像路径
+    Map<String, String> getAccountAvatar();
 
 }

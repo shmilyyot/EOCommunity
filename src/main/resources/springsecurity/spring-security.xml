@@ -13,6 +13,7 @@
     <security:http pattern="/images/**" security="none"/>
     <security:http pattern="/fonts/**" security="none"/>
     <security:http pattern="/favicon.ico" security="none"/>
+    <security:http pattern="/uploads/images/avatar/**" security="none"/>
 
     <!--
     	配置具体的规则
@@ -26,6 +27,7 @@
         <security:intercept-url pattern="/pages/login" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')"/>
         <security:intercept-url pattern="/pages/**" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')"/>
         <security:intercept-url pattern="/account/findByName" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')"/>
+        <security:intercept-url pattern="/uploads/**" access="hasRole('ROLE_USER')"/>
         <security:intercept-url pattern="/account/**" access="hasRole('ROLE_USER')"/>
 
 

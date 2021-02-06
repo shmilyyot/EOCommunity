@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS `account` (
 	`accountRegisterDate` DATE,
 	`accountEmail` VARCHAR(32),
 	`accountAddress` VARCHAR(64),
+	`accountAvatar` VARCHAR(255),
 	PRIMARY KEY (`accountId`)
 )
 
@@ -22,11 +23,4 @@ CREATE TABLE IF NOT EXISTS `persistent_logins`(
 	`series` VARCHAR(64),
 	`Token` VARCHAR(64),
 	`last_used` DATETIME
-)
-
-CREATE TABLE IF NOT EXISTS `accountface`(
-	`accountId` INT,
-	`accountFace` BLOB,
-	PRIMARY KEY (`accountId`),
-	CONSTRAINT `accountface` FOREIGN KEY (`accountId`) REFERENCES `account`(`accountId`)
 )

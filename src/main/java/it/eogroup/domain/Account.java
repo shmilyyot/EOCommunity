@@ -19,4 +19,5 @@ public class Account {
     private LocalDate accountRegisterDate;
     private String accountEmail;
     private String accountAddress;
+    private String accountAvatar;
 }

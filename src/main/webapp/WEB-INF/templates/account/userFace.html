@@ -12,18 +12,38 @@
     <script src="../../../js/bootstrap.min.js"></script>
     <link href="../../../css/login.css" rel="stylesheet">
     <title>用户中心</title>
+    <base href="<%=request.getContextPath()%>/"/>
     <link rel="shortcut icon" href="../../../favicon.ico" type="image/x-icon"/>
 </head>
 
 <!--修改头像页面，要有头像预览窗口，还没写-->
-<body>
+<body onload="checkAvatarSuccess()">
 <div id="header"></div>
 <script>
     $("#header").load("../../pages/header");
 </script>
-    <form action="/account/saveFace">
-        选择图片：<input type="file" name="face" accept="images/jpg,images/jpeg,images/png"></br>
-        <input type="submit" value="上传">
+    <form action="/account/uploadAvatar" method="post" enctype="multipart/form-data">
+        <li>
+            <div>
+                <img th:src="@{(${accountAvatar})}" style="width:100px; height: 100px;"/>
+            </div>
+        </li>
+        <li>选择图片：<input type="file" name="accountFace" accept="image/jpg,image/jpeg,image/png"></br></li>
+        <li><input type="submit" value="上传"></li>
     </form>
+<!--隐藏域，取model值-->
+<input type="hidden" id="pickStatus" th:value="${status}">
 </body>
+
+<!--修改头像，页面加载时根据后端传到model的值来判断-->
+<script>
+    function checkAvatarSuccess(){
+        var status = $("#pickStatus").val();
+        if(status == null || status === "") return;
+        if(status === "success"){
+            alert("头像修改成功！");
+            $("#pickStatus").val("");
+        }
+    }
+</script>
 </html>

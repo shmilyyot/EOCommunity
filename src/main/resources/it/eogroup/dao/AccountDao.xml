@@ -16,7 +16,7 @@
     </select>
 
     <insert id="insertAccount" parameterType="it.eogroup.domain.Account">
-        INSERT INTO ACCOUNT values (null,#{accountName,jdbcType=VARCHAR}, #{accountPassword,jdbcType=VARCHAR}, #{accountBirthday,jdbcType=DATE}, #{accountRegisterDate,jdbcType=DATE}, #{accountEmail,jdbcType=VARCHAR}, #{accountAddress,jdbcType=VARCHAR})
+        INSERT INTO ACCOUNT values (null,#{accountName,jdbcType=VARCHAR}, #{accountPassword,jdbcType=VARCHAR}, #{accountBirthday,jdbcType=DATE}, #{accountRegisterDate,jdbcType=DATE}, #{accountEmail,jdbcType=VARCHAR}, #{accountAddress,jdbcType=VARCHAR},#{accountAvatar,jdbcType=VARCHAR})
     </insert>
 
     <insert id="insertRole" parameterType="it.eogroup.domain.Account">
@@ -32,6 +32,12 @@
     <update id="updatePassword" parameterType="it.eogroup.domain.Account">
         UPDATE account
         SET accountPassword = #{account.accountPassword}
+        WHERE accountName = #{account.accountName}
+    </update>
+
+    <update id="updateAvatar" parameterType="it.eogroup.domain.Account">
+        UPDATE account
+        SET accountAvatar = #{account.accountAvatar}
         WHERE accountName = #{account.accountName}
     </update>
 </mapper>

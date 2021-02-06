@@ -50,4 +50,7 @@ public interface AccountDao {
     //更新密码
     void updatePassword(@Param("account") Account account);
 
+    //更新头像
+    void updateAvatar(@Param("account") Account account);
+
 }
