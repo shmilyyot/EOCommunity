@@ -49,8 +49,9 @@ public class AccountController {
     @RequestMapping("/userFace")
     public ModelAndView toUserAvatar() {
         ModelAndView modelAndView = new ModelAndView();
-        Map<String, String> map = accountService.getAccountInfo();
+        Map<String, String> map = accountService.getAccountAvatar();
         modelAndView.addAllObjects(map);
+        logger.info("修改头像成功");
         return modelAndView;
     }
 

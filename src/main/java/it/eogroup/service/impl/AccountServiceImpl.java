@@ -122,8 +122,11 @@ public class AccountServiceImpl implements AccountService {
             file.mkdirs();
         }
         String oldAvatar = account.getAccountAvatar();
-        File delfile = new File(oldAvatar);
-        if(delfile.exists()) delfile.delete();
+        if(!oldAvatar.equals("/images/defaultAvatar.png")){
+            File delfile = new File(oldAvatar);
+            logger.info("删除旧头像成功");
+            if(delfile.exists()) delfile.delete();
+        }
         String uuid = UUID.randomUUID().toString().replaceAll("-","").toUpperCase();
         String filename = accountFace.getOriginalFilename();
         filename = uuid+"_"+filename;
@@ -136,6 +139,7 @@ public class AccountServiceImpl implements AccountService {
             e.printStackTrace();
         }
         accountDao.updateAvatar(account);
+        logger.info("插入新头像成功");
     }
 
     @Override
@@ -151,6 +155,7 @@ public class AccountServiceImpl implements AccountService {
         map.put("accountAddress",account.getAccountAddress());
         map.put("roleName", role.getRoleName());
         map.put("accountAvatar",account.getAccountAvatar());
+        logger.info("返回用户信息成功");
         return map;
     }
 
@@ -160,6 +165,7 @@ public class AccountServiceImpl implements AccountService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Account account = accountDao.accountExistByName(authentication.getName());
         map.put("accountAvatar",account.getAccountAvatar());
+        logger.info("请求头像成功");
         return map;
     }
 
