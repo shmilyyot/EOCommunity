@@ -73,19 +73,19 @@ public class AccountController {
         return "true";
     }
 
-    //去收藏夹
+    //去收藏夹（具体功能代实现）
     @RequestMapping("/userFav")
     public ModelAndView toUserFav() {
         return new ModelAndView();
     }
 
-    //去个人的帖子列表
+    //去个人的帖子列表（具体功能代实现）
     @RequestMapping("/userPost")
     public ModelAndView toUserPost() {
         return new ModelAndView();
     }
 
-    //去用户密码页
+    //去用户密码页（具体功能代实现）
     @RequestMapping("/userPassword")
     public ModelAndView toUserPassword() {
         return new ModelAndView();
@@ -147,6 +147,7 @@ public class AccountController {
         }
     }
 
+    //头像修改的controller，还有对应的serviceimpl和dao都还没实现，代添加
     //修改头像
     @RequestMapping("/account/saveFace")
     public ModelAndView toSaveFace(){

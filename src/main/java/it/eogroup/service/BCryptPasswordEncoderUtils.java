@@ -1,7 +1,6 @@
 package it.eogroup.service;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Repository;
 
 //用户密码加密
 public class BCryptPasswordEncoderUtils {
