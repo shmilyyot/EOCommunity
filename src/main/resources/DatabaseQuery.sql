@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS `account` (
 CREATE TABLE IF NOT EXISTS `accountRole` (
 	`accountId` INT,
 	`accountRole` VARCHAR(10),
-	`accountName` VARCHAR(20),
+	`roleName` VARCHAR(20),
 	PRIMARY KEY (`accountId`),
 	CONSTRAINT `accountRole` FOREIGN KEY (`accountId`) REFERENCES `account`(`accountId`)
 )
@@ -22,4 +22,11 @@ CREATE TABLE IF NOT EXISTS `persistent_logins`(
 	`series` VARCHAR(64),
 	`Token` VARCHAR(64),
 	`last_used` DATETIME
+)
+
+CREATE TABLE IF NOT EXISTS `accountface`(
+	`accountId` INT,
+	`accountFace` BLOB,
+	PRIMARY KEY (`accountId`),
+	CONSTRAINT `accountface` FOREIGN KEY (`accountId`) REFERENCES `account`(`accountId`)
 )
