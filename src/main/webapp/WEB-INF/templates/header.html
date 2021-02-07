@@ -3,6 +3,23 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <header>
     <meta content="text/html;charset=UTF-8"/>
+    <style>
+        .btn-list-group {
+            position: relative;
+        }
+
+        .btn-list-area {
+            display: none;
+            position: absolute;
+            left: 0;
+            right: 0;
+        }
+
+        .btn-list-group:hover .btn-list-area {
+            display: block;
+        }
+
+    </style>
 </header>
 <body>
 <!--导航条-->
@@ -38,9 +55,21 @@
                 </div>
                 <div sec:authorize="isAuthenticated()">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/account/userInfo"><div sec:authentication="name"></div></a></li>
+                        <li><a href="/account/userInfo">
+                            <div sec:authentication="name"></div>
+                        </a></li>
                         <li><a>消息</a></li>
-                        <li><a id="show_btn_logout" href="/logout.do">注销</a></li>
+                        <li><a>我的收藏</a></li>
+                        <li class="btn-list-group">
+                            <a>设置</a>
+                            <span class="btn-list-area" style="background: white;width: 80px">
+                                <a class="btn" href="/account/userFace">上传头像</a>
+                                <a class="btn" href="/account/userSet">修改资料</a>
+                                <a class="btn" href="/account/userPassword">修改密码</a>
+                                <a class="btn" id="show_btn_logout" href="/logout.do">注销</a>
+                            </span>
+                        </li>
+                        <li></li>
                     </ul>
                 </div>
             </div>
