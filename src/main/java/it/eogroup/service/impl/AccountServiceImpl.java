@@ -78,8 +78,7 @@ public class AccountServiceImpl implements AccountService {
     //查找用户角色
     public Role getRole(String username) {
         Integer id = accountDao.findAccountId(username);
-        Role role = accountDao.roleExistById(id);
-        return role;
+        return accountDao.roleExistById(id);
     }
 
     @Override
