@@ -82,7 +82,6 @@ public class AccountController {
     public ModelAndView toAccountInfo() {
         ModelAndView modelAndView = new ModelAndView();
         Map<String,String> map = accountService.getAccountInfo();
-        System.out.println(map.get("accountAvatar"));
         modelAndView.addAllObjects(map);
         logger.info("请求用户信息已返回");
         return modelAndView;
@@ -105,10 +104,10 @@ public class AccountController {
     //修改头像
     @RequestMapping("/uploadAvatar")
     public ModelAndView toSaveFace(HttpServletRequest request,@RequestParam(value="accountFace",required=false) MultipartFile accountFace){
-        accountService.updateAvatar(request,accountFace);
+        Map<String,String> map = accountService.updateAvatar(request,accountFace);
         ModelAndView modelAndView = new ModelAndView("account/userFace");
         logger.info("上传头像");
-        modelAndView.addObject("status","success");
+        modelAndView.addAllObjects(map);
         return modelAndView;
     }
 }

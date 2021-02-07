@@ -34,7 +34,7 @@ public interface AccountService {
     ModelAndView updateAccountPassword(HttpServletRequest request);
 
     //上传头像
-    void updateAvatar(HttpServletRequest request, MultipartFile accountFace);
+    Map<String,String> updateAvatar(HttpServletRequest request, MultipartFile accountFace);
 
     //获得用户信息
     Map<String,String> getAccountInfo();

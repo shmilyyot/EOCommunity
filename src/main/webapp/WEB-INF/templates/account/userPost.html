@@ -17,6 +17,7 @@
     <link href="../../../css/login.css" rel="stylesheet">
     <title>用户中心</title>
     <link rel="shortcut icon" href="../../../favicon.ico" type="image/x-icon"/>
+    <link href="../../../css/header.css" rel="stylesheet">
 </head>
 <body>
 <div id="header"></div>
@@ -31,7 +32,14 @@
             <li role="presentation"><a href="/account/userInfo">基本信息</a></li>
             <li role="presentation" class="active"><a href="/account/userPost">我的帖子</a></li>
             <li role="presentation"><a href="/account/userFav">我的收藏</a></li>
-            <li role="presentation"><a href="/account/userSet">设置</a></li>
+            <li role="presentation"><div class="dropdown" style="color: #2b669a">设置
+                <div class="dropdown-content">
+                    <a href="/account/userSet">修改个人资料</a></br>
+                    <a href="/account/userFace">修改头像</a></br>
+                    <a href="/account/userPassword">修改密码</a>
+                </div>
+            </div>
+            </li>
         </ul>
     </div>
     </form>

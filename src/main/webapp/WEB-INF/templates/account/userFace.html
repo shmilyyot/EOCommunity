@@ -11,6 +11,7 @@
     <link href="../../../css/bootstrap.min.css" rel="stylesheet">
     <script src="../../../js/bootstrap.min.js"></script>
     <link href="../../../css/login.css" rel="stylesheet">
+    <link href="../../../css/header.css" rel="stylesheet">
     <title>用户中心</title>
     <base href="<%=request.getContextPath()%>/"/>
     <link rel="shortcut icon" href="../../../favicon.ico" type="image/x-icon"/>
@@ -22,15 +23,37 @@
 <script>
     $("#header").load("../../pages/header");
 </script>
-    <form action="/account/uploadAvatar" method="post" enctype="multipart/form-data">
-        <li>
-            <div>
-                <img th:src="@{(${accountAvatar})}" style="width:100px; height: 100px;"/>
+<div class="row">
+    <div class="col-lg-3">
+    </div>
+    <div class="col-lg-6">
+        <ul class="nav nav-tabs">
+            <li role="presentation"><a href="/account/userInfo">基本信息</a></li>
+            <li role="presentation"><a href="/account/userPost">我的帖子</a></li>
+            <li role="presentation"><a href="/account/userFav">我的收藏</a></li>
+            <li role="presentation"><div class="dropdown" style="color: #2b669a">设置
+                <div class="dropdown-content">
+                    <a href="/account/userSet">修改个人资料</a></br>
+                    <a href="/account/userFace">修改头像</a></br>
+                    <a href="/account/userPassword">修改密码</a>
+                </div>
             </div>
-        </li>
-        <li>选择图片：<input type="file" name="accountFace" accept="image/jpg,image/jpeg,image/png"></br></li>
-        <li><input type="submit" value="上传"></li>
-    </form>
+            </li>
+        </ul>
+        <div class="panel panel-default">
+            <form action="/account/uploadAvatar" method="post" enctype="multipart/form-data">
+                <div>
+                    <div>
+                        <img th:src="@{(${accountAvatar})}" style="width:100px; height: 100px;"/>
+                    </div>
+                </div>
+                <div>选择图片：<input type="file" name="accountFace" accept="image/jpg,image/jpeg,image/png"></br></div>
+                <div><input type="submit" value="上传"></div>
+            </form>
+        </div>
+    </div>
+    <div class="col-lg-3"></div>
+</div>
 <!--隐藏域，取model值-->
 <input type="hidden" id="pickStatus" th:value="${status}">
 </body>

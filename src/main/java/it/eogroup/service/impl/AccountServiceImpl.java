@@ -113,7 +113,8 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     //更新头像
-    public void updateAvatar(HttpServletRequest request,MultipartFile accountFace) {
+    public Map<String,String> updateAvatar(HttpServletRequest request,MultipartFile accountFace) {
+        Map<String,String> map = new HashMap<>();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Account account = accountDao.accountExistByName(authentication.getName());
         String path = request.getSession().getServletContext().getRealPath(AvatarPath.IMG_PATH);
@@ -122,10 +123,11 @@ public class AccountServiceImpl implements AccountService {
             file.mkdirs();
         }
         String oldAvatar = account.getAccountAvatar();
+        System.out.println(oldAvatar);
         if(!oldAvatar.equals("/images/defaultAvatar.png")){
-            File delfile = new File(oldAvatar);
-            logger.info("删除旧头像成功");
+            File delfile = new File(request.getSession().getServletContext().getRealPath(oldAvatar));
             if(delfile.exists()) delfile.delete();
+            logger.info("删除旧头像成功");
         }
         String uuid = UUID.randomUUID().toString().replaceAll("-","").toUpperCase();
         String filename = accountFace.getOriginalFilename();
@@ -138,8 +140,11 @@ public class AccountServiceImpl implements AccountService {
         }catch (Exception e){
             e.printStackTrace();
         }
+        map.put("accountAvatar",savepath);
+        map.put("status","success");
         accountDao.updateAvatar(account);
         logger.info("插入新头像成功");
+        return map;
     }
 
     @Override

@@ -69,7 +69,7 @@
                     邮&#12288&#12288箱
                 </label>
                 <label>
-                    <input type="email" name="accountEmail" placeholder="请输入邮箱" autocomplete="off">
+                    <input type="email" name="accountEmail" id="accountEmail" placeholder="请输入邮箱" autocomplete="off" onchange="checkEmail()">
                 </label>
             </div>
             <div class="input_text">
@@ -94,5 +94,42 @@
     $("#hide_login_btn").click(function () {
         $("#showLogin").css("visibility", "hidden")
     })
+</script>
+<script>
+    //校验邮箱
+    function checkEmail(){
+        var myemail=$("#accountEmail").val();
+        var myReg=/^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/;
+        if(myReg.test(myemail)){
+            $("#input_btn").prop("disabled",false);
+            document.getElementById("errinfo").innerText="";
+        }else{
+            $("#input_btn").prop("disabled",true);
+            document.getElementById("errinfo").innerText="邮箱格式不正确!";
+        }
+    }
+</script>
+<script>
+    // 检查用户名是否被占用
+    function registerCheckExist(form){
+        var username = $("#accountName").val();
+        $.ajax({
+            url:"/account/findByName",    //请求的url地址
+            data:{"username":username},    //参数值
+            type:"post",   //请求方式
+            success:function(data){
+                if(data == "false"){
+                    $("#accountName").attr("style","border:red 1px solid");
+                    $("#input_btn").prop("disabled",true);
+                    document.getElementById("errinfo").innerText = "用户名已存在";
+                    document.getElementById("errinfo").style.display = "";
+                }else{
+                    $("#accountName").attr("style","border:black 1px solid");
+                    document.getElementById("errinfo").innerText = "该用户名有效";
+                    $("#input_btn").prop("disabled",false);
+                }
+            }
+        })
+    }
 </script>
 </html>
