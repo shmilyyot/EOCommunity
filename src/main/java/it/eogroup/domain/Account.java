@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 
 /*
-*
+* 账户
 * 通常是JavaBean，与数据库表对应
 * 封装数据禁止使用基本类型，必须使用包装类（包装类允许为null，而基本类型不行，会报异常）
 * */

@@ -8,9 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service("communityService")
@@ -29,8 +27,20 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
-    //获得最热门的帖子
     public List<Invatation> getTopInvatations() {
         return null;
     }
+
+    @Override
+    public Community getCommunity(Integer communityId) {
+        logger.info("返回对应社区数据");
+        return communityDao.getCommunity(communityId);
+    }
+
+//    @Override
+//    //获得最热门的帖子
+//    public List<Invatation> getTopInvatations(){
+//        logger.info("返回最热门的帖子");
+//        return communityDao.getTopInvatations();
+//    }
 }
