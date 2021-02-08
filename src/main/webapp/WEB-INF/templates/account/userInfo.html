@@ -32,16 +32,15 @@
                 <li role="presentation"><a href="/account/userPost">我的帖子</a></li>
                 <li role="presentation"><a href="/account/userFav">我的收藏</a></li>
                 <li role="presentation">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">设置
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="/account/userSet">修改个人资料</a></li>
-                            <li><a href="/account/userFace">修改头像</a></li>
-                            <li><a href="/account/userPassword">修改密码</a></li>
-                        </ul>
-                    </div>
+                    <a href="#" id="myTabDrop1" class="dropdown-toggle"
+                       data-toggle="dropdown">设置
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1">
+                        <li><a href="/account/userSet">修改个人资料</a></li>
+                        <li><a href="/account/userFace">修改头像</a></li>
+                        <li><a href="/account/userPassword">修改密码</a></li>
+                    </ul>
                 </li>
             </ul>
             <div class="panel panel-default">
@@ -72,5 +71,10 @@
     </form>
     <div class="col-lg-3"></div>
 </div>
+<script>
+    $(function () {
+        $('#myTab li:eq(1) a').tab('show');
+    });
+</script>
 </body>
 </html>

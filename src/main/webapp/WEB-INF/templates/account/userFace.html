@@ -31,17 +31,16 @@
             <li role="presentation"><a href="/account/userInfo">基本信息</a></li>
             <li role="presentation"><a href="/account/userPost">我的帖子</a></li>
             <li role="presentation"><a href="/account/userFav">我的收藏</a></li>
-            <li role="presentation">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">设置
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="/account/userSet">修改个人资料</a></li>
-                        <li><a href="/account/userFace">修改头像</a></li>
-                        <li><a href="/account/userPassword">修改密码</a></li>
-                    </ul>
-                </div>
+            <li role="presentation" class="active">
+                <a href="#" id="myTabDrop1" class="dropdown-toggle"
+                   data-toggle="dropdown">设置
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1">
+                    <li><a href="/account/userSet">修改个人资料</a></li>
+                    <li><a href="/account/userFace">修改头像</a></li>
+                    <li><a href="/account/userPassword">修改密码</a></li>
+                </ul>
             </li>
         </ul>
         <div class="panel panel-default">
