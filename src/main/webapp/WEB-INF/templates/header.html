@@ -57,6 +57,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="/account/userInfo">
                             <!--后期用头像图片代替名字-->
+<!--                            <img th:src="@{(${Avatar})}" style="width:15px; height: 15px;"/>-->
                             <div sec:authentication="name"></div>
                         </a></li>
                         <li><a>消息</a></li>

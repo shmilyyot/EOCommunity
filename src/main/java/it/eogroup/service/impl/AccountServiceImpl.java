@@ -169,7 +169,7 @@ public class AccountServiceImpl implements AccountService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Account account = accountDao.accountExistByName(authentication.getName());
         map.put("accountAvatar",account.getAccountAvatar());
-        logger.info("请求头像成功");
+        logger.info("已登录状态请求头像成功");
         return map;
     }
 

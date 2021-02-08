@@ -33,13 +33,17 @@
             <li role="presentation"><a href="/account/userInfo">基本信息</a></li>
             <li role="presentation"><a href="/account/userPost">我的帖子</a></li>
             <li role="presentation" class="active"><a href="/account/userFav">我的收藏</a></li>
-            <li role="presentation"><div class="dropdown" style="color: #2b669a">设置
-                <div class="dropdown-content">
-                    <a href="/account/userSet">修改个人资料</a></br>
-                    <a href="/account/userFace">修改头像</a></br>
-                    <a href="/account/userPassword">修改密码</a>
+            <li role="presentation">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">设置
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="/account/userSet">修改个人资料</a></li>
+                        <li><a href="/account/userFace">修改头像</a></li>
+                        <li><a href="/account/userPassword">修改密码</a></li>
+                    </ul>
                 </div>
-            </div>
             </li>
         </ul>
         <div>

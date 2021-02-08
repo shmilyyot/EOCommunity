@@ -24,8 +24,6 @@ public class CommunityServiceImpl implements CommunityService {
     @Override
     //获得最热门的社区
     public List<Community> getTopCommunity() {
-        List<Community> list = communityDao.getTopCommunity();
-        for(Community community:list) System.out.println(community);
         logger.info("返回最热社区列表");
         return communityDao.getTopCommunity();
     }
