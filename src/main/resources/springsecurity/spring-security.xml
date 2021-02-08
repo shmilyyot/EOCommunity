@@ -22,7 +22,7 @@
     -->
     <security:http auto-config="true" use-expressions="true">
         <!-- 配置具体的拦截的规则 pattern="请求路径的规则" access="访问系统的人，必须有ROLE_USER的角色" -->
-        <security:intercept-url pattern="/index.html" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')"/>
+        <security:intercept-url pattern="/community/**" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')"/>
         <security:intercept-url pattern="/pages/header" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')"/>
         <security:intercept-url pattern="/pages/login" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')"/>
         <security:intercept-url pattern="/pages/**" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')"/>
@@ -35,7 +35,7 @@
         <security:form-login
                 login-page="/pages/login"
                 login-processing-url="/login.do"
-                default-target-url="/index.html"
+                default-target-url="/community/"
                 authentication-failure-url="/pages/login.html?error=true"
                 username-parameter="accountName" password-parameter="accountPassword"
         />
@@ -43,7 +43,7 @@
         <!-- 关闭跨域请求 -->
         <security:csrf disabled="true"/>
         <!-- 退出 -->
-        <security:logout invalidate-session="true" logout-url="/logout.do" logout-success-url="/index.html" />
+        <security:logout invalidate-session="true" logout-url="/logout.do" logout-success-url="/community/" />
 
     </security:http>
 

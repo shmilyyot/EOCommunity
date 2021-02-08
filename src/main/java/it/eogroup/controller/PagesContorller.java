@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-/*页面跳转控制器*/
+/*登陆注册控制器*/
 @Controller
 @Repository("pagesController")
 @RequestMapping("/pages")
@@ -21,7 +21,7 @@ public class PagesContorller {
 
     @Resource
     private AccountService accountService;
-    private static final Logger logger = LogManager.getLogger(AccountController.class);
+    private static final Logger logger = LogManager.getLogger(PagesContorller.class);
 
     //检测Thymeleaf是否可用
     @RequestMapping("/header")
