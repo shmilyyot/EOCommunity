@@ -9,7 +9,7 @@
     <script src="../../js/jquery-3.5.1.min.js"></script>
     <script src="../../js/bootstrap.min.js"></script>
     <link href="../../css/index.css" rel="stylesheet">
-    <title>EOCommunity社区</title>
+    <title th:text="${community.communityName}"></title>
     <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
 </head>
 <body>
@@ -18,31 +18,42 @@
     $("#header").load("../../pages/header");
 </script>
 
-    <!--板块列表-->
-    <div class="center-block" style="width:1000px;background-color:#ccc;">
+<main role="main" class="container">
+    <div class="row">
+        <div class="col">
+            <div style="background-color:lightskyblue;height: 100px;border: green solid 1px;">
+                <div >
+                        <img th:src="@{(${community.communityAvatar})}" style="float: left;" />
+                    </div>
+                    <div >
+                        <strong class="d-block text-gray-dark">
+                            &#12288&#12288<a th:href="@{/community/community/}+${community.communityId}" th:text="${community.communityName}"></a>
+                            <p th:text="${community.communityDescription}" style="color: grey"></p>
+                        </strong>
+                    </div>
+                </div>
+            </div>
+            <br>
+        <!--热门帖子-->
         <div class="panel panel-info">
             <div class="panel-heading">
                 <h1 class="panel-title">
-                    热门社区
+                    帖子
                 </h1>
             </div>
-
-        </div>
-    </div>
-    <div class="divider"></div>
-    <!--帖子-->
-    <div class="center-block" style="width:1000px;background-color:#ccc;">
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <h1 class="panel-title">
-                    热门帖子
-                </h1>
-            </div>
-            <div class="panel-body">
-                面板内容
+            <div >
+                <ul class="list-group" th:each="post:${posts}">
+                    <li class="list-group-item">
+                        <a th:text="'&#12288'+${post.communityName}" style="font-size: 20px;font-weight: bolder;color: #761c19" th:href="@{/community/community/}+${post.communityId}"></a>
+                        <a th:text="'&#12288'+${post.postTitle}" style="font-size: 20px" th:href="@{#}"></a>
+                        <p th:text="${post.postTime}" style="float: right"></p>
+                    </li>
+                </ul>
             </div>
         </div>
+        </div>
     </div>
+</main>
 </body>
 
 </html>

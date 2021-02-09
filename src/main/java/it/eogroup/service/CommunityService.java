@@ -1,7 +1,8 @@
 package it.eogroup.service;
 
 import it.eogroup.domain.Community;
-import it.eogroup.domain.Invatation;
+import it.eogroup.domain.PostCommunity;
+
 import java.util.List;
 
 public interface CommunityService {
@@ -10,8 +11,11 @@ public interface CommunityService {
     List<Community> getTopCommunity();
 
     //获得最热门的帖子
-    List<Invatation> getTopInvatations();
+    List<PostCommunity> getTopPosts();
 
     //获得对应社区
     Community getCommunity(Integer communityId);
+
+    //获得板块名字
+    String getCommunityName(Integer communityId);
 }

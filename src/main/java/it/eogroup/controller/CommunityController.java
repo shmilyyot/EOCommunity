@@ -26,15 +26,15 @@ public class CommunityController {
     public String index(Model model){
         logger.info("跳转了首页");
         model.addAttribute("communities",communityService.getTopCommunity());
-        model.addAttribute("invatations",communityService.getTopInvatations());
-        logger.info("往首页添加了社区和帖子");
+        model.addAttribute("posts",communityService.getTopPosts());
+        logger.info("往首页添加了热门社区和热门帖子");
         return "index";
     }
 
-    @RequestMapping("/findInvatations")
-    public ModelAndView findInvatations(@RequestParam(name="page",defaultValue = "1")Integer page,@RequestParam(name = "size",defaultValue = "10")int size){
+    @RequestMapping("/findPosts")
+    public ModelAndView findPosts(@RequestParam(name="page",defaultValue = "1")Integer page,@RequestParam(name = "size",defaultValue = "10")int size){
         ModelAndView mv = new ModelAndView("index");
-        mv.addObject("Invatations",communityService.getTopInvatations());
+        mv.addObject("Posts",communityService.getTopPosts());
         logger.info("往页面添加了帖子");
         return mv;
     }
@@ -43,6 +43,7 @@ public class CommunityController {
     public ModelAndView toCommunity(@PathVariable("communityId")Integer communityId ){
         ModelAndView mv = new ModelAndView("/community/community");
         mv.addObject("community",communityService.getCommunity(communityId));
+        mv.addObject("post",communityService.getTopPosts());
         logger.info("往页面添加社区信息");
         return mv;
     }

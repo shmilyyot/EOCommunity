@@ -2,7 +2,8 @@ package it.eogroup.service.impl;
 
 import it.eogroup.dao.CommunityDao;
 import it.eogroup.domain.Community;
-import it.eogroup.domain.Invatation;
+import it.eogroup.domain.Post;
+import it.eogroup.domain.PostCommunity;
 import it.eogroup.service.CommunityService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,8 +28,9 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
-    public List<Invatation> getTopInvatations() {
-        return null;
+    public List<PostCommunity> getTopPosts() {
+        logger.info("成功返回了热门帖子");
+        return communityDao.getTopPosts();
     }
 
     @Override
@@ -37,10 +39,10 @@ public class CommunityServiceImpl implements CommunityService {
         return communityDao.getCommunity(communityId);
     }
 
-//    @Override
-//    //获得最热门的帖子
-//    public List<Invatation> getTopInvatations(){
-//        logger.info("返回最热门的帖子");
-//        return communityDao.getTopInvatations();
-//    }
+    @Override
+    public String getCommunityName(Integer communityId) {
+        return communityDao.getCommunityName(communityId);
+    }
+
+
 }
