@@ -1,7 +1,7 @@
 package it.eogroup.dao;
 
 import it.eogroup.domain.Community;
-import it.eogroup.domain.PostCommunity;
+import it.eogroup.domain.Post;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 import java.util.List;
@@ -17,9 +17,15 @@ public interface CommunityDao {
     Community getCommunity(Integer communityId);
 
     //获得最热门的帖子
-    List<PostCommunity> getTopPosts();
+    List<Post> getTopPosts();
 
     //获得板块名字
     @Select("SELECT community.communityName FROM community WHERE communityId = #{communityId}")
     String getCommunityName(Integer communityId);
+
+    //获得板块所有帖子
+    List<Post> postFindAll(Integer communityId);
+
+    //获得发帖人的名字
+    String getPostName(Integer accountId);
 }

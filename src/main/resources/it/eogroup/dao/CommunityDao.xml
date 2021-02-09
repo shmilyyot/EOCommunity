@@ -16,19 +16,34 @@
     </select>
 
     <!--查询一周内最热门的帖子-->
-    <select id="getTopPosts" resultType="it.eogroup.domain.PostCommunity">
+    <select id="getTopPosts" resultType="it.eogroup.domain.Post">
         SELECT
-            post.*,community.`communityName`,COUNT(comment.`postId`)
+            post.*,COUNT(comment.`postId`)
         FROM
             post,
-            community,
             comment
         WHERE post.`postId` = comment.`postId`
-                AND post.`communityId` = community.`communityId`
                 AND date_sub(curdate(), interval 7 day) &lt;= date(comment.commentTime)
         GROUP BY comment.`postId`
         ORDER BY COUNT(comment.`postId`) DESC
         LIMIT 10
+    </select>
+
+    <!--查询板块所有帖子-->
+    <select id="postFindAll" resultType="it.eogroup.domain.Post">
+        SELECT
+            *
+        FROM
+            post
+        WHERE post.`communityId` = #{communityId}
+    </select>
+
+    <select id="getPostName" resultType="java.lang.String">
+        SELECT
+            accountName
+        FROM
+            account
+        WHERE account.`accountId` = #{accountId}
     </select>
 
 </mapper>

@@ -35,13 +35,13 @@
                         <img th:src="@{(${community.communityAvatar})}" style="width:50px; height: 50px;float: left;"/>
                         <div>
                             <strong class="d-block text-gray-dark">
-                                &#12288&#12288<a th:href="@{/community/community/}+${community.communityId}" th:text="${community.communityName}"></a>
+                                &#12288&#12288<a th:href="@{/community/community/}+${community.communityId}+'?page=1&size=10'" th:text="${community.communityName}"></a>
                             </strong>
                         </div>
                         <div style="margin-left: 20px">
                             <p th:text="${community.communityDescription}" style="color: grey"></p>
                         </div>
-                        <HR align=center width=1000 color=#987cb9>
+                        <HR align=center color=#987cb9>
                     </div>
                 </ul>
 
@@ -55,8 +55,9 @@
                     </div>
                     <div >
                         <ul class="list-group" th:each="post:${posts}">
-                            <li class="list-group-item">
-                                <a th:text="'&#12288'+${post.communityName}" style="font-size: 20px;font-weight: bolder;color: #761c19" th:href="@{/community/community/}+${post.communityId}"></a>
+                            <HR align=center color=#987cb9>
+                            <li style="list-style-type: none">
+                                <a th:text="${[post.communityId]}" style="font-size: 20px;font-weight: bolder;color: #761c19" th:href="@{/community/community/}+${post.communityId}"></a>
                                 <a th:text="'&#12288'+${post.postTitle}" style="font-size: 20px" th:href="@{#}"></a>
                                 <p th:text="${post.postTime}" style="float: right"></p>
                             </li>

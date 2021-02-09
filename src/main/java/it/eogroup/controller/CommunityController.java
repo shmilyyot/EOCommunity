@@ -1,5 +1,7 @@
 package it.eogroup.controller;
 
+import com.github.pagehelper.PageInfo;
+import it.eogroup.domain.Post;
 import it.eogroup.service.CommunityService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
+import java.util.List;
 
 /*板块帖子控制器*/
 @Controller
@@ -27,24 +30,26 @@ public class CommunityController {
         logger.info("跳转了首页");
         model.addAttribute("communities",communityService.getTopCommunity());
         model.addAttribute("posts",communityService.getTopPosts());
+        List<Post> posts = communityService.getTopPosts();
+        for(Post post:posts){
+            model.addAttribute(""+post.getCommunityId(),communityService.getCommunityName(post.getCommunityId()));
+        }
         logger.info("往首页添加了热门社区和热门帖子");
         return "index";
     }
 
-    @RequestMapping("/findPosts")
-    public ModelAndView findPosts(@RequestParam(name="page",defaultValue = "1")Integer page,@RequestParam(name = "size",defaultValue = "10")int size){
-        ModelAndView mv = new ModelAndView("index");
-        mv.addObject("Posts",communityService.getTopPosts());
-        logger.info("往页面添加了帖子");
-        return mv;
-    }
-
     @RequestMapping("/community/{communityId}")
-    public ModelAndView toCommunity(@PathVariable("communityId")Integer communityId ){
+    public ModelAndView toCommunity(@PathVariable("communityId")Integer communityId,@RequestParam(name="page",defaultValue = "1")Integer page,@RequestParam(name = "size",defaultValue = "10")Integer size ){
         ModelAndView mv = new ModelAndView("/community/community");
         mv.addObject("community",communityService.getCommunity(communityId));
-        mv.addObject("post",communityService.getTopPosts());
         logger.info("往页面添加社区信息");
+        List<Post> posts = communityService.postFindAll(page,size,communityId);
+        PageInfo pageInfo = new PageInfo(posts);
+        mv.addObject("pageinfo",pageInfo);
+        for(Post post:posts){
+            mv.addObject(""+post.getAccountId(),communityService.getPostName(post.getAccountId()));
+        }
+        logger.info("往页面添加了帖子");
         return mv;
     }
 

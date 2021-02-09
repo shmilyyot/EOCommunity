@@ -1,9 +1,9 @@
 package it.eogroup.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import it.eogroup.dao.CommunityDao;
 import it.eogroup.domain.Community;
 import it.eogroup.domain.Post;
-import it.eogroup.domain.PostCommunity;
 import it.eogroup.service.CommunityService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -28,21 +28,34 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
-    public List<PostCommunity> getTopPosts() {
-        logger.info("成功返回了热门帖子");
+    public List<Post> getTopPosts() {
+        logger.info("返回了热门帖子");
         return communityDao.getTopPosts();
     }
 
     @Override
     public Community getCommunity(Integer communityId) {
-        logger.info("返回对应社区数据");
+        logger.info("返回对应板块");
         return communityDao.getCommunity(communityId);
     }
 
     @Override
     public String getCommunityName(Integer communityId) {
+        logger.info("返回了板块名字");
         return communityDao.getCommunityName(communityId);
     }
 
+    @Override
+    public List<Post> postFindAll(Integer page,Integer size,Integer communityId) {
+        logger.info("分页操作");
+        PageHelper.startPage(page,size);
+        return communityDao.postFindAll(communityId);
+    }
+
+    @Override
+    public String getPostName(Integer accountId) {
+        logger.info("返回账户"+accountId+"的用户名");
+        return communityDao.getPostName(accountId);
+    }
 
 }
