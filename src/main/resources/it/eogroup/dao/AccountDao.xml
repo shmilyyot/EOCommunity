@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="it.eogroup.dao.AccountDao">
+    <select id="accountExistByName" parameterType="java.lang.String" resultType="it.eogroup.domain.Account">
+        SELECT *
+        FROM ACCOUNT
+        where accountName=#{accountName}
+    </select>
+
+    <select id="accountExistById" parameterType="java.lang.Integer" resultType="it.eogroup.domain.Account">
+        SELECT *
+        FROM ACCOUNT
+        where accountId=#{accountId}
+    </select>
+
+    <insert id="insertAccount" parameterType="it.eogroup.domain.Account">
+        INSERT INTO ACCOUNT values (null,#{accountName,jdbcType=VARCHAR}, #{accountPassword,jdbcType=VARCHAR}, #{accountBirthday,jdbcType=DATE}, #{accountRegisterDate,jdbcType=DATE}, #{accountEmail,jdbcType=VARCHAR}, #{accountAddress,jdbcType=VARCHAR},#{accountAvatar,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertRole" parameterType="it.eogroup.domain.Account">
+        INSERT INTO ACCOUNTROLE values (#{accountId,jdbcType=INTEGER},"USER","普通用户")
+    </insert>
+
+    <update id="updateAccount" parameterType="it.eogroup.domain.Account">
+        UPDATE account
+        SET accountBirthday = #{account.accountBirthday},accountEmail = #{account.accountEmail},accountAddress = #{account.accountAddress}
+        WHERE accountName = #{account.accountName}
+    </update>
+
+    <update id="updatePassword" parameterType="it.eogroup.domain.Account">
+        UPDATE account
+        SET accountPassword = #{account.accountPassword}
+        WHERE accountName = #{account.accountName}
+    </update>
+
+    <update id="updateAvatar" parameterType="it.eogroup.domain.Account">
+        UPDATE account
+        SET accountAvatar = #{account.accountAvatar}
+        WHERE accountName = #{account.accountName}
+    </update>
+</mapper>

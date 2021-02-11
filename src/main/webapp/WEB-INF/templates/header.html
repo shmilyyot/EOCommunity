@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<header>
+    <meta content="text/html;charset=UTF-8"/>
+    <style>
+        .btn-list-group {
+            position: relative;
+        }
+
+        .btn-list-area {
+            display: none;
+            position: absolute;
+            left: 0;
+            right: 0;
+        }
+
+        .btn-list-group:hover .btn-list-area {
+            display: block;
+        }
+
+    </style>
+</header>
+<body>
+<!--导航条-->
+<div>
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <a class="navbar-brand" href="/community/">首页</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="#">留言</a></li>
+                </ul>
+                <form class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn btn-default">搜索</button>
+                </form>
+                <div sec:authorize="isAnonymous()">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a id="show_btn_login" href="/pages/login">请登录</a></li>
+                        <li><a id="show_btn_register" href="/pages/register">注册</a></li>
+                    </ul>
+                </div>
+                <div sec:authorize="isAuthenticated()">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/account/userInfo">
+                            <!--后期用头像图片代替名字-->
+<!--                            <img th:src="@{(${Avatar})}" style="width:15px; height: 15px;"/>-->
+                            <div sec:authentication="name"></div>
+                        </a></li>
+                        <li><a>消息</a></li>
+                        <li><a>我的收藏</a></li>
+                        <li class="btn-list-group">
+                            <a>设置</a>
+                            <span class="btn-list-area" style="background: white;width: 80px">
+                                <a class="btn" href="/account/userFace">上传头像</a>
+                                <a class="btn" href="/account/userSet">修改资料</a>
+                                <a class="btn" href="/account/userPassword">修改密码</a>
+                                <a class="btn" id="show_btn_logout" href="/logout.do">注销</a>
+                            </span>
+                        </li>
+                        <li></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+</body>
+</html>
