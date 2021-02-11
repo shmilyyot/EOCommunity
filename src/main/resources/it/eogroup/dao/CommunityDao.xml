@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="it.eogroup.dao.CommunityDao">
+
     <!--查询一周内帖子数最多的3条社区记录-->
     <select id="getTopCommunity" resultType="it.eogroup.domain.Community">
         SELECT
@@ -29,21 +30,46 @@
         LIMIT 10
     </select>
 
-    <!--查询板块所有帖子-->
+    <!--查询板块所有帖子，默认按最新发帖时间排列-->
     <select id="postFindAll" resultType="it.eogroup.domain.Post">
         SELECT
             *
         FROM
             post
         WHERE post.`communityId` = #{communityId}
+        ORDER BY post.`postTime` DESC
     </select>
 
     <select id="getPostName" resultType="java.lang.String">
+        SELECT accountName
+        FROM account
+        WHERE accountId IN (
+            SELECT accountId
+            from post
+            WHERE post.`postId` = #{postId}
+        )
+    </select>
+
+    <!--查询帖子所有评论-->
+    <select id="commentFindAll" resultType="it.eogroup.domain.Comment">
         SELECT
-            accountName
+            *
         FROM
-            account
-        WHERE account.`accountId` = #{accountId}
+            comment
+        WHERE comment.`postId` = #{postId}
+    </select>
+
+    <!--查询帖子所有评论,默认按最早评论时间排列-->
+    <select id="commentAccountFindAll" resultType="it.eogroup.domain.CommentAccount">
+        SELECT
+            comment.*,
+            account.`accountId`,
+            account.`accountName`,
+            account.`accountAvatar`
+        FROM
+            comment INNER JOIN account ON comment.`accountId` = account.`accountId`
+                    AND comment.`postId` = #{postId}
+        ORDER BY comment.`commentTime` ASC
     </select>
 
 </mapper>

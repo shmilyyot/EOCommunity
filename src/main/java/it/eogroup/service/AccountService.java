@@ -24,6 +24,8 @@ public interface AccountService {
     //获得用户
     Account getAccount(String username);
 
+    Account getAccountById(Integer accountId);
+
     //获得用户角色
     Role getRole(String username);
 
@@ -41,5 +43,7 @@ public interface AccountService {
 
     //获得用户头像路径
     Map<String, String> getAccountAvatar();
+
+    String getAccountName(Integer accountId);
 
 }

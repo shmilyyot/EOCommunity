@@ -2,10 +2,8 @@ package it.eogroup.dao;
 
 import it.eogroup.domain.Account;
 import it.eogroup.domain.Role;
-import net.sf.jsqlparser.schema.Sequence;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -52,5 +50,8 @@ public interface AccountDao {
 
     //更新头像
     void updateAvatar(@Param("account") Account account);
+
+    @Select("select accountName from account where account.`accountId` = #{accountId}")
+    String getAccountName(Integer accountId);
 
 }

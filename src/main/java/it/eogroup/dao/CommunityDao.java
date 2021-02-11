@@ -1,5 +1,7 @@
 package it.eogroup.dao;
 
+import it.eogroup.domain.Comment;
+import it.eogroup.domain.CommentAccount;
 import it.eogroup.domain.Community;
 import it.eogroup.domain.Post;
 import org.apache.ibatis.annotations.Select;
@@ -27,5 +29,13 @@ public interface CommunityDao {
     List<Post> postFindAll(Integer communityId);
 
     //获得发帖人的名字
-    String getPostName(Integer accountId);
+    String getPostName(Integer postId);
+
+    //获得帖子所有评论
+    List<Comment> commentFindAll(Integer postId);
+
+    @Select("SELECT * FROM post WHERE post.`postId` = #{postId}")
+    Post getPost(Integer postId);
+
+    List<CommentAccount> commentAccountFindAll(Integer postId);
 }

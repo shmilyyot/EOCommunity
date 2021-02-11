@@ -4,20 +4,15 @@ import it.eogroup.domain.Account;
 import it.eogroup.service.AccountService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Map;
 
 /*登陆注册控制器*/
 @Controller
@@ -33,12 +28,6 @@ public class PagesContorller {
     @RequestMapping("/header")
     public ModelAndView toHeader() {
         ModelAndView mv = new ModelAndView("header");
-//        System.out.println(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
-//        if(!SecurityContextHolder.getContext().getAuthentication().getAuthorities().equals("ROLE_ANONYMOUS")){
-//            Map<String,String> avatar= accountService.getAccountAvatar();
-//            mv.addAllObjects(avatar);
-//            logger.info("已登录添加头像");
-//        }
         logger.info("跳转header");
         return mv;
     }

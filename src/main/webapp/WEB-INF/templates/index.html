@@ -27,6 +27,7 @@
                     <div class="panel-heading">
                         <h1 class="panel-title">
                             热门社区
+                            <a th:href="@{#}" style="float: right;font-size: 10px">更多社区</a>
                         </h1>
                     </div>
                 </div>
@@ -58,7 +59,7 @@
                             <HR align=center color=#987cb9>
                             <li style="list-style-type: none">
                                 <a th:text="${[post.communityId]}" style="font-size: 20px;font-weight: bolder;color: #761c19" th:href="@{/community/community/}+${post.communityId}"></a>
-                                <a th:text="'&#12288'+${post.postTitle}" style="font-size: 20px" th:href="@{#}"></a>
+                                <a th:text="'&#12288'+${post.postTitle}" style="font-size: 20px" th:href="@{/community/post/}+${post.postId}+'?page=1&size=10&communityId='+${post.communityId}"></a>
                                 <p th:text="${post.postTime}" style="float: right"></p>
                             </li>
                         </ul>

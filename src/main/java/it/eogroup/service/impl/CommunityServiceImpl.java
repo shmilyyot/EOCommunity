@@ -2,6 +2,8 @@ package it.eogroup.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import it.eogroup.dao.CommunityDao;
+import it.eogroup.domain.Comment;
+import it.eogroup.domain.CommentAccount;
 import it.eogroup.domain.Community;
 import it.eogroup.domain.Post;
 import it.eogroup.service.CommunityService;
@@ -47,15 +49,34 @@ public class CommunityServiceImpl implements CommunityService {
 
     @Override
     public List<Post> postFindAll(Integer page,Integer size,Integer communityId) {
-        logger.info("分页操作");
+        logger.info("帖子总数分页操作");
         PageHelper.startPage(page,size);
         return communityDao.postFindAll(communityId);
     }
 
     @Override
-    public String getPostName(Integer accountId) {
-        logger.info("返回账户"+accountId+"的用户名");
-        return communityDao.getPostName(accountId);
+    public String getPostName(Integer postId) {
+        logger.info("返回用户"+postId+"的用户名");
+        return communityDao.getPostName(postId);
+    }
+
+    @Override
+    public List<Comment> commentFindAll(Integer page, Integer size, Integer postId) {
+        logger.info("评论总数分页操作");
+        PageHelper.startPage(page,size);
+        return communityDao.commentFindAll(postId);
+    }
+
+    @Override
+    public Post getPost(Integer postId) {
+        logger.info("返回帖子");
+        return communityDao.getPost(postId);
+    }
+
+    @Override
+    public List<CommentAccount> commentAccountFindAll(Integer page, Integer size, Integer postId) {
+        PageHelper.startPage(page,size);
+        return communityDao.commentAccountFindAll(postId);
     }
 
 }

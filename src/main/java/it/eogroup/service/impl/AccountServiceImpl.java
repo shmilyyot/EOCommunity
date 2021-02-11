@@ -75,6 +75,11 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public Account getAccountById(Integer accountId) {
+        return accountDao.accountExistById(accountId);
+    }
+
+    @Override
     //查找用户角色
     public Role getRole(String username) {
         Integer id = accountDao.findAccountId(username);
@@ -171,6 +176,11 @@ public class AccountServiceImpl implements AccountService {
         map.put("accountAvatar",account.getAccountAvatar());
         logger.info("已登录状态请求头像成功");
         return map;
+    }
+
+    @Override
+    public String getAccountName(Integer accountId) {
+        return accountDao.getAccountName(accountId);
     }
 
 }
