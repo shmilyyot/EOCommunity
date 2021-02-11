@@ -3,7 +3,6 @@ package it.eogroup.controller;
 import com.github.pagehelper.PageInfo;
 import it.eogroup.domain.CommentAccount;
 import it.eogroup.domain.Post;
-import it.eogroup.service.AccountService;
 import it.eogroup.service.CommunityService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -69,5 +68,32 @@ public class CommunityController {
         logger.info("往帖子添加了评论");
         return mv;
     }
+
+    //收藏帖子
+    @RequestMapping("/post/fav")
+    public ModelAndView addToFav(){
+        ModelAndView mv = new ModelAndView();
+        return mv;
+    }
+
+    //上传图片
+    @RequestMapping("/commumity/upload/editor/img")
+    public ModelAndView uploadEditorImg(){
+        return new ModelAndView();
+    }
+
+    //提交文本框评论
+    @RequestMapping("/post/submitComment")
+    public ModelAndView submitComment(){
+        return new ModelAndView();
+    }
+
+    //显示所有社区
+    @RequestMapping("/community/Communities")
+    public ModelAndView showAllCommunity(){
+        return new ModelAndView();
+    }
+
+    //回复帖子
 
 }
