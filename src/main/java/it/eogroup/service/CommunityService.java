@@ -4,6 +4,7 @@ import it.eogroup.domain.Comment;
 import it.eogroup.domain.CommentAccount;
 import it.eogroup.domain.Community;
 import it.eogroup.domain.Post;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -33,5 +34,12 @@ public interface CommunityService {
     //获得帖子
     Post getPost(Integer postId);
 
+    //查找所有评论+账户
     List<CommentAccount> commentAccountFindAll(Integer page, Integer size, Integer postId);
+
+    //插入收藏夹
+    void insertFavPost(Integer accountId, String url, String title);
+
+    //找到账户所有帖子
+    List<Post> accountPostFindAll(Integer accountId);
 }

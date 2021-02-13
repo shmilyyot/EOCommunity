@@ -72,4 +72,20 @@
         ORDER BY comment.`commentTime` ASC
     </select>
 
+    <!--插入收藏夹-->
+    <insert id="insertFavPost">
+        insert into
+        favpost(accountId,url,title)
+        values (#{accountId},#{url},#{title})
+    </insert>
+
+    <!--查询账户帖子-->
+    <select id="accountPostFindAll" resultType="it.eogroup.domain.Post">
+        SELECT
+            *
+        FROM
+            post
+        WHERE post.`accountId` = #{accountId}
+    </select>
+
 </mapper>

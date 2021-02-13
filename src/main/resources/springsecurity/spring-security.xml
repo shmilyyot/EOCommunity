@@ -26,7 +26,6 @@
         <security:intercept-url pattern="/community/community/**" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')"/>
         <security:intercept-url pattern="/community/post/**" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')"/>
         <security:intercept-url pattern="/community/post/fav" access="hasRole('ROLE_USER')"/>
-        <security:intercept-url pattern="/WEB-INF/templates/index.html" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')"/>
         <security:intercept-url pattern="/pages/header" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')"/>
         <security:intercept-url pattern="/pages/login" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')"/>
         <security:intercept-url pattern="/pages/**" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')"/>

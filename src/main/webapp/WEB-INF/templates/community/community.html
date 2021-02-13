@@ -34,6 +34,13 @@
                 </div>
             </div>
             <br>
+            <!--发帖按钮-->
+            <div sec:authorize="isAuthenticated()">
+                <button type="button">发帖</button>
+            </div>
+            <div sec:authorize="!isAuthenticated()">
+                <p style="color: red;font-size: 20px">未登录只能浏览不能发帖</p>
+            </div>
             <!--帖子-->
             <div class="panel panel-info">
                 <div class="panel-heading">

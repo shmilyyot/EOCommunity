@@ -79,4 +79,16 @@ public class CommunityServiceImpl implements CommunityService {
         return communityDao.commentAccountFindAll(postId);
     }
 
+    @Override
+    public void insertFavPost(Integer accountId,String url, String title) {
+        communityDao.insertFavPost(accountId,url,title);
+        logger.info("插入收藏夹成功");
+    }
+
+    @Override
+    public List<Post> accountPostFindAll(Integer accountId) {
+        logger.info("返回账户所有帖子");
+        return communityDao.accountPostFindAll(accountId);
+    }
+
 }

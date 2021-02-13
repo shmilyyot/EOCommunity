@@ -40,4 +40,10 @@
         SET accountAvatar = #{account.accountAvatar}
         WHERE accountName = #{account.accountName}
     </update>
+
+    <select id="getFavPost" parameterType="java.lang.Integer" resultType="it.eogroup.domain.favPost">
+        SELECT *
+        FROM favPost
+        where accountId=#{accountId}
+    </select>
 </mapper>

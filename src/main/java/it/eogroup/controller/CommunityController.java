@@ -12,9 +12,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 /*板块帖子控制器*/
 @Controller
@@ -71,9 +74,16 @@ public class CommunityController {
 
     //收藏帖子
     @RequestMapping("/post/fav")
-    public ModelAndView addToFav(){
-        ModelAndView mv = new ModelAndView();
-        return mv;
+    @ResponseBody
+    public String addToFav(Integer accountId,String url,String title){
+        try{
+            communityService.insertFavPost(accountId,url,title);
+        }catch (Exception e){
+            e.printStackTrace();
+            logger.error("添加收藏夹失败");
+            return "false";
+        }
+        return "true";
     }
 
     //上传图片
@@ -85,6 +95,7 @@ public class CommunityController {
     //提交文本框评论
     @RequestMapping("/post/submitComment")
     public ModelAndView submitComment(){
+        LocalDateTime commentTime = LocalDateTime.now();
         return new ModelAndView();
     }
 

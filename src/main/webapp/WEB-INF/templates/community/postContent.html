@@ -37,26 +37,28 @@
             </div>
             <div>
                 <br>
-                <div style="border:1px solid #2BD9B6">
+                <div style="border:1px solid #2BD9B6" sec:authorize="isAuthenticated()">
                     <b><p th:text="${post.postTitle}" style="font-size: 30px;" th:href="@{#}"></p></b>
-                    <button type="button" onclick="this" style="float: right">收藏帖子</button>
+                    <button type="button" onclick="addToFav()" id="favButton" style="float: right">收藏帖子</button>
                 </div>
                 <br>
                 <!--评论区-->
                 <table width="100%" border="1" cellpadding="2" cellspacing="1">
                     <tbody>
                     <tr th:each="comment:${pageinfo.list}">
-                        <td width="200px">
+                        <td width="200px" bgcolor="#faebd7">
                             <div style="left: 71px;top:0px">
                                 <div th:align="center">
                                     <a th:href="@{#}" th:text="${comment.accountName}" target="_blank" ></a>
                                 </div>
                                 <div>
                                     <!--鼠标移动到图片上触发onmouseover-->
+                                    <!--未登录获取不到用户资料，需修改。做一个特供页面？-->
                                     <div onmouseover="this" th:align="center">
-                                        <a href="#" class="avtm" target="_blank">
+                                        <a href="/account/userInfo" class="avtm" target="_blank">
                                             <img th:src="@{${comment.accountAvatar}}" style="width:120px; height: 120px;" onerror="this.onerror=null;this.src='/images/defaultAvatar.png'" alt="用户头像">
                                         </a>
+                                        <p></p>
                                     </div>
                                 </div>
                             </div>
@@ -116,9 +118,12 @@
             </div>
         </div>
     </div>
+    <input type="hidden" id="AccountId" th:value="${post.accountId}">
+    <input type="hidden" id="favpostTitle" th:value="${post.postTitle}">
+    <input type="hidden" id="postId" th:value="${post.postId}">
 </main>
 </body>
-<script>
+<script type="text/javascript" th:inline="javascript">
     //页面自动加载评论框
     $(function(){
         var E = window.wangEditor;
@@ -135,12 +140,25 @@
 
     //提交评论
     function submitComment(){
-
+        var postId = $("#postId").val();
     }
 
-    //检查是否登录
-    function checkLogin(){
-
+    function addToFav(){
+        var currentUrl = window.location.href;
+        var accountId = $("#AccountId").val();
+        var postTitle = $("#favpostTitle").val();
+        $.ajax({
+            url:"/community/post/fav",    //请求的url地址
+            data:{"url":currentUrl,"accountId":accountId,"title":postTitle},    //参数值
+            type:"post",   //请求方式
+            success:function(data){
+                if(data == "true"){
+                    alert("收藏成功")
+                }else{
+                    alert("收藏失败")
+                }
+            }
+        })
     }
 
 </script>

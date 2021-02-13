@@ -45,12 +45,10 @@
                 </ul>
             </li>
         </ul>
+        <!--翻页还没做-->
         <div>
-            <!--<ul class="nav nav-pills nav-stacked">-->
-            <ul >
-                <li role="presentation"><a href="#">默认收藏夹一</a></li>
-                <li role="presentation"><a href="#">默认收藏夹二</a></li>
-                <li role="presentation"><a href="#">默认收藏夹三</a></li>
+            <ul class="list-group" th:each="favPost:${favPosts}">
+                <li style="list-style-type: none"><a th:href="@{${favPost.url}}" th:text="${favPost.title}"></a></li>
             </ul>
         </div>
     </div>

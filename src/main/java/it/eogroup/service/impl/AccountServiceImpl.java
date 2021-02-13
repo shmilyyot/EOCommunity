@@ -3,6 +3,7 @@ package it.eogroup.service.impl;
 import it.eogroup.dao.AccountDao;
 import it.eogroup.domain.Account;
 import it.eogroup.domain.Role;
+import it.eogroup.domain.favPost;
 import it.eogroup.service.AccountService;
 import it.eogroup.service.AvatarPath;
 import it.eogroup.service.DateConverter;
@@ -181,6 +182,12 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public String getAccountName(Integer accountId) {
         return accountDao.getAccountName(accountId);
+    }
+
+    @Override
+    public List<favPost> getFavPost(Integer accountId) {
+        logger.info("返回用户收藏夹列表");
+        return accountDao.getFavPost(accountId);
     }
 
 }
