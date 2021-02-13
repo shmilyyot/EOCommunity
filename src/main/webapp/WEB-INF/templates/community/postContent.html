@@ -62,7 +62,7 @@
                             <div>
                                 <div style="float: right">
                                     <strong>
-                                        <label th:text="${commentStat.index+1}+'楼'" style="color: #888888"></label>
+                                        <label th:text="${commentStat.index+1}+${pageinfo.pageNum-1}*10+'楼'" style="color: #888888"></label>
                                     </strong>
                                 </div>
                                 <div>
