@@ -44,4 +44,7 @@ public interface CommunityService {
 
     //删除收藏夹
     void deleteFavPost(Integer favId);
+
+    //插入评论
+    void insertComment(Comment comment);
 }

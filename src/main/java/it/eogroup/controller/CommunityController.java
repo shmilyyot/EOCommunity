@@ -1,6 +1,7 @@
 package it.eogroup.controller;
 
 import com.github.pagehelper.PageInfo;
+import it.eogroup.domain.Comment;
 import it.eogroup.domain.CommentAccount;
 import it.eogroup.domain.Post;
 import it.eogroup.service.AccountService;
@@ -12,15 +13,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 /*板块帖子控制器*/
 @Controller
@@ -115,10 +112,24 @@ public class CommunityController {
     }
 
     //提交文本框评论
-    @RequestMapping("/post/submitComment")
-    public ModelAndView submitComment(){
-        LocalDateTime commentTime = LocalDateTime.now();
-        return new ModelAndView();
+    @RequestMapping(value="/post/submitComment",method = RequestMethod.POST)
+    @ResponseBody
+    public String submitComment(Integer postId,String commentText){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Comment comment = new Comment();
+        comment.setCommentTime(LocalDateTime.now());
+        comment.setCommentText(commentText);
+        comment.setPostId(postId);
+        comment.setAccountId(accountService.getAccount(authentication.getName()).getAccountId());
+        try{
+            communityService.insertComment(comment);
+            logger.info("发布评论成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            logger.error("发布评论失败");
+            return "false";
+        }
+        return "true";
     }
 
     //显示所有社区

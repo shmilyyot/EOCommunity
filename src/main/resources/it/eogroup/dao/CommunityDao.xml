@@ -88,4 +88,11 @@
         WHERE post.`accountId` = #{accountId}
     </select>
 
+    <!--插入评论-->
+    <insert id="insertComment" parameterType="it.eogroup.domain.Comment">
+        insert into
+            comment
+        values (null,#{postId},#{accountId},#{commentTime},#{commentText})
+    </insert>
+
 </mapper>

@@ -102,4 +102,11 @@ public class CommunityServiceImpl implements CommunityService {
         logger.info("删除收藏帖子");
     }
 
+    @Override
+    public void insertComment(Comment comment) {
+        logger.info("插入评论");
+        communityDao.insertComment(comment);
+    }
+
+
 }

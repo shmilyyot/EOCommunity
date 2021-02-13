@@ -56,4 +56,7 @@ public interface CommunityDao {
     @Select("SELECT * FROM favpost WHERE favpost.`url` = #{url}")
     Post searchPostExist(String url);
 
+    //插入帖子评论
+    void insertComment(Comment comment);
+
 }

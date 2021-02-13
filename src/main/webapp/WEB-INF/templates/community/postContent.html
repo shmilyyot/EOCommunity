@@ -82,7 +82,7 @@
                                 </p>
                             </div>
                             <div>
-                                <span th:text="${comment.commentText}"></span>
+                                <span th:utext="${comment.commentText}"></span>
                             </div>
                         </td>
                     </tr>
@@ -108,27 +108,36 @@
                 </ul>
             </nav>
             <!--评论-->
-            <form action="/post/submitComment" sec:authorize="isAuthenticated()">
-                <div id="commentArea"><p>请输入你的评论</p></div>
-                <textarea id="text1" name="text1" style="display: none"></textarea>
-                <button type="button" name="commentButton" id="commentButton" onclick="checkTextNull()">回复</button>
-            </form>
+<!--            <form id="commentFrom" method="post" action="/community/post/submitComment" sec:authorize="isAuthenticated()" onsubmit="transComment() && checkTextNull()">-->
+<!--                <div id="commentArea"></div>-->
+<!--                <textarea id="comment" name="comment" style="display: none"></textarea>-->
+<!--                <input type="hidden" name="commenturl" id="commenturl">-->
+<!--                <input type="hidden" id="postId" th:value="${post.postId}">-->
+<!--                <input type="hidden" id="AccountId" th:value="${post.accountId}">-->
+<!--                <input class="btn btn-primary" type="submit" id="submitcomment" value="回复">-->
+<!--            </form>-->
+            <div id="commentFrom" sec:authorize="isAuthenticated()" >
+                <div id="commentArea"></div>
+                <textarea id="comment" name="comment" style="display: none"></textarea>
+                <input class="btn btn-primary" type="submit" id="submitcomment" value="回复">
+            </div>
             <div sec:authorize="!isAuthenticated()" th:align="center">
                 <p style="color: red;font-size: 20px">未登录禁止评论</p>
             </div>
         </div>
     </div>
-    <input type="hidden" id="AccountId" th:value="${post.accountId}">
     <input type="hidden" id="favpostTitle" th:value="${post.postTitle}">
     <input type="hidden" id="postId" th:value="${post.postId}">
+    <input type="hidden" id="AccountId" th:value="${post.accountId}">
 </main>
 </body>
 <script type="text/javascript" th:inline="javascript">
+    var editor;
     //页面自动加载评论框
     $(function(){
         var E = window.wangEditor;
         //这里的id为<div id="editor"中的id.
-        var editor = new E('#commentArea');
+        editor = new E('#commentArea');
         // // 配置服务器端地址,也就是controller的请求路径，不带项目路径，前面没有/
         // editor.customConfig.uploadImgServer = 'commumity/upload/editor/img';
         // editor.config.uploadImgMaxSize = 1 * 1024 * 1024;
@@ -136,11 +145,17 @@
         // editor.config.excludeMenus = ['video']
         //创建编辑器
         editor.create();
+        editor.txt.html($('#comment').text())
+        $('#submitcomment').click(function () {
+            $('#comment').text(editor.txt.html());
+            if(!checkTextNull()) return;
+            sentComment();
+        })
     })
 
     function checkTextNull(){
-        var judge = document.getElementById("text1").innerText;
-        if(judge == null || judge === "") {
+        var judge = document.getElementById("comment").innerText;
+        if(judge == null || judge == "") {
             alert("评论内容不能为空")
             return false;
         }
@@ -161,6 +176,31 @@
                     alert("已收藏");
                 }else{
                     alert("收藏失败");
+                }
+            }
+        })
+    }
+
+    // function transComment(){
+    //     var comment = $('#comment').text();
+    //     alert(comment);
+    //     $('#commenturl').val(window.location.href);
+    //     return true;
+    // }
+
+    function sentComment(){
+        var postId = $("#postId").val();
+        var commentText = $("#comment").val();
+        $.ajax({
+            url:"/community/post/submitComment",
+            data:{"postId":postId,"commentText":commentText},
+            type:"post",   //请求方式
+            success:function(data){
+                if(data === "true"){
+                    alert("评论成功");
+                    editor.txt.clear()
+                }else{
+                    alert("评论失败");
                 }
             }
         })
