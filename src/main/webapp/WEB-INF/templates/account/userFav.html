@@ -45,16 +45,35 @@
                 </ul>
             </li>
         </ul>
+        <!--翻页还没做-->
         <div>
-            <!--<ul class="nav nav-pills nav-stacked">-->
-            <ul >
-                <li role="presentation"><a href="#">默认收藏夹一</a></li>
-                <li role="presentation"><a href="#">默认收藏夹二</a></li>
-                <li role="presentation"><a href="#">默认收藏夹三</a></li>
+            <ul class="list-group" th:each="favPost:${favPosts}">
+                <li style="list-style-type: none"><a th:href="@{${favPost.url}}" th:text="${favPost.title}"></a>
+                    <button style="float: right" onclick="unFav()">取消收藏</button>
+                    <input type="hidden" id="favId" th:value="${favPost.favId}">
+                </li>
             </ul>
         </div>
     </div>
     <div class="col-lg-3"></div>
 </div>
 </body>
+<script type="text/javascript" th:inline="javascript">
+    function unFav(){
+        var favId = $("#favId").val();
+        $.ajax({
+            url:"/community/post/unFav",    //请求的url地址
+            data:{"favId":favId},    //参数值
+            type:"post",   //请求方式
+            success:function(data){
+                if(data === "true"){
+                    alert("取消收藏成功");
+                    location.assign("/account/userFav");
+                }else{
+                    alert("取消收藏失败")
+                }
+            }
+        })
+    }
+</script>
 </html>

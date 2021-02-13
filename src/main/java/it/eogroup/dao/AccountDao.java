@@ -2,6 +2,7 @@ package it.eogroup.dao;
 
 import it.eogroup.domain.Account;
 import it.eogroup.domain.Role;
+import it.eogroup.domain.favPost;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
@@ -51,7 +52,10 @@ public interface AccountDao {
     //更新头像
     void updateAvatar(@Param("account") Account account);
 
+    //通过账号id找到账号名字
     @Select("select accountName from account where account.`accountId` = #{accountId}")
     String getAccountName(Integer accountId);
 
+    //通过账号id找到账号收藏
+    List<favPost> getFavPost(Integer accountId);
 }

@@ -44,6 +44,12 @@
                 </ul>
             </li>
         </ul>
+        <!--翻页还没做-->
+        <div>
+            <ul class="list-group" th:each="post:${posts}">
+                <li style="list-style-type: none"><a th:href="@{/community/post/}+${post.postId}+'?page=1&size=10&communityId='+${post.communityId}" th:text="${post.postTitle}"></a></li>
+            </ul>
+        </div>
     </div>
     </form>
     <div class="col-lg-3"></div>

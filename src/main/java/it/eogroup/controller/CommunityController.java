@@ -1,20 +1,22 @@
 package it.eogroup.controller;
 
 import com.github.pagehelper.PageInfo;
+import it.eogroup.domain.Comment;
 import it.eogroup.domain.CommentAccount;
 import it.eogroup.domain.Post;
 import it.eogroup.service.AccountService;
 import it.eogroup.service.CommunityService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /*板块帖子控制器*/
@@ -22,7 +24,8 @@ import java.util.List;
 @RequestMapping("/community")
 @Repository("communityController")
 public class CommunityController {
-
+    @Resource
+    private AccountService accountService;
     @Resource
     private CommunityService communityService;
     private static final Logger logger = LogManager.getLogger(CommunityController.class);
@@ -69,5 +72,72 @@ public class CommunityController {
         logger.info("往帖子添加了评论");
         return mv;
     }
+
+    //收藏帖子
+    @RequestMapping("/post/fav")
+    @ResponseBody
+    public String addToFav(String url,String title){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Integer accountId = accountService.getAccount(authentication.getName()).getAccountId();
+        try{
+            if(!communityService.insertFavPost(accountId,url,title)){
+                logger.error("帖子已存在");
+                return "exist";
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            logger.error("添加收藏夹失败");
+            return "false";
+        }
+        return "true";
+    }
+
+    //取消收藏
+    @RequestMapping("/post/unFav")
+    @ResponseBody
+    public String unFav(Integer favId){
+        try{
+            communityService.deleteFavPost(favId);
+        }catch (Exception e){
+            logger.error("取消收藏失败");
+            return "false";
+        }
+        return "true";
+    }
+
+    //上传图片
+    @RequestMapping("/commumity/upload/editor/img")
+    public ModelAndView uploadEditorImg(){
+        return new ModelAndView();
+    }
+
+    //提交文本框评论
+    @RequestMapping(value="/post/submitComment",method = RequestMethod.POST)
+    @ResponseBody
+    public String submitComment(Integer postId,String commentText){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Comment comment = new Comment();
+        comment.setCommentTime(LocalDateTime.now());
+        comment.setCommentText(commentText);
+        comment.setPostId(postId);
+        comment.setAccountId(accountService.getAccount(authentication.getName()).getAccountId());
+        try{
+            communityService.insertComment(comment);
+            logger.info("发布评论成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            logger.error("发布评论失败");
+            return "false";
+        }
+        return "true";
+    }
+
+    //显示所有社区
+    @RequestMapping("/community/Communities")
+    public ModelAndView showAllCommunity(){
+        return new ModelAndView();
+    }
+
+    //回复帖子
 
 }

@@ -33,5 +33,18 @@ public interface CommunityService {
     //获得帖子
     Post getPost(Integer postId);
 
+    //查找所有评论+账户
     List<CommentAccount> commentAccountFindAll(Integer page, Integer size, Integer postId);
+
+    //插入收藏夹
+    Boolean insertFavPost(Integer accountId, String url, String title);
+
+    //找到账户所有帖子
+    List<Post> accountPostFindAll(Integer accountId);
+
+    //删除收藏夹
+    void deleteFavPost(Integer favId);
+
+    //插入评论
+    void insertComment(Comment comment);
 }

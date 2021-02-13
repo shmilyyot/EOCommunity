@@ -1,7 +1,9 @@
 package it.eogroup.controller;
 
 import it.eogroup.domain.Account;
+import it.eogroup.domain.favPost;
 import it.eogroup.service.AccountService;
+import it.eogroup.service.CommunityService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.security.core.Authentication;
@@ -15,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map;
 
 /*账户修改控制器*/
@@ -25,27 +28,50 @@ public class AccountController {
 
     @Resource
     private AccountService accountService;
+    @Resource
+    private CommunityService communityService;
     private static final Logger logger = LogManager.getLogger(AccountController.class);
 
-    //去收藏夹（具体功能代实现）
+    //去收藏夹
     @RequestMapping("/userFav")
     public ModelAndView toUserFav() {
-        return new ModelAndView();
+        ModelAndView mv = new ModelAndView();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Account account = accountService.getAccount(authentication.getName());
+        try{
+            List<favPost> favPosts = accountService.getFavPost(account.getAccountId());
+            mv.addObject("favPosts",favPosts);
+            logger.info("获取收藏夹成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            logger.error("获取收藏夹错误");
+        }
+        return mv;
     }
 
-    //去个人的帖子列表（具体功能代实现）
+    //去个人的帖子列表
     @RequestMapping("/userPost")
     public ModelAndView toUserPost() {
-        return new ModelAndView();
+        ModelAndView mv = new ModelAndView();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Account account = accountService.getAccount(authentication.getName());
+        try{
+            mv.addObject("posts",communityService.accountPostFindAll(account.getAccountId()));
+            logger.info("往个人资料添加帖子");
+        }catch (Exception e){
+            e.printStackTrace();
+            logger.error("查找帖子失败");
+        }
+        return mv;
     }
 
-    //去用户密码页（具体功能代实现）
+    //去用户密码页
     @RequestMapping("/userPassword")
     public ModelAndView toUserPassword() {
         return new ModelAndView();
     }
 
-    //去用户头像页（具体功能代实现）
+    //去用户头像页
     @RequestMapping("/userFace")
     public ModelAndView toUserAvatar() {
         ModelAndView modelAndView = new ModelAndView();

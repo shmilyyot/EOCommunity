@@ -2,6 +2,7 @@ package it.eogroup.service;
 
 import it.eogroup.domain.Account;
 import it.eogroup.domain.Role;
+import it.eogroup.domain.favPost;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -45,5 +46,7 @@ public interface AccountService {
     Map<String, String> getAccountAvatar();
 
     String getAccountName(Integer accountId);
+
+    List<favPost> getFavPost(Integer accountId);
 
 }

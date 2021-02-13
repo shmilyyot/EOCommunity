@@ -79,4 +79,34 @@ public class CommunityServiceImpl implements CommunityService {
         return communityDao.commentAccountFindAll(postId);
     }
 
+    @Override
+    public Boolean insertFavPost(Integer accountId,String url, String title) {
+        if(communityDao.searchPostExist(url) != null){
+            logger.error("此帖子已存在于收藏夹");
+            return false;
+        }
+        communityDao.insertFavPost(accountId,url,title);
+        logger.info("插入收藏夹成功");
+        return true;
+    }
+
+    @Override
+    public List<Post> accountPostFindAll(Integer accountId) {
+        logger.info("返回账户所有帖子");
+        return communityDao.accountPostFindAll(accountId);
+    }
+
+    @Override
+    public void deleteFavPost(Integer favId) {
+        communityDao.deleteFavPost(favId);
+        logger.info("删除收藏帖子");
+    }
+
+    @Override
+    public void insertComment(Comment comment) {
+        logger.info("插入评论");
+        communityDao.insertComment(comment);
+    }
+
+
 }
