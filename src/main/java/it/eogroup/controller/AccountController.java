@@ -40,7 +40,6 @@ public class AccountController {
         Account account = accountService.getAccount(authentication.getName());
         try{
             List<favPost> favPosts = accountService.getFavPost(account.getAccountId());
-            for(favPost favpost:favPosts) System.out.println(favpost);
             mv.addObject("favPosts",favPosts);
             logger.info("获取收藏夹成功");
         }catch (Exception e){

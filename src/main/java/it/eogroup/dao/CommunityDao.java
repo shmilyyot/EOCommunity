@@ -4,6 +4,7 @@ import it.eogroup.domain.Comment;
 import it.eogroup.domain.CommentAccount;
 import it.eogroup.domain.Community;
 import it.eogroup.domain.Post;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
@@ -46,4 +47,13 @@ public interface CommunityDao {
 
     //根据账户id获取所有帖子
     List<Post> accountPostFindAll(Integer accountId);
+
+    //删除收藏夹
+    @Delete("DELETE FROM favPost WHERE favPost.`favId` = #{favId}")
+    void deleteFavPost(Integer favId);
+
+    //查找收藏夹是否有指定帖子
+    @Select("SELECT * FROM favpost WHERE favpost.`url` = #{url}")
+    Post searchPostExist(String url);
+
 }

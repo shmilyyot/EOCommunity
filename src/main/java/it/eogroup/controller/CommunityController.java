@@ -3,9 +3,12 @@ package it.eogroup.controller;
 import com.github.pagehelper.PageInfo;
 import it.eogroup.domain.CommentAccount;
 import it.eogroup.domain.Post;
+import it.eogroup.service.AccountService;
 import it.eogroup.service.CommunityService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
@@ -24,7 +27,8 @@ import java.util.Map;
 @RequestMapping("/community")
 @Repository("communityController")
 public class CommunityController {
-
+    @Resource
+    private AccountService accountService;
     @Resource
     private CommunityService communityService;
     private static final Logger logger = LogManager.getLogger(CommunityController.class);
@@ -75,12 +79,30 @@ public class CommunityController {
     //收藏帖子
     @RequestMapping("/post/fav")
     @ResponseBody
-    public String addToFav(Integer accountId,String url,String title){
+    public String addToFav(String url,String title){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Integer accountId = accountService.getAccount(authentication.getName()).getAccountId();
         try{
-            communityService.insertFavPost(accountId,url,title);
+            if(!communityService.insertFavPost(accountId,url,title)){
+                logger.error("帖子已存在");
+                return "exist";
+            }
         }catch (Exception e){
             e.printStackTrace();
             logger.error("添加收藏夹失败");
+            return "false";
+        }
+        return "true";
+    }
+
+    //取消收藏
+    @RequestMapping("/post/unFav")
+    @ResponseBody
+    public String unFav(Integer favId){
+        try{
+            communityService.deleteFavPost(favId);
+        }catch (Exception e){
+            logger.error("取消收藏失败");
             return "false";
         }
         return "true";

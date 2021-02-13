@@ -110,8 +110,8 @@
             <!--评论-->
             <form action="/post/submitComment" sec:authorize="isAuthenticated()">
                 <div id="commentArea"><p>请输入你的评论</p></div>
-                <textarea id="text1" style="display: none"></textarea>
-                <button type="button" name="commentButton" id="commentButton" onclick="submitComment()">回复</button>
+                <textarea id="text1" name="text1" style="display: none"></textarea>
+                <button type="button" name="commentButton" id="commentButton" onclick="checkTextNull()">回复</button>
             </form>
             <div sec:authorize="!isAuthenticated()" th:align="center">
                 <p style="color: red;font-size: 20px">未登录禁止评论</p>
@@ -138,24 +138,29 @@
         editor.create();
     })
 
-    //提交评论
-    function submitComment(){
-        var postId = $("#postId").val();
+    function checkTextNull(){
+        var judge = document.getElementById("text1").innerText;
+        if(judge == null || judge === "") {
+            alert("评论内容不能为空")
+            return false;
+        }
+        return true;
     }
 
     function addToFav(){
         var currentUrl = window.location.href;
-        var accountId = $("#AccountId").val();
         var postTitle = $("#favpostTitle").val();
         $.ajax({
             url:"/community/post/fav",    //请求的url地址
-            data:{"url":currentUrl,"accountId":accountId,"title":postTitle},    //参数值
+            data:{"url":currentUrl,"title":postTitle},    //参数值
             type:"post",   //请求方式
             success:function(data){
-                if(data == "true"){
-                    alert("收藏成功")
+                if(data === "true"){
+                    alert("收藏成功");
+                }else if(data === "exist"){
+                    alert("已收藏");
                 }else{
-                    alert("收藏失败")
+                    alert("收藏失败");
                 }
             }
         })
