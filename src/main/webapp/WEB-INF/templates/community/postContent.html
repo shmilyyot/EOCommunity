@@ -10,11 +10,6 @@
     <script src="../../../js/bootstrap.min.js"></script>
     <script src="../../../js/wangEditor.min.js" type="text/javascript"></script>
     <title th:text="${post.postTitle}"></title>
-    <style>
-        td{
-            white-space: nowrap;
-        }
-    </style>
 </head>
 <body>
 <div id="header"></div>
@@ -46,7 +41,7 @@
                 <table width="100%" border="1" cellpadding="2" cellspacing="1">
                     <tbody>
                     <tr th:each="comment:${pageinfo.list}">
-                        <td width="200px" bgcolor="#faebd7">
+                        <td width="15%" bgcolor="#faebd7" style="word-wrap:break-word;word-break:break-all;white-space:normal;max-width:600px;">
                             <div style="left: 71px;top:0px">
                                 <div th:align="center">
                                     <a th:href="@{#}" th:text="${comment.accountName}" target="_blank" ></a>
@@ -63,7 +58,7 @@
                                 </div>
                             </div>
                         </td>
-                        <td style="vertical-align: top">
+                        <td>
                             <div>
                                 <div style="float: right">
                                     <strong>
@@ -77,12 +72,7 @@
                                 </div>
                             </div>
                             <div>
-                                <p>
-                                    <a th:href="@{#}" target="_blank">私聊</a>
-                                </p>
-                            </div>
-                            <div>
-                                <span th:utext="${comment.commentText}"></span>
+                                <div th:utext="${comment.commentText}" ></div>
                             </div>
                         </td>
                     </tr>
@@ -107,15 +97,6 @@
                     </li>
                 </ul>
             </nav>
-            <!--评论-->
-<!--            <form id="commentFrom" method="post" action="/community/post/submitComment" sec:authorize="isAuthenticated()" onsubmit="transComment() && checkTextNull()">-->
-<!--                <div id="commentArea"></div>-->
-<!--                <textarea id="comment" name="comment" style="display: none"></textarea>-->
-<!--                <input type="hidden" name="commenturl" id="commenturl">-->
-<!--                <input type="hidden" id="postId" th:value="${post.postId}">-->
-<!--                <input type="hidden" id="AccountId" th:value="${post.accountId}">-->
-<!--                <input class="btn btn-primary" type="submit" id="submitcomment" value="回复">-->
-<!--            </form>-->
             <div id="commentFrom" sec:authorize="isAuthenticated()" >
                 <div id="commentArea"></div>
                 <textarea id="comment" name="comment" style="display: none"></textarea>
@@ -136,14 +117,9 @@
     //页面自动加载评论框
     $(function(){
         var E = window.wangEditor;
-        //这里的id为<div id="editor"中的id.
         editor = new E('#commentArea');
-        // // 配置服务器端地址,也就是controller的请求路径，不带项目路径，前面没有/
-        // editor.customConfig.uploadImgServer = 'commumity/upload/editor/img';
-        // editor.config.uploadImgMaxSize = 1 * 1024 * 1024;
-        // editor.config.uploadImgAccept = ['jpg', 'jpeg', 'png', 'gif', 'bmp'];
-        // editor.config.excludeMenus = ['video']
-        //创建编辑器
+        //不准上传视频和图片
+        editor.config.excludeMenus = ['video','image'];
         editor.create();
         editor.txt.html($('#comment').text())
         $('#submitcomment').click(function () {
@@ -180,13 +156,6 @@
             }
         })
     }
-
-    // function transComment(){
-    //     var comment = $('#comment').text();
-    //     alert(comment);
-    //     $('#commenturl').val(window.location.href);
-    //     return true;
-    // }
 
     function sentComment(){
         var postId = $("#postId").val();

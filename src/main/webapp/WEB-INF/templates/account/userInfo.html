@@ -29,8 +29,8 @@
             <ul class="nav nav-tabs">
                 <!--全部用相对路径，发到后端，不要直接跳转别的html-->
                 <li role="presentation" class="active"><a href="/account/userInfo">基本信息</a></li>
-                <li role="presentation"><a href="/account/userPost" sec:authorize="isAuthenticated()">我的帖子</a></li>
-                <li role="presentation"><a href="/account/userFav" sec:authorize="isAuthenticated()">我的收藏</a></li>
+                <li role="presentation"><a href="/account/userPost?page=1&size=10" sec:authorize="isAuthenticated()">我的帖子</a></li>
+                <li role="presentation"><a href="/account/userFav?page=1&size=10" sec:authorize="isAuthenticated()">我的收藏</a></li>
                 <li role="presentation" sec:authorize="isAuthenticated()">
                     <a href="#" id="myTabDrop1" class="dropdown-toggle"
                        data-toggle="dropdown">设置

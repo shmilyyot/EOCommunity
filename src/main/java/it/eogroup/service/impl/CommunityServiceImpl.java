@@ -91,8 +91,9 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
-    public List<Post> accountPostFindAll(Integer accountId) {
+    public List<Post> accountPostFindAll(Integer page, Integer size,Integer accountId) {
         logger.info("返回账户所有帖子");
+        PageHelper.startPage(page,size);
         return communityDao.accountPostFindAll(accountId);
     }
 

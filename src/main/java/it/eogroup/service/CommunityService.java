@@ -40,7 +40,7 @@ public interface CommunityService {
     Boolean insertFavPost(Integer accountId, String url, String title);
 
     //找到账户所有帖子
-    List<Post> accountPostFindAll(Integer accountId);
+    List<Post> accountPostFindAll(Integer page, Integer size,Integer accountId);
 
     //删除收藏夹
     void deleteFavPost(Integer favId);

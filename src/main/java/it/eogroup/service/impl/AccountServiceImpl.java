@@ -1,5 +1,6 @@
 package it.eogroup.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import it.eogroup.dao.AccountDao;
 import it.eogroup.domain.Account;
 import it.eogroup.domain.Role;
@@ -185,8 +186,9 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public List<favPost> getFavPost(Integer accountId) {
+    public List<favPost> getFavPost(Integer page, Integer size,Integer accountId) {
         logger.info("返回用户收藏夹列表");
+        PageHelper.startPage(page,size);
         return accountDao.getFavPost(accountId);
     }
 

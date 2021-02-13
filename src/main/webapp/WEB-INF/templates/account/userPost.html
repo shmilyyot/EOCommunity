@@ -30,8 +30,8 @@
     <div class="col-lg-6">
         <ul class="nav nav-tabs">
             <li role="presentation"><a href="/account/userInfo">基本信息</a></li>
-            <li role="presentation" class="active"><a href="/account/userPost">我的帖子</a></li>
-            <li role="presentation"><a href="/account/userFav">我的收藏</a></li>
+            <li role="presentation" class="active"><a href="/account/userPost?page=1&size=10">我的帖子</a></li>
+            <li role="presentation"><a href="/account/userFav?page=1&size=10">我的收藏</a></li>
             <li role="presentation">
                 <a href="#" id="myTabDrop1" class="dropdown-toggle"
                    data-toggle="dropdown">设置
@@ -46,10 +46,29 @@
         </ul>
         <!--翻页还没做-->
         <div>
-            <ul class="list-group" th:each="post:${posts}">
+            <p></p>
+            <ul class="list-group" th:each="post:${posts.list}">
                 <li style="list-style-type: none"><a th:href="@{/community/post/}+${post.postId}+'?page=1&size=10&communityId='+${post.communityId}" th:text="${post.postTitle}"></a></li>
             </ul>
         </div>
+        <!--分页-->
+        <nav aria-label="Page navigation" th:align="center">
+            <ul class="pagination">
+                <li>
+                    <a th:href="@{/account/userPost}+'?page=1&size='+${posts.pageSize}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li><a th:href="@{/account/userPost}+'?page='+${posts.pageNum-1}+'&size='+${posts.pageSize}">上一页</a></li>
+                <li th:each="pageNo: ${#numbers.sequence(1,posts.pages)}"> <a th:href="@{/account/userPost}+'?page='+${pageNo}+'&size='+${posts.pageSize}" th:text="${pageNo}"></a> </li>
+                <li><a th:href="@{/account/userPost}+'?page='+${posts.pageNum+1}+'&size='+${posts.pageSize}">下一页</a></li>
+                <li>
+                    <a th:href="@{/account/userPost}+'?page='+${posts.pages}+'&size='+${posts.pageSize}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
     </form>
     <div class="col-lg-3"></div>

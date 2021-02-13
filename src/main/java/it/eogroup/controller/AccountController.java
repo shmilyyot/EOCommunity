@@ -1,6 +1,8 @@
 package it.eogroup.controller;
 
+import com.github.pagehelper.PageInfo;
 import it.eogroup.domain.Account;
+import it.eogroup.domain.Post;
 import it.eogroup.domain.favPost;
 import it.eogroup.service.AccountService;
 import it.eogroup.service.CommunityService;
@@ -34,13 +36,14 @@ public class AccountController {
 
     //去收藏夹
     @RequestMapping("/userFav")
-    public ModelAndView toUserFav() {
+    public ModelAndView toUserFav(@RequestParam(name="page",defaultValue = "1")Integer page,@RequestParam(name = "size",defaultValue = "10")Integer size) {
         ModelAndView mv = new ModelAndView();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Account account = accountService.getAccount(authentication.getName());
         try{
-            List<favPost> favPosts = accountService.getFavPost(account.getAccountId());
-            mv.addObject("favPosts",favPosts);
+            List<favPost> favPosts = accountService.getFavPost(page,size,account.getAccountId());
+            PageInfo pageInfo = new PageInfo(favPosts);
+            mv.addObject("favPosts",pageInfo);
             logger.info("获取收藏夹成功");
         }catch (Exception e){
             e.printStackTrace();
@@ -51,12 +54,14 @@ public class AccountController {
 
     //去个人的帖子列表
     @RequestMapping("/userPost")
-    public ModelAndView toUserPost() {
+    public ModelAndView toUserPost(@RequestParam(name="page",defaultValue = "1")Integer page,@RequestParam(name = "size",defaultValue = "10")Integer size) {
         ModelAndView mv = new ModelAndView();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Account account = accountService.getAccount(authentication.getName());
         try{
-            mv.addObject("posts",communityService.accountPostFindAll(account.getAccountId()));
+            List<Post> posts = communityService.accountPostFindAll(page,size,account.getAccountId());
+            PageInfo pageInfo = new PageInfo(posts);
+            mv.addObject("posts",pageInfo);
             logger.info("往个人资料添加帖子");
         }catch (Exception e){
             e.printStackTrace();
