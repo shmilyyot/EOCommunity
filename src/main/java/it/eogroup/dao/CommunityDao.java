@@ -8,6 +8,8 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -58,5 +60,16 @@ public interface CommunityDao {
 
     //插入帖子评论
     void insertComment(Comment comment);
+
+    //插入帖子
+    void insertPost(Post post);
+
+    //根据发帖时间找回帖子
+    @Select("select * from post where post.`postTime` = #{localDateTime}")
+    Post getPostByTime(LocalDateTime localDateTime);
+
+    //根据发帖时间找回帖子
+    @Select("select * from post where post.`accountId` = #{accountId}")
+    Post getPostById(Integer accountId);
 
 }

@@ -95,4 +95,11 @@
         values (null,#{postId},#{accountId},#{commentTime},#{commentText})
     </insert>
 
+    <!--插入评论-->
+    <insert id="insertPost" parameterType="it.eogroup.domain.Post">
+        insert into
+            post
+        values (null,#{communityId},#{accountId},#{postTitle},#{postTime})
+    </insert>
+
 </mapper>

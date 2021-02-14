@@ -5,6 +5,7 @@ import it.eogroup.domain.CommentAccount;
 import it.eogroup.domain.Community;
 import it.eogroup.domain.Post;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface CommunityService {
@@ -47,4 +48,12 @@ public interface CommunityService {
 
     //插入评论
     void insertComment(Comment comment);
+
+    //插入帖子
+    void insertPost(Post post);
+
+    //根据发帖时间找回帖子
+    Post getPostByTime(LocalDateTime localDateTime);
+
+    Post getPostById(Integer accountId);
 }

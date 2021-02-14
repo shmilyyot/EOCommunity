@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service("communityService")
@@ -107,6 +108,23 @@ public class CommunityServiceImpl implements CommunityService {
     public void insertComment(Comment comment) {
         logger.info("插入评论");
         communityDao.insertComment(comment);
+    }
+
+    @Override
+    public void insertPost(Post post) {
+        logger.info("插入帖子");
+        communityDao.insertPost(post);
+    }
+
+    @Override
+    public Post getPostByTime(LocalDateTime localDateTime) {
+        logger.info("找回帖子");
+        return communityDao.getPostByTime(localDateTime);
+    }
+
+    @Override
+    public Post getPostById(Integer accountId) {
+        return communityDao.getPostById(accountId);
     }
 
 

@@ -10,6 +10,7 @@
     <script src="../../../js/bootstrap.min.js"></script>
     <script src="../../../js/wangEditor.min.js" type="text/javascript"></script>
     <title th:text="${post.postTitle}"></title>
+    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
 </head>
 <body>
 <div id="header"></div>
@@ -25,7 +26,7 @@
                 </div>
                 <div>
                     <strong class="d-block text-gray-dark">
-                        &#12288&#12288<a th:href="@{/community/community/}+${community.communityId}" th:text="${community.communityName}"></a>
+                        &#12288&#12288<a th:href="@{/community/community/}+${community.communityId}+'?page=1&size=10'" th:text="${community.communityName}"></a>
                         <p th:text="${community.communityDescription}" style="color: grey"></p>
                     </strong>
                 </div>
