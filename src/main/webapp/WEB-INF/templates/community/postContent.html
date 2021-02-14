@@ -68,7 +68,7 @@
                                 </div>
                                 <div>
                                     <strong>
-                                        <label th:text="'发表时间：'+${comment.commentTime}" style="color: #ffab0c"></label>
+                                        <label th:text="'发表时间:'+${#temporals.format(comment.commentTime,'yyyy-MM-dd HH:mm:ss')}" style="color: #ffab0c"></label>
                                     </strong>
                                 </div>
                             </div>
