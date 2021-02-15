@@ -81,7 +81,7 @@
                 </table>
             </div>
             <!--分页-->
-            <nav aria-label="Page navigation" th:align="center">
+            <nav aria-label="Page navigation" th:align="center" th:if="${pageinfo.total} gt 0">
                 <ul class="pagination">
                     <li>
                         <a th:href="@{/community/post/}+${post.postId}+'?page=1&size='+${pageinfo.pageSize}+'&communityId='+${post.communityId}" aria-label="Previous">

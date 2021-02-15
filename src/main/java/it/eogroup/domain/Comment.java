@@ -10,4 +10,6 @@ public class Comment {
     private Integer accountId;
     private LocalDateTime commentTime;
     private String commentText;
+    private Integer commentTo;
+    private Boolean commentStatus;
 }

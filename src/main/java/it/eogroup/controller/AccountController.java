@@ -141,4 +141,11 @@ public class AccountController {
         modelAndView.addAllObjects(map);
         return modelAndView;
     }
+
+    //打开通知消息页面
+    @RequestMapping("/userMessage")
+    public ModelAndView showUserMessage(){
+        ModelAndView mv = new ModelAndView("account/userMessage");
+        return mv;
+    }
 }

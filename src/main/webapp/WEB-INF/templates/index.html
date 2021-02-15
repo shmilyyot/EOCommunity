@@ -56,7 +56,7 @@
                     </div>
                     <div >
                         <ul class="list-group" th:each="post:${posts}">
-                            <HR align=center color=#987cb9>
+                            <p></p>
                             <li style="list-style-type: none">
                                 <a th:text="${[post.communityId]}" style="font-size: 20px;font-weight: bolder;color: #761c19" th:href="@{/community/community/}+${post.communityId}"></a>
                                 <a th:text="'&#12288'+${post.postTitle}" style="font-size: 20px" th:href="@{/community/post/}+${post.postId}+'?page=1&size=10&communityId='+${post.communityId}"></a>

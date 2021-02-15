@@ -133,5 +133,11 @@ public class CommunityServiceImpl implements CommunityService {
         return communityDao.getPostById(accountId);
     }
 
+    @Override
+    public Integer getAccountIdByPostId(Integer postId) {
+        logger.info("返回发帖人的id");
+        return communityDao.getAccountIdByPostId(postId);
+    }
+
 
 }

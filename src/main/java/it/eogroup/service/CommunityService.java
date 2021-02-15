@@ -58,4 +58,7 @@ public interface CommunityService {
     Post getPostByTime(LocalDateTime localDateTime);
 
     Post getPostById(Integer accountId);
+
+    //根据帖子id找到发帖人的id
+    Integer getAccountIdByPostId(Integer postId);
 }

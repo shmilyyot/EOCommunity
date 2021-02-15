@@ -52,7 +52,7 @@
             </ul>
         </div>
         <!--分页-->
-        <nav aria-label="Page navigation" th:align="center">
+        <nav aria-label="Page navigation" th:align="center" th:if="${posts.total} gt 0">
             <ul class="pagination">
                 <li>
                     <a th:href="@{/account/userPost}+'?page=1&size='+${posts.pageSize}" aria-label="Previous">
@@ -70,7 +70,6 @@
             </ul>
         </nav>
     </div>
-    </form>
     <div class="col-lg-3"></div>
 </div>
 </body>

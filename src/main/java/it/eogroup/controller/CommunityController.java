@@ -118,7 +118,9 @@ public class CommunityController {
         comment.setCommentTime(LocalDateTime.now());
         comment.setCommentText(commentText);
         comment.setPostId(postId);
+        comment.setCommentTo(communityService.getAccountIdByPostId(postId));
         comment.setAccountId(accountService.getAccount(authentication.getName()).getAccountId());
+        comment.setCommentStatus(false);
         try{
             communityService.insertComment(comment);
             logger.info("发布评论成功");
@@ -140,6 +142,11 @@ public class CommunityController {
     }
 
     //回复帖子
+    @RequestMapping("/post/reply")
+    @ResponseBody
+    public String replyComment(){
+        return "true";
+    }
 
     //发帖页面
     @RequestMapping("/post/post/{communityId}")
@@ -170,6 +177,8 @@ public class CommunityController {
             comment.setCommentTime(post.getPostTime());
             comment.setAccountId(account.getAccountId());
             comment.setCommentText(postText);
+            comment.setCommentTo(post.getAccountId());
+            comment.setCommentStatus(true);
             communityService.insertComment(comment);
             logger.info("成功发布帖子");
         }catch (Exception e){
@@ -178,6 +187,12 @@ public class CommunityController {
             return "false";
         }
         return "true";
+    }
+
+    @RequestMapping("/messageBoard")
+    public ModelAndView showMessageBoard(){
+        ModelAndView mv = new ModelAndView("community/MessageBoard");
+        return mv;
     }
 
 }

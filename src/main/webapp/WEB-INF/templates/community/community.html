@@ -41,6 +41,7 @@
             <div sec:authorize="!isAuthenticated()">
                 <p style="color: red;font-size: 20px">未登录只能浏览不能发帖</p>
             </div>
+            <br>
             <!--帖子-->
             <div class="panel panel-info">
                 <div class="panel-heading">
@@ -59,7 +60,7 @@
                     </ul>
                 </div>
             </div>
-            <nav aria-label="Page navigation" th:align="center">
+            <nav aria-label="Page navigation" th:align="center" th:if="${pageinfo.total} gt 0">
                 <ul class="pagination">
                     <li>
                         <a th:href="@{/community/community/}+${community.communityId}+'?page=1&size='+${pageinfo.pageSize}" aria-label="Previous">

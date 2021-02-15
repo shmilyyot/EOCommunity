@@ -86,20 +86,28 @@
         FROM
             post
         WHERE post.`accountId` = #{accountId}
+        ORDER BY post.`postTime` DESC
     </select>
 
     <!--插入评论-->
     <insert id="insertComment" parameterType="it.eogroup.domain.Comment">
         insert into
             comment
-        values (null,#{postId},#{accountId},#{commentTime},#{commentText})
+        values (null,#{postId},#{accountId},#{commentTime},#{commentText},#{commentTo},#{commentStatus})
     </insert>
 
-    <!--插入评论-->
+    <!--插入帖子-->
     <insert id="insertPost" parameterType="it.eogroup.domain.Post">
         insert into
             post
         values (null,#{communityId},#{accountId},#{postTitle},#{postTime})
     </insert>
+
+    <insert id="insertMessageBoard" parameterType="it.eogroup.domain.MessageBoard">
+        insert into
+            messageBoard
+        values (null,#{messageText},#{messageTime})
+    </insert>
+
 
 </mapper>

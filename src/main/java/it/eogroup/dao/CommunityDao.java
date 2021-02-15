@@ -1,9 +1,6 @@
 package it.eogroup.dao;
 
-import it.eogroup.domain.Comment;
-import it.eogroup.domain.CommentAccount;
-import it.eogroup.domain.Community;
-import it.eogroup.domain.Post;
+import it.eogroup.domain.*;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -72,8 +69,18 @@ public interface CommunityDao {
     @Select("select * from post where post.`postTime` = #{localDateTime}")
     Post getPostByTime(LocalDateTime localDateTime);
 
-    //根据发帖时间找回帖子
+    //根据id找回帖子
     @Select("select * from post where post.`accountId` = #{accountId}")
     Post getPostById(Integer accountId);
 
+    //根据帖子id找到发帖人的id(为了定位评论的时候回复的是哪个人)
+    @Select("SELECT accountId FROM post WHERE post.`postId` = #{postId}")
+    Integer getAccountIdByPostId(Integer postId);
+
+    //插入留言板
+    void insertMessageBoard(MessageBoard messageBoard);
+
+    //查找留言板
+    @Select("SELECT * FROM messageBoard ORDER BY messageBoard.`messageTime` DESC")
+    List<MessageBoard> findAllMessage();
 }
