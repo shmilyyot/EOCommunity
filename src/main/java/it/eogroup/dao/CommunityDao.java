@@ -18,6 +18,10 @@ public interface CommunityDao {
     //获得最热门的社区
     List<Community> getTopCommunity();
 
+    //获得所有社区
+    @Select("SELECT * FROM community")
+    List<Community> getAllCommunities();
+
     //获得对应社区
     @Select("SELECT * FROM community WHERE communityId = #{communityId}")
     Community getCommunity(Integer communityId);

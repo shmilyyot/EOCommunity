@@ -4,7 +4,6 @@ import it.eogroup.domain.Comment;
 import it.eogroup.domain.CommentAccount;
 import it.eogroup.domain.Community;
 import it.eogroup.domain.Post;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -12,6 +11,9 @@ public interface CommunityService {
 
     //获得最热门的板块
     List<Community> getTopCommunity();
+
+    //获得所有社区
+    List<Community> getAllCommunities();
 
     //获得最热门的帖子
     List<Post> getTopPosts();

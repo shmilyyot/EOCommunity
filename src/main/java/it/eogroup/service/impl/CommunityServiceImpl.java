@@ -31,6 +31,12 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
+    public List<Community> getAllCommunities() {
+        logger.info("返回所有社区");
+        return communityDao.getAllCommunities();
+    }
+
+    @Override
     public List<Post> getTopPosts() {
         logger.info("返回了热门帖子");
         return communityDao.getTopPosts();

@@ -131,9 +131,12 @@ public class CommunityController {
     }
 
     //显示所有社区
-    @RequestMapping("/community/Communities")
+    @RequestMapping("/communities")
     public ModelAndView showAllCommunity(){
-        return new ModelAndView();
+        ModelAndView mv = new ModelAndView("community/communities");
+        mv.addObject("communities",communityService.getAllCommunities());
+        logger.info("往页面添加所有社区");
+        return mv;
     }
 
     //回复帖子
