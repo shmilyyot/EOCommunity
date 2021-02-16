@@ -58,7 +58,8 @@
                         <li><a href="/account/userInfo">
                             <div sec:authentication="name"></div>
                         </a></li>
-                        <li><a th:href="@{/account/userMessage}">消息</a></li>
+                        <li><a th:href="@{/account/userMessage}+'?page=1&size=10'" th:if="${messageNum} eq 0">消息</a></li>
+                        <li><a th:href="@{/account/userMessage}+'?page=1&size=10'" th:if="${messageNum} gt 0" th:text="消息+'('+${messageNum}+')'" style="color: #761c19"></a></li>
                         <li><a th:href="@{/account/userFav}+'?page=1&size=10'">我的收藏</a></li>
                         <li class="btn-list-group">
                             <a>设置</a>

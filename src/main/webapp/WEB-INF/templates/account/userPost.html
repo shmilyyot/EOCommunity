@@ -19,7 +19,7 @@
     <link rel="shortcut icon" href="../../../favicon.ico" type="image/x-icon"/>
     <link href="../../../css/header.css" rel="stylesheet">
 </head>
-<body>
+<body style="overflow-y:scroll;">
 <div id="header"></div>
 <script>
     $("#header").load("../../pages/header");
@@ -69,6 +69,7 @@
                 </li>
             </ul>
         </nav>
+        <div class="alert alert-warning" th:if="${posts.total} eq 0" th:text="暂无更多帖子"></div>
     </div>
     <div class="col-lg-3"></div>
 </div>

@@ -12,7 +12,7 @@
     <title th:text="${post.postTitle}"></title>
     <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
 </head>
-<body>
+<body style="overflow-y:scroll;">
 <div id="header"></div>
 <script>
     $("#header").load("../../pages/header");
@@ -22,7 +22,7 @@
         <div class="col">
             <div style="background-color:lightskyblue;height: 100px;border: green solid 1px;">
                 <div>
-                    <img th:src="@{(${community.communityAvatar})}" style="float: left;" />
+                    <img th:src="@{(${community.communityAvatar})}" style="float: left;" class="img-thumbnail"/>
                 </div>
                 <div>
                     <strong class="d-block text-gray-dark">
@@ -52,7 +52,7 @@
                                     <!--未登录获取不到用户资料，需修改。做一个特供页面？-->
                                     <div onmouseover="this" th:align="center">
                                         <a href="/account/userInfo" class="avtm" target="_blank">
-                                            <img th:src="@{${comment.accountAvatar}}" style="width:120px; height: 120px;" onerror="this.onerror=null;this.src='/images/defaultAvatar.png'" alt="用户头像">
+                                            <img th:src="@{${comment.accountAvatar}}" style="width:120px; height: 120px;" onerror="this.onerror=null;this.src='/images/defaultAvatar.png'" alt="用户头像" class="img-thumbnail">
                                         </a>
                                         <p></p>
                                     </div>
@@ -72,7 +72,7 @@
                                     </strong>
                                 </div>
                             </div>
-                            <div>
+                            <div th:id="${comment.commentId}">
                                 <div th:utext="${comment.commentText}" ></div>
                             </div>
                         </td>
@@ -98,6 +98,7 @@
                     </li>
                 </ul>
             </nav>
+            <div class="alert alert-warning" th:if="${pageinfo.total} eq 0" th:text="暂无更多回复"></div>
             <div id="commentFrom" sec:authorize="isAuthenticated()" >
                 <div id="commentArea"></div>
                 <textarea id="comment" name="comment" style="display: none"></textarea>

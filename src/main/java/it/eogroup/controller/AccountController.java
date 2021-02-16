@@ -1,9 +1,7 @@
 package it.eogroup.controller;
 
 import com.github.pagehelper.PageInfo;
-import it.eogroup.domain.Account;
-import it.eogroup.domain.Post;
-import it.eogroup.domain.favPost;
+import it.eogroup.domain.*;
 import it.eogroup.service.AccountService;
 import it.eogroup.service.CommunityService;
 import org.apache.logging.log4j.LogManager;
@@ -144,8 +142,14 @@ public class AccountController {
 
     //打开通知消息页面
     @RequestMapping("/userMessage")
-    public ModelAndView showUserMessage(){
+    public ModelAndView showUserMessage(@RequestParam(name="page",defaultValue = "1")Integer page,@RequestParam(name = "size",defaultValue = "10")Integer size){
         ModelAndView mv = new ModelAndView("account/userMessage");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Account account = accountService.getAccount(authentication.getName());
+        List<CommentAccountPost> comments = communityService.findUnReadMessagePost(page,size,account.getAccountId());
+        PageInfo pageInfo = new PageInfo(comments);
+        mv.addObject("comments",pageInfo);
+        logger.info("往页面添加未读评论");
         return mv;
     }
 }

@@ -13,17 +13,52 @@
     <link rel="shortcut icon" href="../../../favicon.ico" type="image/x-icon"/>
     <link href="../../../css/header.css" rel="stylesheet">
 </head>
-<body>
+<body style="overflow-y:scroll;">
 <div id="header"></div>
 <script>
     $("#header").load("../../pages/header");
 </script>
-<div class="row">
-    <div class="col-lg-3">
-        <div class="col-lg-6">
-
+<main role="main" class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">未读消息
+                    <button type="button" th:text="一键已读" th:if="${comments.total} gt 0" class="btn btn-primary btn-sm" style="float: right"></button>
+                </div>
+                <ul class="list-group" th:each="comment:${comments.list}">
+                    <li class="list-group-item">
+                        <div >
+                            <a style="text-decoration:none;" th:href="@{/community/post/}+${comment.postId}+'?page=1&size=10&communityId='+${comment.communityId}">
+                                <span th:utext="${comment.accountName}+':'+${comment.commentText}"></span>
+                            </a>
+                        </div>
+                        <br>
+                        <p style="font-size: 10px;color: #888888" th:text="'回复在:'+${comment.postTitle}+'&#12288&#12288'+${#temporals.format(comment.commentTime,'yyyy-MM-dd HH:mm:ss')}"></p>
+                    </li>
+                </ul>
+            </div>
+            <!--分页-->
+            <nav aria-label="Page navigation" th:align="center" th:if="${comments.total} gt 0">
+                <ul class="pagination">
+                    <li>
+                        <a th:href="@{/account/userMessage}+'?page=1&size='+${comments.pageSize}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li><a th:href="@{/account/userMessage}+'?page='+${comments.pageNum-1}+'&size='+${comments.pageSize}">上一页</a></li>
+                    <li th:each="pageNo: ${#numbers.sequence(1,comments.pages)}"> <a th:href="@{/account/userMessage}+'?page='+${pageNo}+'&size='+${comments.pageSize}" th:text="${pageNo}"></a> </li>
+                    <li><a th:href="@{/account/userMessage}+'?page='+${comments.pageNum+1}+'&size='+${comments.pageSize}">下一页</a></li>
+                    <li>
+                        <a th:href="@{/account/userMessage}+'?page='+${comments.pages}+'&size='+${comments.pageSize}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="alert alert-warning" th:if="${comments.total} eq 0" th:text="暂无更多消息"></div>
         </div>
-    <div class="col-lg-3"></div>
-</div>
+    </div>
+</main>
+
 </body>
 </html>

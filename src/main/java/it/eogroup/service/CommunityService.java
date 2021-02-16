@@ -1,9 +1,8 @@
 package it.eogroup.service;
 
-import it.eogroup.domain.Comment;
-import it.eogroup.domain.CommentAccount;
-import it.eogroup.domain.Community;
-import it.eogroup.domain.Post;
+import it.eogroup.domain.*;
+import org.apache.ibatis.annotations.Param;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -61,4 +60,11 @@ public interface CommunityService {
 
     //根据帖子id找到发帖人的id
     Integer getAccountIdByPostId(Integer postId);
+
+    //查找未读评论
+    List<CommentAccount> findAllMessage(Integer accountId);
+
+    //查找未读评论+帖子
+    List<CommentAccountPost> findUnReadMessagePost(Integer page, Integer size,Integer accountId);
+
 }

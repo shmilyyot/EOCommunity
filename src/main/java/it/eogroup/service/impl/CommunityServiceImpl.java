@@ -2,10 +2,7 @@ package it.eogroup.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import it.eogroup.dao.CommunityDao;
-import it.eogroup.domain.Comment;
-import it.eogroup.domain.CommentAccount;
-import it.eogroup.domain.Community;
-import it.eogroup.domain.Post;
+import it.eogroup.domain.*;
 import it.eogroup.service.CommunityService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -137,6 +134,19 @@ public class CommunityServiceImpl implements CommunityService {
     public Integer getAccountIdByPostId(Integer postId) {
         logger.info("返回发帖人的id");
         return communityDao.getAccountIdByPostId(postId);
+    }
+
+    @Override
+    public List<CommentAccount> findAllMessage(Integer accountId) {
+        logger.info("返回该账户所有未读消息");
+        return communityDao.findUnReadMessage(accountId,false);
+    }
+
+    @Override
+    public List<CommentAccountPost> findUnReadMessagePost(Integer page, Integer size,Integer accountId) {
+        logger.info("返回该账户所有未读消息");
+        PageHelper.startPage(page,size);
+        return communityDao.findUnReadMessagePost(accountId,false);
     }
 
 

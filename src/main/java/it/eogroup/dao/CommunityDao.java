@@ -83,4 +83,13 @@ public interface CommunityDao {
     //查找留言板
     @Select("SELECT * FROM messageBoard ORDER BY messageBoard.`messageTime` DESC")
     List<MessageBoard> findAllMessage();
+
+    //查找未读评论
+    List<CommentAccount> findUnReadMessage(@Param("accountId") Integer accountId,@Param("commentStatus") Boolean commentStatus);
+
+    //查找未读评论+帖子
+    List<CommentAccountPost> findUnReadMessagePost(@Param("accountId") Integer accountId,@Param("commentStatus") Boolean commentStatus);
+
+    //评论标为已读
+    void readMessage(@Param("commentId") Integer commentId,@Param("commentStatus") Boolean commentStatus);
 }

@@ -12,7 +12,7 @@
     <title th:text="${community.communityName}"></title>
     <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
 </head>
-<body>
+<body style="overflow-y:scroll;">
 <div id="header"></div>
 <script>
     $("#header").load("../../pages/header");
@@ -23,7 +23,7 @@
         <div class="col">
             <div style="background-color:lightskyblue;height: 100px;border: green solid 1px;">
                 <div>
-                        <img th:src="@{(${community.communityAvatar})}" style="float: left;" />
+                        <img th:src="@{(${community.communityAvatar})}" style="float: left;" class="img-thumbnail"/>
                 </div>
                     <div>
                         <strong class="d-block text-gray-dark">
@@ -36,7 +36,7 @@
             <br>
             <!--发帖按钮-->
             <div sec:authorize="isAuthenticated()">
-                <a th:href="@{/community/post/post/}+${community.communityId}"><button type="button">发帖</button></a>
+                <a th:href="@{/community/post/post/}+${community.communityId}"><button type="button" class="btn btn-info">发帖</button></a>
             </div>
             <div sec:authorize="!isAuthenticated()">
                 <p style="color: red;font-size: 20px">未登录只能浏览不能发帖</p>
@@ -77,6 +77,7 @@
                     </li>
                 </ul>
             </nav>
+            <div class="alert alert-warning" th:if="${pageinfo.total} eq 0" th:text="暂无更多帖子"></div>
         </div>
     </div>
 </main>

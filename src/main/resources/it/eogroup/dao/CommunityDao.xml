@@ -109,5 +109,33 @@
         values (null,#{messageText},#{messageTime})
     </insert>
 
+    <!--查询未读消息-->
+    <select id="findUnReadMessage" resultType="it.eogroup.domain.CommentAccount">
+        SELECT
+            comment.*,
+            account.`accountName`
+        FROM comment INNER JOIN account ON comment.`accountId` = account.`accountId`
+        WHERE comment.`commentTo` = #{accountId} AND comment.`commentStatus` = #{commentStatus}
+        ORDER BY comment.`commentTime` DESC
+    </select>
 
+    <!--评论标为已读-->
+    <update id="readMessage">
+        UPDATE comment
+        SET comment.`commentStatus` = #{commentStatus}
+        WHERE comment.`commentId` = #{commentId}
+    </update>
+
+    <!--查询未读消息+评论-->
+    <select id="findUnReadMessagePost" resultType="it.eogroup.domain.CommentAccountPost">
+        SELECT
+            comment.*,
+            account.`accountName`,
+            post.`postTitle`,
+            post.`communityId`
+        FROM comment INNER JOIN account ON comment.`accountId` = account.`accountId`
+                     INNER JOIN post ON comment.`postId` = post.`postId`
+        WHERE comment.`commentTo` = #{accountId} AND comment.`commentStatus` = #{commentStatus}
+        ORDER BY comment.`commentTime` DESC
+    </select>
 </mapper>

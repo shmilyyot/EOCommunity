@@ -12,7 +12,7 @@
     <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
     <title>EOCommunity社区</title>
 </head>
-<body>
+<body style="overflow-y:scroll;">
 <div id="header"></div>
 <script>
     $("#header").load("../../pages/header");
@@ -33,7 +33,7 @@
                 </div>
                 <ul th:each="community:${communities}">
                     <div>
-                        <img th:src="@{(${community.communityAvatar})}" style="width:50px; height: 50px;float: left;"/>
+                        <img th:src="@{(${community.communityAvatar})}" style="width:50px; height: 50px;float: left;" class="img-thumbnail"/>
                         <div>
                             <strong class="d-block text-gray-dark">
                                 &#12288&#12288<a th:href="@{/community/community/}+${community.communityId}+'?page=1&size=10'" th:text="${community.communityName}"></a>
@@ -58,8 +58,8 @@
                         <ul class="list-group" th:each="post:${posts}">
                             <p></p>
                             <li style="list-style-type: none">
-                                <a th:text="${[post.communityId]}" style="font-size: 20px;font-weight: bolder;color: #761c19" th:href="@{/community/community/}+${post.communityId}"></a>
-                                <a th:text="'&#12288'+${post.postTitle}" style="font-size: 20px" th:href="@{/community/post/}+${post.postId}+'?page=1&size=10&communityId='+${post.communityId}"></a>
+                                <a th:text="${[post.communityId]}" style="font-size: 20px;font-weight: bolder;color: #761c19;text-decoration:none;" th:href="@{/community/community/}+${post.communityId}"></a>
+                                <a th:text="'&#12288'+${post.postTitle}" style="font-size: 20px;text-decoration:none" th:href="@{/community/post/}+${post.postId}+'?page=1&size=10&communityId='+${post.communityId}"></a>
                                 <p th:text="${#temporals.format(post.postTime,'yyyy-MM-dd HH:mm:ss')}" style="float: right"></p>
                             </li>
                         </ul>
