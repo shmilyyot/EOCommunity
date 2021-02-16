@@ -92,4 +92,7 @@ public interface CommunityDao {
 
     //评论标为已读
     void readMessage(@Param("commentId") Integer commentId,@Param("commentStatus") Boolean commentStatus);
+
+    //标记所有未读评论为已读
+    void readAllMessage(@Param("accountId") Integer accountId,@Param("commentStatus") Boolean commentStatus);
 }

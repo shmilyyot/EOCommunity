@@ -152,4 +152,33 @@ public class AccountController {
         logger.info("往页面添加未读评论");
         return mv;
     }
+
+    @RequestMapping("/readMessage")
+    @ResponseBody
+    public String readMessage(Integer commentId){
+        try{
+            communityService.readMessage(commentId);
+            logger.info("成功标记为已读信息");
+        }catch (Exception e){
+            logger.error("确认已读失败");
+            return "false";
+        }
+        return "true";
+    }
+
+    @RequestMapping("/readAllMessage")
+    @ResponseBody
+    public String readAllMessage(){
+        try{
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            Account account = accountService.getAccount(authentication.getName());
+            communityService.readAllMessage(account.getAccountId());
+            logger.info("成功标记所有已读信息");
+        }catch (Exception e){
+            logger.error("确认已读失败");
+            return "false";
+        }
+        return "true";
+    }
+
 }

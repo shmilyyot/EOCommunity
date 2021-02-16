@@ -23,12 +23,12 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">未读消息
-                    <button type="button" th:text="一键已读" th:if="${comments.total} gt 0" class="btn btn-primary btn-sm" style="float: right"></button>
+                    <button type="button" th:text="一键已读" th:if="${comments.total} gt 0" class="btn btn-primary btn-sm" style="float: right" onclick="readAllMessages()"></button>
                 </div>
                 <ul class="list-group" th:each="comment:${comments.list}">
                     <li class="list-group-item">
                         <div >
-                            <a style="text-decoration:none;" th:href="@{/community/post/}+${comment.postId}+'?page=1&size=10&communityId='+${comment.communityId}">
+                            <a style="text-decoration:none;" th:href="@{/community/post/}+${comment.postId}+'?page=1&size=10&communityId='+${comment.communityId}" th:onclick="'javascript:readMessage('+${comment.commentId}+')'">
                                 <span th:utext="${comment.accountName}+':'+${comment.commentText}"></span>
                             </a>
                         </div>
@@ -59,6 +59,35 @@
         </div>
     </div>
 </main>
-
 </body>
+<script th:inline="javascript">
+    function readMessage(commentId){
+        $.ajax({
+            url:"/account/readMessage",    //请求的url地址
+            data:{"commentId":commentId},    //参数值
+            type:"post",   //请求方式
+            success:function(data){
+                if(data === "true"){
+                    console.info("已读成功");
+                }else{
+                    console.info("已读失败");
+                }
+            }
+        })
+    }
+
+    function readAllMessages(){
+        $.ajax({
+            url:"/account/readAllMessage",    //请求的url地址
+            type:"post",   //请求方式
+            success:function(data){
+                if(data === "true"){
+                    console.info("已读成功");
+                }else{
+                    console.info("已读失败");
+                }
+            }
+        })
+    }
+</script>
 </html>

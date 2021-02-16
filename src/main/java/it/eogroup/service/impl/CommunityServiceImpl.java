@@ -149,5 +149,17 @@ public class CommunityServiceImpl implements CommunityService {
         return communityDao.findUnReadMessagePost(accountId,false);
     }
 
+    @Override
+    public void readMessage(Integer commentId) {
+        logger.info("尝试标为已读消息");
+        communityDao.readMessage(commentId,true);
+    }
+
+    @Override
+    public void readAllMessage(Integer accountId) {
+        communityDao.readAllMessage(accountId,true);
+        logger.info("所有未读评论执行已读");
+    }
+
 
 }

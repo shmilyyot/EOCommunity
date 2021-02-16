@@ -1,8 +1,6 @@
 package it.eogroup.service;
 
 import it.eogroup.domain.*;
-import org.apache.ibatis.annotations.Param;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -66,5 +64,11 @@ public interface CommunityService {
 
     //查找未读评论+帖子
     List<CommentAccountPost> findUnReadMessagePost(Integer page, Integer size,Integer accountId);
+
+    //评论标为已读
+    void readMessage(Integer commentId);
+
+    //所有评论已读
+    void readAllMessage(Integer accountId);
 
 }

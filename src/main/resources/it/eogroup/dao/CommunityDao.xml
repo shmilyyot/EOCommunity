@@ -126,6 +126,13 @@
         WHERE comment.`commentId` = #{commentId}
     </update>
 
+    <!--所有评论标为已读-->
+    <update id="readAllMessage">
+        UPDATE comment
+        SET comment.`commentStatus` = #{commentStatus}
+        WHERE comment.`commentTo` = #{accountId} AND comment.`commentStatus` &lt;&gt; #{commentStatus}
+    </update>
+
     <!--查询未读消息+评论-->
     <select id="findUnReadMessagePost" resultType="it.eogroup.domain.CommentAccountPost">
         SELECT
