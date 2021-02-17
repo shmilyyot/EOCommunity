@@ -37,9 +37,10 @@ CREATE TABLE IF NOT EXISTS 	`community`(
 	PRIMARY KEY (`communityId`)
 )
 
-INSERT INTO `community` VALUES (1, 'CPP', '世界上最好、最难用的编程语言', '/images/community/cpp_community.png');
-INSERT INTO `community` VALUES (2, 'JAVA', '一种编程语言', '/images/community/java_community.png');
-INSERT INTO `community` VALUES (3, 'Python', '一种编程语言', '/images/community/python_community.png');
+INSERT INTO `community` VALUES (1, '蝙蝠侠', '布鲁斯·韦恩（Bruce Wayne）即蝙蝠侠（Batman），是美国DC漫画旗下的超级英雄', '/images/community/batman_community.jpg');
+INSERT INTO `community` VALUES (2, '超人', '超人（Superman）是美国DC漫画旗下的超级英雄，美国漫画史上第一个超级英雄', '/images/community/superman_community.jpg');
+INSERT INTO `community` VALUES (3, '神奇女侠', '戴安娜·普林斯（Diana Prince）即神奇女侠（Wonder Woman），是美国DC漫画旗下的超级英雄', '/images/community/wonderwomen_community.jpg');
+INSERT INTO `community` VALUES (4, '疑难解答', '可以在此处反馈bug或提出建议，以及提出疑问', '/images/community/question_community.png');
 
 DROP TABLE IF EXISTS `post`;
 CREATE TABLE IF NOT EXISTS 	`post`(
