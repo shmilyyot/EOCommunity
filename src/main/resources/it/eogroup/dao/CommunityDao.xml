@@ -103,12 +103,6 @@
         values (null,#{communityId},#{accountId},#{postTitle},#{postTime})
     </insert>
 
-    <insert id="insertMessageBoard" parameterType="it.eogroup.domain.MessageBoard">
-        insert into
-            messageBoard
-        values (null,#{messageText},#{messageTime})
-    </insert>
-
     <!--查询未读消息-->
     <select id="findUnReadMessage" resultType="it.eogroup.domain.CommentAccount">
         SELECT

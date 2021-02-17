@@ -76,12 +76,7 @@ public interface CommunityDao {
     @Select("SELECT accountId FROM post WHERE post.`postId` = #{postId}")
     Integer getAccountIdByPostId(Integer postId);
 
-    //插入留言板
-    void insertMessageBoard(MessageBoard messageBoard);
 
-    //查找留言板
-    @Select("SELECT * FROM messageBoard ORDER BY messageBoard.`messageTime` DESC")
-    List<MessageBoard> findAllMessage();
 
     //查找未读评论
     List<CommentAccount> findUnReadMessage(@Param("accountId") Integer accountId,@Param("commentStatus") Boolean commentStatus);

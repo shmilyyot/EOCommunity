@@ -53,9 +53,9 @@
                     <ul class="list-group" th:each="post:${pageinfo.list}">
                         <HR align=center color=#987cb9>
                         <li style="list-style-type: none">
-                            <a th:text="${post.postTitle}" th:href="@{/community/post/}+${post.postId}+'?page=1&size=10&communityId='+${post.communityId}" style="font-size: 15px;color: black"></a>
+                            <a th:text="${post.postTitle}" th:href="@{/community/post/}+${post.postId}+'?page=1&size=10&communityId='+${post.communityId}" style="font-size: 15px;color: black;text-decoration:none;"></a>
                             <p th:text="${#temporals.format(post.postTime,'yyyy-MM-dd HH:mm:ss')}" style="float: right;color: #888888;font-size: 10px" ></p>
-                            <a th:text="${[post.postId]}+'&#12288'" style="color: #2b669a;float: right" ></a>
+                            <p th:text="${[post.postId]}+'&#12288'" style="color: #2b669a;float: right" ></p>
                         </li>
                     </ul>
                 </div>

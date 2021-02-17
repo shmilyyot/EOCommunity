@@ -33,8 +33,8 @@
             </div>
             <div>
                 <br>
-                <div style="border:1px solid #2BD9B6" sec:authorize="isAuthenticated()">
-                    <b><p th:text="${post.postTitle}" style="font-size: 30px;" th:href="@{#}"></p></b>
+                <div sec:authorize="isAuthenticated()">
+                    <b><p th:text="${post.postTitle}" style="font-size: 30px;"></p></b>
                     <button type="button" onclick="addToFav()" id="favButton" style="float: right" class="btn btn-info">收藏帖子</button>
                 </div>
                 <br>
@@ -45,12 +45,12 @@
                         <td width="15%" bgcolor="#faebd7" style="word-wrap:break-word;word-break:break-all;white-space:normal;max-width:600px;">
                             <div style="left: 71px;top:0px">
                                 <div th:align="center">
-                                    <a th:href="@{#}" th:text="${comment.accountName}" ></a>
+                                    <a th:href="@{/account/accountBriefInfo}+'?commentId='+${comment.commentId}" th:text="${comment.accountName}" ></a>
                                 </div>
                                 <div>
                                     <!--鼠标移动到图片上触发onmouseover-->
                                     <!--未登录获取不到用户资料，需修改。做一个特供页面？-->
-                                    <div onmouseover="this" th:align="center">
+                                    <div th:align="center">
                                         <a href="#" class="avtm">
                                             <img th:src="@{${comment.accountAvatar}}" style="width:120px; height: 120px;" onerror="this.onerror=null;this.src='/images/defaultAvatar.png'" alt="用户头像" class="img-thumbnail">
                                         </a>

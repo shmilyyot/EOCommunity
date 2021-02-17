@@ -181,4 +181,14 @@ public class AccountController {
         return "true";
     }
 
+    @RequestMapping("/accountBriefInfo")
+    @ResponseBody
+    public ModelAndView showAccountBriefInfo(Integer commentId){
+        ModelAndView mv = new ModelAndView("account/userBriefInfo");
+        Integer accountId = communityService.getCommentAccountId(commentId);
+        Account account = accountService.getAccountById(accountId);
+        mv.addObject("account",account);
+        return mv;
+    }
+
 }

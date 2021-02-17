@@ -73,11 +73,3 @@ CREATE TABLE IF NOT EXISTS 	`favPost`(
 	`title` VARCHAR(255) NOT NULL,
 	PRIMARY KEY (`favId`)
 )
-
-DROP TABLE IF EXISTS `messageBoard`;
-CREATE TABLE IF NOT EXISTS `messageBoard`(
-	`messageId` INT NOT NULL AUTO_INCREMENT,
-	`messageText` TEXT NOT NULL,
-	`messageTime` DATETIME(6) NOT NULL,
-	PRIMARY KEY (`messageId`)
-)

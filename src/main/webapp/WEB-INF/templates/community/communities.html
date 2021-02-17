@@ -33,7 +33,7 @@
                     <img th:src="@{(${community.communityAvatar})}" style="width:50px; height: 50px;float: left;"/>
                     <div>
                         <strong class="d-block text-gray-dark">
-                            &#12288&#12288<a th:href="@{/community/community/}+${community.communityId}+'?page=1&size=10'" th:text="${community.communityName}"></a>
+                            &#12288&#12288<a th:href="@{/community/community/}+${community.communityId}+'?page=1&size=10'" th:text="${community.communityName}" style="text-decoration:none;"></a>
                         </strong>
                     </div>
                     <div style="margin-left: 20px">
