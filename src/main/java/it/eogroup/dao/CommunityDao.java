@@ -5,7 +5,6 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -95,4 +94,11 @@ public interface CommunityDao {
 
     //标记所有未读评论为已读
     void readAllMessage(@Param("accountId") Integer accountId,@Param("commentStatus") Boolean commentStatus);
+
+    //统计当前楼层数
+    Integer getCommentFloor(Integer postId);
+
+    //根据评论找账户id
+    @Select("SELECT  accountId FROM comment WHERE comment.`commentId` = #{commentId}")
+    Integer getCommentAccountId(Integer commentId);
 }

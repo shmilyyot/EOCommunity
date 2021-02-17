@@ -110,6 +110,12 @@ public class CommunityServiceImpl implements CommunityService {
     @Override
     public void insertComment(Comment comment) {
         logger.info("插入评论");
+        Integer floor = communityDao.getCommentFloor(comment.getPostId());
+        if(floor == 0){
+            comment.setCommentFloor("楼主");
+        }else{
+            comment.setCommentFloor((floor+1)+"楼");
+        }
         communityDao.insertComment(comment);
     }
 
@@ -159,6 +165,12 @@ public class CommunityServiceImpl implements CommunityService {
     public void readAllMessage(Integer accountId) {
         communityDao.readAllMessage(accountId,true);
         logger.info("所有未读评论执行已读");
+    }
+
+    @Override
+    public Integer getCommentAccountId(Integer commentId) {
+        logger.info("根据评论id找回账户id");
+        return communityDao.getCommentAccountId(commentId);
     }
 
 

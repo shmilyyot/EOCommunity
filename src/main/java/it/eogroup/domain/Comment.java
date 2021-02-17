@@ -12,4 +12,5 @@ public class Comment {
     private String commentText;
     private Integer commentTo;
     private Boolean commentStatus;
+    private String commentFloor;
 }

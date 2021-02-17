@@ -55,6 +55,7 @@
         editor.txt.html($('#postText').text())
         $('#submitpost').click(function () {
             $('#postText').text(editor.txt.html());
+            if(!checkTextNull()) return;
             sendPost();
         })
     })
@@ -77,6 +78,21 @@
             }
         })
     }
+
+    function checkTextNull(){
+        var judge = document.getElementById("postText").innerText;
+        var title = document.getElementById("headTitle").value;
+        if(title == null || title == "") {
+            alert("标题不能为空噢!")
+            return false;
+        }
+        if(judge == null || judge == "") {
+            alert("发帖内容不能为空噢!")
+            return false;
+        }
+        return true;
+    }
+
 </script>
 </body>
 </html>

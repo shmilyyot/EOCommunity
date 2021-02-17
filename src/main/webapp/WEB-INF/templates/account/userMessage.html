@@ -29,7 +29,7 @@
                     <li class="list-group-item">
                         <div >
                             <a style="text-decoration:none;" th:href="@{/community/post/}+${comment.postId}+'?page=1&size=10&communityId='+${comment.communityId}" th:onclick="'javascript:readMessage('+${comment.commentId}+')'">
-                                <span th:utext="${comment.accountName}+':'+${comment.commentText}"></span>
+                                <span th:utext="${comment.accountName}+':'+${comment.commentText}" style="background-color: #d5d5d5"></span>
                             </a>
                         </div>
                         <br>
@@ -83,6 +83,7 @@
             success:function(data){
                 if(data === "true"){
                     console.info("已读成功");
+                    location.href = "/account/userMessage?page=1&size=10";
                 }else{
                     console.info("已读失败");
                 }

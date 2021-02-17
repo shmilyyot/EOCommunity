@@ -71,4 +71,7 @@ public interface CommunityService {
     //所有评论已读
     void readAllMessage(Integer accountId);
 
+    //根据评论找账户id
+    Integer getCommentAccountId(Integer commentId);
+
 }

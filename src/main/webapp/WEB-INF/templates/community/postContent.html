@@ -35,7 +35,7 @@
                 <br>
                 <div style="border:1px solid #2BD9B6" sec:authorize="isAuthenticated()">
                     <b><p th:text="${post.postTitle}" style="font-size: 30px;" th:href="@{#}"></p></b>
-                    <button type="button" onclick="addToFav()" id="favButton" style="float: right">收藏帖子</button>
+                    <button type="button" onclick="addToFav()" id="favButton" style="float: right" class="btn btn-info">收藏帖子</button>
                 </div>
                 <br>
                 <!--评论区-->
@@ -45,13 +45,13 @@
                         <td width="15%" bgcolor="#faebd7" style="word-wrap:break-word;word-break:break-all;white-space:normal;max-width:600px;">
                             <div style="left: 71px;top:0px">
                                 <div th:align="center">
-                                    <a th:href="@{#}" th:text="${comment.accountName}" target="_blank" ></a>
+                                    <a th:href="@{#}" th:text="${comment.accountName}" ></a>
                                 </div>
                                 <div>
                                     <!--鼠标移动到图片上触发onmouseover-->
                                     <!--未登录获取不到用户资料，需修改。做一个特供页面？-->
                                     <div onmouseover="this" th:align="center">
-                                        <a href="/account/userInfo" class="avtm" target="_blank">
+                                        <a href="#" class="avtm">
                                             <img th:src="@{${comment.accountAvatar}}" style="width:120px; height: 120px;" onerror="this.onerror=null;this.src='/images/defaultAvatar.png'" alt="用户头像" class="img-thumbnail">
                                         </a>
                                         <p></p>
@@ -59,21 +59,30 @@
                                 </div>
                             </div>
                         </td>
-                        <td>
+                        <td valign="top">
                             <div>
                                 <div style="float: right">
                                     <strong>
-                                        <label th:text="${commentStat.index+1}+${pageinfo.pageNum-1}*10+'楼'" style="color: #888888"></label>
+                                        <label th:text="${comment.commentFloor}" th:id="${comment.commentId}" style="color: #888888"></label>
                                     </strong>
                                 </div>
-                                <div>
+                                <div >
                                     <strong>
                                         <label th:text="'发表时间:'+${#temporals.format(comment.commentTime,'yyyy-MM-dd HH:mm:ss')}" style="color: #ffab0c"></label>
                                     </strong>
                                 </div>
                             </div>
-                            <div th:id="${comment.commentId}">
+                            <br>
+                            <div>
                                 <div th:utext="${comment.commentText}" ></div>
+                            </div>
+                            <br>
+                            <button id="showButton" type="button" sec:authorize="isAuthenticated()" class="btn-xs btn-info" th:onclick="'javascript:showReply('+${comment.commentId}+')'" th:if="${comment.commentFloor} != '楼主'">短回复</button>
+                            <div th:id="'form'+${comment.commentId}" style="display: none">
+                                <textarea  th:id="'reply'+${comment.commentId}" style="width: 100%"></textarea>
+                                <input type="hidden" th:id="'hidden'+${comment.commentId}" th:value="'回复：'+${comment.commentFloor}">
+                                <br>
+                                <button id="submitReply" type="submit" th:onclick="'javascript:sendReply('+${comment.commentId}+')'">回复</button>
                             </div>
                         </td>
                     </tr>
@@ -102,7 +111,7 @@
             <div id="commentFrom" sec:authorize="isAuthenticated()" >
                 <div id="commentArea"></div>
                 <textarea id="comment" name="comment" style="display: none"></textarea>
-                <input class="btn btn-primary" type="submit" id="submitcomment" value="回复">
+                <input class="btn btn-primary" type="submit" id="submitComment" value="评论">
             </div>
             <div sec:authorize="!isAuthenticated()" th:align="center">
                 <p style="color: red;font-size: 20px">未登录禁止评论</p>
@@ -124,7 +133,7 @@
         editor.config.excludeMenus = ['video','image'];
         editor.create();
         editor.txt.html($('#comment').text())
-        $('#submitcomment').click(function () {
+        $('#submitComment').click(function () {
             $('#comment').text(editor.txt.html());
             if(!checkTextNull()) return;
             sentComment();
@@ -169,9 +178,48 @@
             success:function(data){
                 if(data === "true"){
                     alert("评论成功");
-                    editor.txt.clear()
+                    editor.txt.clear();
                 }else{
                     alert("评论失败");
+                }
+            }
+        })
+    }
+
+    function checkReplyNull(commentId){
+        let judge = document.getElementById('reply'+commentId).value;
+        if(judge == null || judge === "") {
+            alert("评论内容不能为空")
+            return false;
+        }
+        return true;
+    }
+
+    function showReply(commentId){
+        let form = document.getElementById('form'+commentId);
+        let val = form.style.display;
+        if(val === 'none'){
+            form.style.display = 'block';
+        }else{
+            form.style.display = 'none';
+        }
+    }
+
+    function sendReply(commentId){
+        if(!checkReplyNull(commentId)) return;
+        var hidden1 = document.getElementById('hidden'+commentId).value;
+        let replyText = document.getElementById('reply'+commentId).value;
+        var postId = $("#postId").val();
+        $.ajax({
+            url:"/community/post/reply",
+            data:{"replyTo":hidden1,"replyText":replyText,"commentId":commentId,"postId":postId},
+            type:"post",   //请求方式
+            success:function(data){
+                if(data === "true"){
+                    alert("回复成功");
+                    document.getElementById('reply'+commentId).value = "";
+                }else{
+                    alert("回复失败");
                 }
             }
         })

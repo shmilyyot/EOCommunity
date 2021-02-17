@@ -93,7 +93,7 @@
     <insert id="insertComment" parameterType="it.eogroup.domain.Comment">
         insert into
             comment
-        values (null,#{postId},#{accountId},#{commentTime},#{commentText},#{commentTo},#{commentStatus})
+        values (null,#{postId},#{accountId},#{commentTime},#{commentText},#{commentTo},#{commentStatus},#{commentFloor})
     </insert>
 
     <!--插入帖子-->
@@ -145,4 +145,13 @@
         WHERE comment.`commentTo` = #{accountId} AND comment.`commentStatus` = #{commentStatus}
         ORDER BY comment.`commentTime` DESC
     </select>
+
+    <!--查看当前楼层数-->
+    <select id="getCommentFloor" resultType="java.lang.Integer">
+        SELECT
+            count(comment.`commentId`)
+        FROM comment
+        WHERE comment.`postId` = #{postId}
+    </select>
+
 </mapper>

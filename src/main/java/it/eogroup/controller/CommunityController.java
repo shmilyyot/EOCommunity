@@ -144,7 +144,24 @@ public class CommunityController {
     //回复帖子
     @RequestMapping("/post/reply")
     @ResponseBody
-    public String replyComment(){
+    public String replyComment(String replyTo,String replyText,Integer commentId,Integer postId){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Comment comment = new Comment();
+        String newreply = "<p><font color=\"#c24f4a\" style=\"background-color: rgb(238, 236, 224);\">"+replyTo+"</font><br/></p>"+replyText;
+        comment.setCommentTime(LocalDateTime.now());
+        comment.setCommentText(newreply);
+        comment.setPostId(postId);
+        comment.setCommentTo(communityService.getCommentAccountId(commentId));
+        comment.setAccountId(accountService.getAccount(authentication.getName()).getAccountId());
+        comment.setCommentStatus(false);
+        try{
+            communityService.insertComment(comment);
+            logger.info("发布评论成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            logger.error("发布评论失败");
+            return "false";
+        }
         return "true";
     }
 
@@ -187,12 +204,6 @@ public class CommunityController {
             return "false";
         }
         return "true";
-    }
-
-    @RequestMapping("/messageBoard")
-    public ModelAndView showMessageBoard(){
-        ModelAndView mv = new ModelAndView("community/MessageBoard");
-        return mv;
     }
 
 }
