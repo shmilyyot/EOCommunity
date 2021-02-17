@@ -154,4 +154,14 @@
         WHERE comment.`postId` = #{postId}
     </select>
 
+    <!--查询相关帖子-->
+    <select id="getRelatedPosts" resultType="it.eogroup.domain.Post">
+        SELECT
+            *
+        FROM
+            post
+        WHERE post.`postTitle` LIKE concat('%',#{keyword},'%')
+        ORDER BY post.`postTime` DESC
+    </select>
+
 </mapper>

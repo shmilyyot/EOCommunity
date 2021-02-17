@@ -47,7 +47,7 @@
             <form action="/account/uploadAvatar" method="post" enctype="multipart/form-data">
                 <div>
                     <div>
-                        <img th:src="@{(${accountAvatar})}" style="width:100px; height: 100px;"/>
+                        <img th:src="@{(${accountAvatar})}" style="width:100px; height: 100px;" class="img-rounded"/>
                     </div>
                 </div>
                 <div>选择图片：<input type="file" name="accountFace" accept="image/jpg,image/jpeg,image/png"></br></div>

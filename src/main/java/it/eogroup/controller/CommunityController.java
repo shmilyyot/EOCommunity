@@ -206,4 +206,14 @@ public class CommunityController {
         return "true";
     }
 
+    @RequestMapping("/search")
+    public ModelAndView searchPost(@RequestParam(name="page",defaultValue = "1")Integer page,@RequestParam(name = "size",defaultValue = "10")Integer size,@RequestParam(name = "keyword")String keyword){
+        ModelAndView mv = new ModelAndView("community/searchPost");
+        List<Post> list = communityService.getRelatedPosts(page,size,keyword);
+        PageInfo posts = new PageInfo(list);
+        mv.addObject("posts",posts);
+        if(keyword != null) mv.addObject("keyword",keyword);
+        return mv;
+    }
+
 }

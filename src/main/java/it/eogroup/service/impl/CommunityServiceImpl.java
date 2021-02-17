@@ -173,5 +173,12 @@ public class CommunityServiceImpl implements CommunityService {
         return communityDao.getCommentAccountId(commentId);
     }
 
+    @Override
+    public List<Post> getRelatedPosts(Integer page, Integer size,String keyword) {
+        logger.info("返回模糊查找帖子的集合");
+        PageHelper.startPage(page,size);
+        return communityDao.getRelatedPosts(keyword);
+    }
+
 
 }

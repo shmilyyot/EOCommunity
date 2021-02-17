@@ -101,4 +101,7 @@ public interface CommunityDao {
     //根据评论找账户id
     @Select("SELECT  accountId FROM comment WHERE comment.`commentId` = #{commentId}")
     Integer getCommentAccountId(Integer commentId);
+
+    //根据关键词查找帖子
+    List<Post> getRelatedPosts(String keyword);
 }

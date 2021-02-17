@@ -74,4 +74,7 @@ public interface CommunityService {
     //根据评论找账户id
     Integer getCommentAccountId(Integer commentId);
 
+    //根据关键词查找帖子
+    List<Post> getRelatedPosts(Integer page, Integer size,String keyword);
+
 }

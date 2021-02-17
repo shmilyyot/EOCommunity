@@ -24,6 +24,7 @@
         <!-- 配置具体的拦截的规则 pattern="请求路径的规则" access="访问系统的人，必须有ROLE_USER的角色" -->
         <security:intercept-url pattern="/community/**" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')"/>
         <security:intercept-url pattern="/community/community/**" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')"/>
+        <security:intercept-url pattern="/community/search/**" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')"/>
         <security:intercept-url pattern="/community/communities/**" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')"/>
         <security:intercept-url pattern="/community/post/**" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')"/>
         <security:intercept-url pattern="/community/post/fav" access="hasRole('ROLE_USER')"/>
