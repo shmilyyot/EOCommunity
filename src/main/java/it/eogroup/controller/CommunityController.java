@@ -1,6 +1,7 @@
 package it.eogroup.controller;
 
 import com.github.pagehelper.PageInfo;
+import it.eogroup.domain.Account;
 import it.eogroup.domain.Comment;
 import it.eogroup.domain.CommentAccount;
 import it.eogroup.domain.Post;
@@ -30,6 +31,7 @@ public class CommunityController {
     private CommunityService communityService;
     private static final Logger logger = LogManager.getLogger(CommunityController.class);
 
+    //打开首页
     @RequestMapping("/")
     public String index(Model model){
         logger.info("跳转了首页");
@@ -43,6 +45,7 @@ public class CommunityController {
         return "index";
     }
 
+    //打开论坛
     @RequestMapping("/community/{communityId}")
     public ModelAndView toCommunity(@PathVariable("communityId")Integer communityId,@RequestParam(name="page",defaultValue = "1")Integer page,@RequestParam(name = "size",defaultValue = "10")Integer size ){
         ModelAndView mv = new ModelAndView("community/community");
@@ -58,6 +61,7 @@ public class CommunityController {
         return mv;
     }
 
+    //打开帖子
     @RequestMapping("/post/{postId}")
     public ModelAndView toPost(@PathVariable("postId")Integer postId,@RequestParam(name="page",defaultValue = "1")Integer page,@RequestParam(name = "size",defaultValue = "10")Integer size,@RequestParam(name = "communityId",defaultValue = "1")Integer communityId){
         ModelAndView mv = new ModelAndView("community/postContent");
@@ -105,12 +109,6 @@ public class CommunityController {
         return "true";
     }
 
-    //上传图片
-    @RequestMapping("/commumity/upload/editor/img")
-    public ModelAndView uploadEditorImg(){
-        return new ModelAndView();
-    }
-
     //提交文本框评论
     @RequestMapping(value="/post/submitComment",method = RequestMethod.POST)
     @ResponseBody
@@ -120,7 +118,9 @@ public class CommunityController {
         comment.setCommentTime(LocalDateTime.now());
         comment.setCommentText(commentText);
         comment.setPostId(postId);
+        comment.setCommentTo(communityService.getAccountIdByPostId(postId));
         comment.setAccountId(accountService.getAccount(authentication.getName()).getAccountId());
+        comment.setCommentStatus(false);
         try{
             communityService.insertComment(comment);
             logger.info("发布评论成功");
@@ -133,11 +133,87 @@ public class CommunityController {
     }
 
     //显示所有社区
-    @RequestMapping("/community/Communities")
+    @RequestMapping("/communities")
     public ModelAndView showAllCommunity(){
-        return new ModelAndView();
+        ModelAndView mv = new ModelAndView("community/communities");
+        mv.addObject("communities",communityService.getAllCommunities());
+        logger.info("往页面添加所有社区");
+        return mv;
     }
 
     //回复帖子
+    @RequestMapping("/post/reply")
+    @ResponseBody
+    public String replyComment(String replyTo,String replyText,Integer commentId,Integer postId){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Comment comment = new Comment();
+        String newreply = "<p><font color=\"#c24f4a\" style=\"background-color: rgb(238, 236, 224);\">"+replyTo+"</font><br/></p>"+replyText;
+        comment.setCommentTime(LocalDateTime.now());
+        comment.setCommentText(newreply);
+        comment.setPostId(postId);
+        comment.setCommentTo(communityService.getCommentAccountId(commentId));
+        comment.setAccountId(accountService.getAccount(authentication.getName()).getAccountId());
+        comment.setCommentStatus(false);
+        try{
+            communityService.insertComment(comment);
+            logger.info("发布评论成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            logger.error("发布评论失败");
+            return "false";
+        }
+        return "true";
+    }
+
+    //发帖页面
+    @RequestMapping("/post/post/{communityId}")
+    public ModelAndView createPost(@PathVariable("communityId")Integer communityId){
+        ModelAndView mv = new ModelAndView("community/createPost");
+        mv.addObject("community",communityService.getCommunity(communityId));
+        logger.info("往发帖页面添加社区信息");
+        return mv;
+    }
+
+    //发帖子
+    @RequestMapping("/post/savePost")
+    @ResponseBody
+    public String sendPost(@RequestParam(name = "title")String title,@RequestParam(name = "postText")String postText,@RequestParam(name = "communityId")Integer communityId){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Account account = accountService.getAccount(authentication.getName());
+        Post post = new Post();
+        post.setAccountId(account.getAccountId());
+        post.setPostTime(LocalDateTime.now());
+        post.setPostTitle(title);
+        post.setCommunityId(communityId);
+        Comment comment = new Comment();
+        try{
+            //发帖子
+            communityService.insertPost(post);
+            //楼主的内容看作第一条评论
+            comment.setPostId(communityService.getPostByTime(post.getPostTime()).getPostId());
+            comment.setCommentTime(post.getPostTime());
+            comment.setAccountId(account.getAccountId());
+            comment.setCommentText(postText);
+            comment.setCommentTo(post.getAccountId());
+            comment.setCommentStatus(true);
+            communityService.insertComment(comment);
+            logger.info("成功发布帖子");
+        }catch (Exception e){
+            e.printStackTrace();
+            logger.error("发布帖子失败");
+            return "false";
+        }
+        return "true";
+    }
+
+    @RequestMapping("/search")
+    public ModelAndView searchPost(@RequestParam(name="page",defaultValue = "1")Integer page,@RequestParam(name = "size",defaultValue = "10")Integer size,@RequestParam(name = "keyword")String keyword){
+        ModelAndView mv = new ModelAndView("community/searchPost");
+        List<Post> list = communityService.getRelatedPosts(page,size,keyword);
+        PageInfo posts = new PageInfo(list);
+        mv.addObject("posts",posts);
+        if(keyword != null) mv.addObject("keyword",keyword);
+        return mv;
+    }
 
 }

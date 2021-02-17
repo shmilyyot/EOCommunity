@@ -10,5 +10,4 @@ public class Post {
     private Integer accountId;
     private String postTitle;
     private LocalDateTime postTime;
-    private String postText;
 }

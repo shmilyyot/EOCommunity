@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <script src="../../js/jquery-3.5.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <title>搜索</title>
+    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
+</head>
+<body style="overflow-y:scroll;">
+<div id="header"></div>
+<script>
+    $("#header").load("../../pages/header");
+</script>
+
+<main role="main" class="container">
+    <div class="row">
+        <div class="col">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h1 class="panel-title">
+                        相关帖子
+                    </h1>
+                </div>
+                <div>
+                    <ul class="list-group" th:each="post:${posts.list}" th:if="${posts.total} gt 0">
+                        <p></p>
+                        <li style="list-style-type: none">
+                            <a th:text="${post.postTitle}" style="font-size: 20px;text-decoration:none" th:href="@{/community/post/}+${post.postId}+'?page=1&size=10&communityId='+${post.communityId}"></a>
+                            <p th:text="${#temporals.format(post.postTime,'yyyy-MM-dd HH:mm:ss')}" style="float: right"></p>
+                        </li>
+                    </ul>
+                    <div class="alert alert-warning" th:if="${posts.total} eq 0" th:text="没有找到相关帖子"></div>
+                </div>
+            </div>
+            <!--分页-->
+            <nav aria-label="Page navigation" th:align="center" th:if="${posts.total} gt 0">
+                <ul class="pagination">
+                    <li>
+                        <a th:href="@{/community/search}+'?page=1&size='+${posts.pageSize}+'&keyword='+${keyword}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li><a th:href="@{/community/search}+'?page='+${posts.pageNum-1}+'&size='+${posts.pageSize}+'&keyword='+${keyword}">上一页</a></li>
+                    <li th:each="pageNo: ${#numbers.sequence(1,posts.pages)}"> <a th:href="@{/community/search}+'?page='+${pageNo}+'&size='+${posts.pageSize}+'&keyword='+${keyword}" th:text="${pageNo}"></a> </li>
+                    <li><a th:href="@{/community/search}+'?page='+${posts.pageNum+1}+'&size='+${posts.pageSize}+'&keyword='+${keyword}">下一页</a></li>
+                    <li>
+                        <a th:href="@{/community/search}+'?page='+${posts.pages}+'&size='+${posts.pageSize}+'&keyword='+${keyword}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</main>
+</body>
+
+</html>

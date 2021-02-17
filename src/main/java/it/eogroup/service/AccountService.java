@@ -47,6 +47,6 @@ public interface AccountService {
 
     String getAccountName(Integer accountId);
 
-    List<favPost> getFavPost(Integer accountId);
+    List<favPost> getFavPost(Integer page, Integer size,Integer accountId);
 
 }

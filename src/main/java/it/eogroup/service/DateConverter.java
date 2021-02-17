@@ -4,6 +4,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 //String转LocalDate辅助类
@@ -11,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 public class DateConverter implements Converter<String, LocalDate> {
 
     DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    DateTimeFormatter fmt2 = DateTimeFormatter.ofPattern("yyyy-MM-dd ");
 
     //String转LocalDate
     @Override
@@ -27,5 +29,10 @@ public class DateConverter implements Converter<String, LocalDate> {
         String dateStr = date.format(fmt);
         return dateStr;
     }
+
+//    public String LocalconverString(LocalDateTime localDateTime){
+//        String datestr = localDateTime.format()
+//    }
+
 }
 

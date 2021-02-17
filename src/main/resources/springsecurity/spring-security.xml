@@ -24,15 +24,18 @@
         <!-- 配置具体的拦截的规则 pattern="请求路径的规则" access="访问系统的人，必须有ROLE_USER的角色" -->
         <security:intercept-url pattern="/community/**" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')"/>
         <security:intercept-url pattern="/community/community/**" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')"/>
+        <security:intercept-url pattern="/community/search/**" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')"/>
+        <security:intercept-url pattern="/community/communities/**" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')"/>
         <security:intercept-url pattern="/community/post/**" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')"/>
         <security:intercept-url pattern="/community/post/fav" access="hasRole('ROLE_USER')"/>
+        <security:intercept-url pattern="/community/post/post/**" access="hasRole('ROLE_USER')"/>
         <security:intercept-url pattern="/pages/header" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')"/>
         <security:intercept-url pattern="/pages/login" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')"/>
         <security:intercept-url pattern="/pages/**" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')"/>
         <security:intercept-url pattern="/account/findByName" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')"/>
+        <security:intercept-url pattern="/account/accountBriefInfo/**" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')"/>
         <security:intercept-url pattern="/uploads/**" access="hasRole('ROLE_USER')"/>
         <security:intercept-url pattern="/account/**" access="hasRole('ROLE_USER')"/>
-
 
         <!-- 定义跳转的具体的页面 -->
         <security:form-login

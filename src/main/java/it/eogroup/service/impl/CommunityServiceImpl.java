@@ -2,16 +2,14 @@ package it.eogroup.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import it.eogroup.dao.CommunityDao;
-import it.eogroup.domain.Comment;
-import it.eogroup.domain.CommentAccount;
-import it.eogroup.domain.Community;
-import it.eogroup.domain.Post;
+import it.eogroup.domain.*;
 import it.eogroup.service.CommunityService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service("communityService")
@@ -27,6 +25,12 @@ public class CommunityServiceImpl implements CommunityService {
     public List<Community> getTopCommunity() {
         logger.info("返回最热社区列表");
         return communityDao.getTopCommunity();
+    }
+
+    @Override
+    public List<Community> getAllCommunities() {
+        logger.info("返回所有社区");
+        return communityDao.getAllCommunities();
     }
 
     @Override
@@ -91,8 +95,9 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
-    public List<Post> accountPostFindAll(Integer accountId) {
+    public List<Post> accountPostFindAll(Integer page, Integer size,Integer accountId) {
         logger.info("返回账户所有帖子");
+        PageHelper.startPage(page,size);
         return communityDao.accountPostFindAll(accountId);
     }
 
@@ -105,7 +110,74 @@ public class CommunityServiceImpl implements CommunityService {
     @Override
     public void insertComment(Comment comment) {
         logger.info("插入评论");
+        Integer floor = communityDao.getCommentFloor(comment.getPostId());
+        if(floor == 0){
+            comment.setCommentFloor("楼主");
+        }else{
+            comment.setCommentFloor((floor+1)+"楼");
+        }
         communityDao.insertComment(comment);
+    }
+
+    @Override
+    public void insertPost(Post post) {
+        logger.info("插入帖子");
+        communityDao.insertPost(post);
+    }
+
+    @Override
+    public Post getPostByTime(LocalDateTime localDateTime) {
+        logger.info("找回帖子");
+        return communityDao.getPostByTime(localDateTime);
+    }
+
+    @Override
+    public Post getPostById(Integer accountId) {
+        return communityDao.getPostById(accountId);
+    }
+
+    @Override
+    public Integer getAccountIdByPostId(Integer postId) {
+        logger.info("返回发帖人的id");
+        return communityDao.getAccountIdByPostId(postId);
+    }
+
+    @Override
+    public List<CommentAccount> findAllMessage(Integer accountId) {
+        logger.info("返回该账户所有未读消息");
+        return communityDao.findUnReadMessage(accountId,false);
+    }
+
+    @Override
+    public List<CommentAccountPost> findUnReadMessagePost(Integer page, Integer size,Integer accountId) {
+        logger.info("返回该账户所有未读消息");
+        PageHelper.startPage(page,size);
+        return communityDao.findUnReadMessagePost(accountId,false);
+    }
+
+    @Override
+    public void readMessage(Integer commentId) {
+        logger.info("尝试标为已读消息");
+        communityDao.readMessage(commentId,true);
+    }
+
+    @Override
+    public void readAllMessage(Integer accountId) {
+        communityDao.readAllMessage(accountId,true);
+        logger.info("所有未读评论执行已读");
+    }
+
+    @Override
+    public Integer getCommentAccountId(Integer commentId) {
+        logger.info("根据评论id找回账户id");
+        return communityDao.getCommentAccountId(commentId);
+    }
+
+    @Override
+    public List<Post> getRelatedPosts(Integer page, Integer size,String keyword) {
+        logger.info("返回模糊查找帖子的集合");
+        PageHelper.startPage(page,size);
+        return communityDao.getRelatedPosts(keyword);
     }
 
 

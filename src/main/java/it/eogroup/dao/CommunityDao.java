@@ -1,13 +1,11 @@
 package it.eogroup.dao;
 
-import it.eogroup.domain.Comment;
-import it.eogroup.domain.CommentAccount;
-import it.eogroup.domain.Community;
-import it.eogroup.domain.Post;
+import it.eogroup.domain.*;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -15,6 +13,10 @@ public interface CommunityDao {
 
     //获得最热门的社区
     List<Community> getTopCommunity();
+
+    //获得所有社区
+    @Select("SELECT * FROM community")
+    List<Community> getAllCommunities();
 
     //获得对应社区
     @Select("SELECT * FROM community WHERE communityId = #{communityId}")
@@ -59,4 +61,42 @@ public interface CommunityDao {
     //插入帖子评论
     void insertComment(Comment comment);
 
+    //插入帖子
+    void insertPost(Post post);
+
+    //根据发帖时间找回帖子
+    @Select("select * from post where post.`postTime` = #{localDateTime}")
+    Post getPostByTime(LocalDateTime localDateTime);
+
+    //根据id找回帖子
+    @Select("select * from post where post.`accountId` = #{accountId}")
+    Post getPostById(Integer accountId);
+
+    //根据帖子id找到发帖人的id(为了定位评论的时候回复的是哪个人)
+    @Select("SELECT accountId FROM post WHERE post.`postId` = #{postId}")
+    Integer getAccountIdByPostId(Integer postId);
+
+
+
+    //查找未读评论
+    List<CommentAccount> findUnReadMessage(@Param("accountId") Integer accountId,@Param("commentStatus") Boolean commentStatus);
+
+    //查找未读评论+帖子
+    List<CommentAccountPost> findUnReadMessagePost(@Param("accountId") Integer accountId,@Param("commentStatus") Boolean commentStatus);
+
+    //评论标为已读
+    void readMessage(@Param("commentId") Integer commentId,@Param("commentStatus") Boolean commentStatus);
+
+    //标记所有未读评论为已读
+    void readAllMessage(@Param("accountId") Integer accountId,@Param("commentStatus") Boolean commentStatus);
+
+    //统计当前楼层数
+    Integer getCommentFloor(Integer postId);
+
+    //根据评论找账户id
+    @Select("SELECT  accountId FROM comment WHERE comment.`commentId` = #{commentId}")
+    Integer getCommentAccountId(Integer commentId);
+
+    //根据关键词查找帖子
+    List<Post> getRelatedPosts(String keyword);
 }

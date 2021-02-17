@@ -10,13 +10,9 @@
     <script src="../../../js/bootstrap.min.js"></script>
     <script src="../../../js/wangEditor.min.js" type="text/javascript"></script>
     <title th:text="${post.postTitle}"></title>
-    <style>
-        td{
-            white-space: nowrap;
-        }
-    </style>
+    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
 </head>
-<body>
+<body style="overflow-y:scroll;">
 <div id="header"></div>
 <script>
     $("#header").load("../../pages/header");
@@ -26,63 +22,67 @@
         <div class="col">
             <div style="background-color:lightskyblue;height: 100px;border: green solid 1px;">
                 <div>
-                    <img th:src="@{(${community.communityAvatar})}" style="float: left;" />
+                    <img th:src="@{(${community.communityAvatar})}" style="width:100px; height: 100px;float: left;" class="img-thumbnail"/>
                 </div>
                 <div>
                     <strong class="d-block text-gray-dark">
-                        &#12288&#12288<a th:href="@{/community/community/}+${community.communityId}" th:text="${community.communityName}"></a>
+                        &#12288&#12288<a th:href="@{/community/community/}+${community.communityId}+'?page=1&size=10'" th:text="${community.communityName}"></a>
                         <p th:text="${community.communityDescription}" style="color: grey"></p>
                     </strong>
                 </div>
             </div>
             <div>
                 <br>
-                <div style="border:1px solid #2BD9B6" sec:authorize="isAuthenticated()">
-                    <b><p th:text="${post.postTitle}" style="font-size: 30px;" th:href="@{#}"></p></b>
-                    <button type="button" onclick="addToFav()" id="favButton" style="float: right">收藏帖子</button>
+                <div sec:authorize="isAuthenticated()">
+                    <b><p th:text="${post.postTitle}" style="font-size: 30px;"></p></b>
+                    <button type="button" onclick="addToFav()" id="favButton" style="float: right" class="btn btn-info">收藏帖子</button>
                 </div>
                 <br>
                 <!--评论区-->
                 <table width="100%" border="1" cellpadding="2" cellspacing="1">
                     <tbody>
                     <tr th:each="comment:${pageinfo.list}">
-                        <td width="200px" bgcolor="#faebd7">
+                        <td width="15%" bgcolor="#faebd7" style="word-wrap:break-word;word-break:break-all;white-space:normal;max-width:600px;">
                             <div style="left: 71px;top:0px">
                                 <div th:align="center">
-                                    <a th:href="@{#}" th:text="${comment.accountName}" target="_blank" ></a>
+                                    <a th:href="@{/account/accountBriefInfo}+'?commentId='+${comment.commentId}" th:text="${comment.accountName}" ></a>
                                 </div>
                                 <div>
                                     <!--鼠标移动到图片上触发onmouseover-->
                                     <!--未登录获取不到用户资料，需修改。做一个特供页面？-->
-                                    <div onmouseover="this" th:align="center">
-                                        <a href="/account/userInfo" class="avtm" target="_blank">
-                                            <img th:src="@{${comment.accountAvatar}}" style="width:120px; height: 120px;" onerror="this.onerror=null;this.src='/images/defaultAvatar.png'" alt="用户头像">
+                                    <div th:align="center">
+                                        <a href="#" class="avtm">
+                                            <img th:src="@{${comment.accountAvatar}}" style="width:120px; height: 120px;" onerror="this.onerror=null;this.src='/images/defaultAvatar.png'" alt="用户头像" class="img-thumbnail">
                                         </a>
                                         <p></p>
                                     </div>
                                 </div>
                             </div>
                         </td>
-                        <td style="vertical-align: top">
+                        <td valign="top">
                             <div>
                                 <div style="float: right">
                                     <strong>
-                                        <label th:text="${commentStat.index+1}+'楼'" style="color: #888888"></label>
+                                        <label th:text="${comment.commentFloor}" th:id="${comment.commentId}" style="color: #888888"></label>
                                     </strong>
                                 </div>
-                                <div>
+                                <div >
                                     <strong>
-                                        <label th:text="'发表时间：'+${comment.commentTime}" style="color: #ffab0c"></label>
+                                        <label th:text="'发表时间:'+${#temporals.format(comment.commentTime,'yyyy-MM-dd HH:mm:ss')}" style="color: #ffab0c"></label>
                                     </strong>
                                 </div>
                             </div>
+                            <br>
                             <div>
-                                <p>
-                                    <a th:href="@{#}" target="_blank">私聊</a>
-                                </p>
+                                <div th:utext="${comment.commentText}" ></div>
                             </div>
-                            <div>
-                                <span th:utext="${comment.commentText}"></span>
+                            <br>
+                            <button id="showButton" type="button" sec:authorize="isAuthenticated()" class="btn-xs btn-info" th:onclick="'javascript:showReply('+${comment.commentId}+')'" th:if="${comment.commentFloor} != '楼主'">短回复</button>
+                            <div th:id="'form'+${comment.commentId}" style="display: none">
+                                <textarea  th:id="'reply'+${comment.commentId}" style="width: 100%"></textarea>
+                                <input type="hidden" th:id="'hidden'+${comment.commentId}" th:value="'回复：'+${comment.commentFloor}">
+                                <br>
+                                <button id="submitReply" type="submit" th:onclick="'javascript:sendReply('+${comment.commentId}+')'">回复</button>
                             </div>
                         </td>
                     </tr>
@@ -90,7 +90,7 @@
                 </table>
             </div>
             <!--分页-->
-            <nav aria-label="Page navigation" th:align="center">
+            <nav aria-label="Page navigation" th:align="center" th:if="${pageinfo.total} gt 0">
                 <ul class="pagination">
                     <li>
                         <a th:href="@{/community/post/}+${post.postId}+'?page=1&size='+${pageinfo.pageSize}+'&communityId='+${post.communityId}" aria-label="Previous">
@@ -107,19 +107,11 @@
                     </li>
                 </ul>
             </nav>
-            <!--评论-->
-<!--            <form id="commentFrom" method="post" action="/community/post/submitComment" sec:authorize="isAuthenticated()" onsubmit="transComment() && checkTextNull()">-->
-<!--                <div id="commentArea"></div>-->
-<!--                <textarea id="comment" name="comment" style="display: none"></textarea>-->
-<!--                <input type="hidden" name="commenturl" id="commenturl">-->
-<!--                <input type="hidden" id="postId" th:value="${post.postId}">-->
-<!--                <input type="hidden" id="AccountId" th:value="${post.accountId}">-->
-<!--                <input class="btn btn-primary" type="submit" id="submitcomment" value="回复">-->
-<!--            </form>-->
+            <div class="alert alert-warning" th:if="${pageinfo.total} eq 0" th:text="暂无更多回复"></div>
             <div id="commentFrom" sec:authorize="isAuthenticated()" >
                 <div id="commentArea"></div>
                 <textarea id="comment" name="comment" style="display: none"></textarea>
-                <input class="btn btn-primary" type="submit" id="submitcomment" value="回复">
+                <input class="btn btn-primary" type="submit" id="submitComment" value="评论">
             </div>
             <div sec:authorize="!isAuthenticated()" th:align="center">
                 <p style="color: red;font-size: 20px">未登录禁止评论</p>
@@ -136,17 +128,12 @@
     //页面自动加载评论框
     $(function(){
         var E = window.wangEditor;
-        //这里的id为<div id="editor"中的id.
         editor = new E('#commentArea');
-        // // 配置服务器端地址,也就是controller的请求路径，不带项目路径，前面没有/
-        // editor.customConfig.uploadImgServer = 'commumity/upload/editor/img';
-        // editor.config.uploadImgMaxSize = 1 * 1024 * 1024;
-        // editor.config.uploadImgAccept = ['jpg', 'jpeg', 'png', 'gif', 'bmp'];
-        // editor.config.excludeMenus = ['video']
-        //创建编辑器
+        //不准上传视频和图片
+        editor.config.excludeMenus = ['video','image'];
         editor.create();
         editor.txt.html($('#comment').text())
-        $('#submitcomment').click(function () {
+        $('#submitComment').click(function () {
             $('#comment').text(editor.txt.html());
             if(!checkTextNull()) return;
             sentComment();
@@ -181,13 +168,6 @@
         })
     }
 
-    // function transComment(){
-    //     var comment = $('#comment').text();
-    //     alert(comment);
-    //     $('#commenturl').val(window.location.href);
-    //     return true;
-    // }
-
     function sentComment(){
         var postId = $("#postId").val();
         var commentText = $("#comment").val();
@@ -198,9 +178,48 @@
             success:function(data){
                 if(data === "true"){
                     alert("评论成功");
-                    editor.txt.clear()
+                    editor.txt.clear();
                 }else{
                     alert("评论失败");
+                }
+            }
+        })
+    }
+
+    function checkReplyNull(commentId){
+        let judge = document.getElementById('reply'+commentId).value;
+        if(judge == null || judge === "") {
+            alert("评论内容不能为空")
+            return false;
+        }
+        return true;
+    }
+
+    function showReply(commentId){
+        let form = document.getElementById('form'+commentId);
+        let val = form.style.display;
+        if(val === 'none'){
+            form.style.display = 'block';
+        }else{
+            form.style.display = 'none';
+        }
+    }
+
+    function sendReply(commentId){
+        if(!checkReplyNull(commentId)) return;
+        var hidden1 = document.getElementById('hidden'+commentId).value;
+        let replyText = document.getElementById('reply'+commentId).value;
+        var postId = $("#postId").val();
+        $.ajax({
+            url:"/community/post/reply",
+            data:{"replyTo":hidden1,"replyText":replyText,"commentId":commentId,"postId":postId},
+            type:"post",   //请求方式
+            success:function(data){
+                if(data === "true"){
+                    alert("回复成功");
+                    document.getElementById('reply'+commentId).value = "";
+                }else{
+                    alert("回复失败");
                 }
             }
         })

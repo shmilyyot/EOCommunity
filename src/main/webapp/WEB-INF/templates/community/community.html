@@ -12,7 +12,7 @@
     <title th:text="${community.communityName}"></title>
     <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
 </head>
-<body>
+<body style="overflow-y:scroll;">
 <div id="header"></div>
 <script>
     $("#header").load("../../pages/header");
@@ -23,7 +23,7 @@
         <div class="col">
             <div style="background-color:lightskyblue;height: 100px;border: green solid 1px;">
                 <div>
-                        <img th:src="@{(${community.communityAvatar})}" style="float: left;" />
+                        <img th:src="@{(${community.communityAvatar})}" style="width:100px; height: 100px;float: left;" class="img-thumbnail"/>
                 </div>
                     <div>
                         <strong class="d-block text-gray-dark">
@@ -36,11 +36,12 @@
             <br>
             <!--发帖按钮-->
             <div sec:authorize="isAuthenticated()">
-                <button type="button">发帖</button>
+                <a th:href="@{/community/post/post/}+${community.communityId}"><button type="button" class="btn btn-info">发帖</button></a>
             </div>
             <div sec:authorize="!isAuthenticated()">
                 <p style="color: red;font-size: 20px">未登录只能浏览不能发帖</p>
             </div>
+            <br>
             <!--帖子-->
             <div class="panel panel-info">
                 <div class="panel-heading">
@@ -52,14 +53,14 @@
                     <ul class="list-group" th:each="post:${pageinfo.list}">
                         <HR align=center color=#987cb9>
                         <li style="list-style-type: none">
-                            <a th:text="${post.postTitle}" th:href="@{/community/post/}+${post.postId}+'?page=1&size=10&communityId='+${post.communityId}" style="font-size: 15px;color: black"></a>
-                            <p th:text="${post.postTime}" style="float: right;color: #888888;font-size: 10px" ></p>
-                            <a th:text="${[post.postId]}+'&#12288'" style="color: #2b669a;float: right" ></a>
+                            <a th:text="${post.postTitle}" th:href="@{/community/post/}+${post.postId}+'?page=1&size=10&communityId='+${post.communityId}" style="font-size: 15px;color: black;text-decoration:none;"></a>
+                            <p th:text="${#temporals.format(post.postTime,'yyyy-MM-dd HH:mm:ss')}" style="float: right;color: #888888;font-size: 10px" ></p>
+                            <p th:text="${[post.postId]}+'&#12288'" style="color: #2b669a;float: right" ></p>
                         </li>
                     </ul>
                 </div>
             </div>
-            <nav aria-label="Page navigation" th:align="center">
+            <nav aria-label="Page navigation" th:align="center" th:if="${pageinfo.total} gt 0">
                 <ul class="pagination">
                     <li>
                         <a th:href="@{/community/community/}+${community.communityId}+'?page=1&size='+${pageinfo.pageSize}" aria-label="Previous">
@@ -76,6 +77,7 @@
                     </li>
                 </ul>
             </nav>
+            <div class="alert alert-warning" th:if="${pageinfo.total} eq 0" th:text="暂无更多帖子"></div>
         </div>
     </div>
 </main>
