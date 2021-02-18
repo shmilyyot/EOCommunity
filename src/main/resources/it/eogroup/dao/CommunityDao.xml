@@ -7,7 +7,7 @@
     <!--查询一周内帖子数最多的3条社区记录-->
     <select id="getTopCommunity" resultType="it.eogroup.domain.Community">
         SELECT
-            community.*,any_value (post.`postId`)
+            community.*,any_value (post.`communityId`)
         FROM
             community INNER JOIN post ON community.`communityId` = post.`communityId`
                         AND date_sub(curdate(), interval 7 day) &lt;= date(post.postTime)
