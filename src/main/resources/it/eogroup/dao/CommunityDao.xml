@@ -7,7 +7,7 @@
     <!--查询一周内帖子数最多的3条社区记录-->
     <select id="getTopCommunity" resultType="it.eogroup.domain.Community">
         SELECT
-            community.*,COUNT(post.`communityId`),any_value (post.`communityId`)
+            community.*,any_value (post.`postId`)
         FROM
             community INNER JOIN post ON community.`communityId` = post.`communityId`
                         AND date_sub(curdate(), interval 7 day) &lt;= date(post.postTime)
@@ -19,7 +19,7 @@
     <!--查询一周内最热门的帖子-->
     <select id="getTopPosts" resultType="it.eogroup.domain.Post">
         SELECT
-            post.*,COUNT(comment.`postId`),any_value (comment.`postId`)
+            post.*,any_value (comment.`commentId`)
         FROM
             post,
             comment
