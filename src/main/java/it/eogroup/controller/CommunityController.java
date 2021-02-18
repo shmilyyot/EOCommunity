@@ -206,6 +206,7 @@ public class CommunityController {
         return "true";
     }
 
+    //搜索语句
     @RequestMapping("/search")
     public ModelAndView searchPost(@RequestParam(name="page",defaultValue = "1")Integer page,@RequestParam(name = "size",defaultValue = "10")Integer size,@RequestParam(name = "keyword")String keyword){
         ModelAndView mv = new ModelAndView("community/searchPost");
