@@ -77,3 +77,6 @@ CREATE TABLE IF NOT EXISTS 	`favPost`(
 
 select @@sql_mode
 SET @@sql_mode ='STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION';
+
+show full columns from `comment`;
+alter table `comment` modify commentText text charset utf8mb4;

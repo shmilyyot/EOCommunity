@@ -33,6 +33,7 @@
         <property name="maxWait" value="${druid.maxWait}" />
         <property name="poolPreparedStatements" value="${druid.poolPreparedStatements}" />
         <property name="maxOpenPreparedStatements" value="${druid.maxOpenPreparedStatements}" />
+        <property name="connectionInitSqls" value="${druid.connectionInitSqls}"/>
         <!-- 配置监控统计拦截的filters,采用log4j2作为日志实现 -->
         <property name="filters" value="stat,log4j2" />
         <!-- proxyFilters属性配置,通过bean的方式配置 -->
