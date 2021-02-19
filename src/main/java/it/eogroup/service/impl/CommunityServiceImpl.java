@@ -85,7 +85,7 @@ public class CommunityServiceImpl implements CommunityService {
 
     @Override
     public Boolean insertFavPost(Integer accountId,String url, String title) {
-        if(communityDao.searchPostExist(url) != null){
+        if(communityDao.searchPostExist(url,accountId) != null){
             logger.error("此帖子已存在于收藏夹");
             return false;
         }
