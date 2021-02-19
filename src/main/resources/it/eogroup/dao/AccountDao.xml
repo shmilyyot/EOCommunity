@@ -5,22 +5,22 @@
 <mapper namespace="it.eogroup.dao.AccountDao">
     <select id="accountExistByName" parameterType="java.lang.String" resultType="it.eogroup.domain.Account">
         SELECT *
-        FROM ACCOUNT
+        FROM account
         where accountName=#{accountName}
     </select>
 
     <select id="accountExistById" parameterType="java.lang.Integer" resultType="it.eogroup.domain.Account">
         SELECT *
-        FROM ACCOUNT
+        FROM account
         where accountId=#{accountId}
     </select>
 
     <insert id="insertAccount" parameterType="it.eogroup.domain.Account">
-        INSERT INTO ACCOUNT values (null,#{accountName,jdbcType=VARCHAR}, #{accountPassword,jdbcType=VARCHAR}, #{accountBirthday,jdbcType=DATE}, #{accountRegisterDate,jdbcType=DATE}, #{accountEmail,jdbcType=VARCHAR}, #{accountAddress,jdbcType=VARCHAR},#{accountAvatar,jdbcType=VARCHAR})
+        INSERT INTO account values (null,#{accountName,jdbcType=VARCHAR}, #{accountPassword,jdbcType=VARCHAR}, #{accountBirthday,jdbcType=DATE}, #{accountRegisterDate,jdbcType=DATE}, #{accountEmail,jdbcType=VARCHAR}, #{accountAddress,jdbcType=VARCHAR},#{accountAvatar,jdbcType=VARCHAR})
     </insert>
 
     <insert id="insertRole" parameterType="it.eogroup.domain.Account">
-        INSERT INTO ACCOUNTROLE values (#{accountId,jdbcType=INTEGER},"USER","普通用户")
+        INSERT INTO accountRole values (#{accountId,jdbcType=INTEGER},"USER","普通用户")
     </insert>
 
     <update id="updateAccount" parameterType="it.eogroup.domain.Account">

@@ -29,18 +29,18 @@ public interface AccountDao {
     Account accountExistById(Integer accountId);
 
     //根据用户id查找角色
-    @Select("SELECT * FROM ACCOUNTROLE WHERE accountId=#{accountId}")
+    @Select("SELECT * FROM accountRole WHERE accountId=#{accountId}")
     Role roleExistById(Integer accountId);
 
     //插入账户角色
     void insertRole(Integer accountId);
 
     //查找用户ID
-    @Select("SELECT accountId FROM ACCOUNT where accountName=#{accountName}")
+    @Select("SELECT accountId FROM account where accountName=#{accountName}")
     Integer findAccountId(String accountName);
 
     //查找用户角色
-    @Select("SELECT accountRole FROM ACCOUNTROLE where accountId in (select accountId from account where accountName = #{accountName})")
+    @Select("SELECT accountRole FROM accountRole where accountId in (select accountId from account where accountName = #{accountName})")
     String findAccountRole(String accountName);
 
     //更新账户信息
