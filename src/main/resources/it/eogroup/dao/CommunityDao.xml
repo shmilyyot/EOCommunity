@@ -75,7 +75,7 @@
     <!--插入收藏夹-->
     <insert id="insertFavPost">
         insert into
-        favpost(accountId,url,title)
+        favPost(accountId,url,title)
         values (#{accountId},#{url},#{title})
     </insert>
 
