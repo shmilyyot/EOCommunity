@@ -55,8 +55,8 @@ public interface CommunityDao {
     void deleteFavPost(Integer favId);
 
     //查找收藏夹是否有指定帖子
-    @Select("SELECT * FROM favPost WHERE favPost.`url` = #{url}")
-    Post searchPostExist(String url);
+    @Select("SELECT * FROM favPost WHERE favPost.`url` = #{url} AND favPost.`accountId` = #{accountId}")
+    Post searchPostExist(@Param("url") String url,@Param("accountId") Integer accountId);
 
     //插入帖子评论
     void insertComment(Comment comment);
