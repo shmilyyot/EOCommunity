@@ -5,7 +5,8 @@
 	jdk:14
 	tomcat:8.5.5.7
 	idea:2020.3
-	mysql:8
+	mysql:5.7
+	nginx:1.18
 ## 技术栈
     1. Thymeleaf
     2. bootstrap
@@ -23,7 +24,7 @@
     14. wangEditor
 
 ## 演示地址
-[EO论坛](http://39.108.142.37:8080/)
+[EO论坛](http://39.108.142.37:888/)
 演示账号：admin 密码：admin
 ### 部署环境
 	1.99元一年阿里云轻量应用服务器
