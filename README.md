@@ -17,9 +17,11 @@
     8. maven
     9. druid
     10. mysql
-    11. log4j2
-    12. lombok
-    13. pagehelper
-    14. wangEditor
+    11.redis
+    12. log4j2
+    13. lombok
+    14. pagehelper
+    15. wangEditor
 
 ## 演示地址
+    服务器过期不想续了，无了
