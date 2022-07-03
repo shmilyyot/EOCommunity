@@ -10,6 +10,10 @@ import it.eogroup.service.AvatarPath;
 import it.eogroup.service.DateConverter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -34,6 +38,8 @@ import java.util.UUID;
 @Transactional //声明式事务
 public class AccountServiceImpl implements AccountService {
 
+    @Resource
+    private RedisTemplate<String, Object> redisTemplate;
     @Resource
     private AccountDao accountDao;
     @Resource
