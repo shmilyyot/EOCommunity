@@ -39,8 +39,6 @@ import java.util.UUID;
 public class AccountServiceImpl implements AccountService {
 
     @Resource
-    private RedisTemplate<String, Object> redisTemplate;
-    @Resource
     private AccountDao accountDao;
     @Resource
     private DateConverter dateConverter;

@@ -84,7 +84,7 @@ public class CommunityController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Integer accountId = accountService.getAccount(authentication.getName()).getAccountId();
         try{
-            if(!communityService.insertFavPost(accountId,url,title)){
+            if(!communityService. insertFavPost(accountId,url,title)){
                 logger.error("帖子已存在");
                 return "exist";
             }

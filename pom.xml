@@ -296,6 +296,11 @@
             <artifactId>spring-data-redis</artifactId>
             <version>2.3.4.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+            <version>3.8.0</version>
+        </dependency>
     </dependencies>
 
 

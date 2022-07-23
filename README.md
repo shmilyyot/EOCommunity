@@ -22,6 +22,7 @@
     13. lombok
     14. pagehelper
     15. wangEditor
+    16.docker(redis和mysql都是用wsl2部署在docker里面了，不过项目里没法显示出来)
 
 ## 演示地址
     服务器过期不想续了，无了
