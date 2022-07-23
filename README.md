@@ -19,12 +19,12 @@
     8. maven
     9. druid
     10. mysql
-    11. log4j2
-    12. lombok
-    13. pagehelper
-    14. wangEditor
+    11.redis
+    12. log4j2
+    13. lombok
+    14. pagehelper
+    15. wangEditor
+    16.docker(redis和mysql都是用wsl2部署在docker里面了，不过项目里没法显示出来)
 
 ## 演示地址
-[EO论坛](http://39.108.142.37:888/)
-演示账号：admin 密码：admin
-
+    服务器过期不想续了，无了

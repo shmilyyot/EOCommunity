@@ -19,8 +19,9 @@
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
-    <!--引入druid配置文件-->
-    <context:property-placeholder location="classpath:sqlConnectPool.properties" />
+    <!--引入druid和redis配置文件-->
+    <context:property-placeholder location="classpath*:*.properties" />
+
     <!--druid连接池-->
     <bean name="druidDataSource" class="com.alibaba.druid.pool.DruidDataSource">
         <property name="url" value="${druid.url}" />
@@ -76,6 +77,44 @@
             </array>
         </property>
     </bean>
+
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <!-- 最小维持连接数 -->
+        <property name="maxIdle" value="${redis.pool.maxIdle}"/>
+        <!-- 最大可用连接数 -->
+        <property name="maxTotal" value="${redis.pool.maxTotal}"/>
+        <!-- 最大等待连接数 -->
+        <property name="maxWaitMillis" value="${redis.pool.maxWaitMills}"/>
+        <!-- 可用连接 -->
+        <property name="testOnBorrow" value="${redis.pool.testOnBorrow}"/>
+    </bean>
+
+    <bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <property name="poolConfig" ref="jedisPoolConfig"/>
+        <property name="hostName" value="${redis.host}"/>
+        <property name="password" value="${redis.password}"/>
+        <property name="timeout" value="${redis.timeout}"/>
+    </bean>
+
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <property name="valueSerializer">
+            <!--            <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/>-->
+            <bean class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer"/>
+        </property>
+        <property name="stringSerializer">
+            <bean class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer"/>
+            <!--            <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/>-->
+        </property>
+        <property name="keySerializer">
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+        </property>
+        <property name="hashKeySerializer">
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+        </property>
+
+    </bean>
+
     <!--  2.2.1 配置Dao接口所在包-->
     <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="it.eogroup.dao"/>

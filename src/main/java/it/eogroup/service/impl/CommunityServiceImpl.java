@@ -6,16 +6,25 @@ import it.eogroup.domain.*;
 import it.eogroup.service.CommunityService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 @Service("communityService")
 @Transactional //声明式事务
 public class CommunityServiceImpl implements CommunityService {
 
+    @Resource
+    private RedisTemplate<String, Object> redisTemplate;
     @Resource
     private CommunityDao communityDao;
     private static final Logger logger = LogManager.getLogger(CommunityServiceImpl.class);
@@ -24,7 +33,19 @@ public class CommunityServiceImpl implements CommunityService {
     //获得最热门的社区
     public List<Community> getTopCommunity() {
         logger.info("返回最热社区列表");
-        return communityDao.getTopCommunity();
+        List<Community> communities = new ArrayList<>();
+        Set<ZSetOperations.TypedTuple<Object>> set = redisTemplate.opsForZSet().reverseRangeWithScores("community_set", 0, 2);
+        if (set == null)
+        {
+            logger.info("[Redis] [error]: cache doesn't exist, search database");
+            return communityDao.getTopCommunity();
+        }
+        for (ZSetOperations.TypedTuple<Object> typedTuple : set) {
+            Integer communityId = (Integer) typedTuple.getValue();
+            Community community = communityDao.getCommunity(communityId);
+            communities.add(community);
+        }
+        return communities;
     }
 
     @Override
@@ -36,7 +57,19 @@ public class CommunityServiceImpl implements CommunityService {
     @Override
     public List<Post> getTopPosts() {
         logger.info("返回了热门帖子");
-        return communityDao.getTopPosts();
+        List<Post> posts = new ArrayList<>();
+        Set<ZSetOperations.TypedTuple<Object>> set = redisTemplate.opsForZSet().reverseRangeWithScores("post_set", 0, 9);
+        if (set == null)
+        {
+            logger.info("[Redis] [error]: cache doesn't exist, search database");
+            return communityDao.getTopPosts();
+        }
+        for (ZSetOperations.TypedTuple<Object> typedTuple : set) {
+            Integer postId = (Integer) typedTuple.getValue();
+            Post post = communityDao.getPost(postId);
+            posts.add(post);
+        }
+        return posts;
     }
 
     @Override
@@ -117,12 +150,40 @@ public class CommunityServiceImpl implements CommunityService {
             comment.setCommentFloor((floor+1)+"楼");
         }
         communityDao.insertComment(comment);
+        updateRankOfPost(comment.getPostId());
     }
 
     @Override
     public void insertPost(Post post) {
         logger.info("插入帖子");
         communityDao.insertPost(post);
+        updateRankOfCommunity(post.getCommunityId());
+    }
+
+    public void updateRankOfCommunity(Integer communityId)
+    {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR,1);
+        calendar.set(Calendar.HOUR_OF_DAY,0);
+        calendar.set(Calendar.SECOND,0);
+        calendar.set(Calendar.MINUTE,0);
+        calendar.set(Calendar.MILLISECOND,0);
+        long timeOut = (calendar.getTimeInMillis()-System.currentTimeMillis()) / 1000; //晚上十二点与当前时间的毫秒差
+        redisTemplate.expire("community_set",timeOut, TimeUnit.SECONDS);
+        redisTemplate.opsForZSet().incrementScore("community_set", communityId, 1);
+    }
+
+    public void updateRankOfPost(Integer postId)
+    {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR,1);
+        calendar.set(Calendar.HOUR_OF_DAY,0);
+        calendar.set(Calendar.SECOND,0);
+        calendar.set(Calendar.MINUTE,0);
+        calendar.set(Calendar.MILLISECOND,0);
+        long timeOut = (calendar.getTimeInMillis()-System.currentTimeMillis()) / 1000; //晚上十二点与当前时间的毫秒差
+        redisTemplate.expire("post_set",timeOut, TimeUnit.SECONDS);
+        redisTemplate.opsForZSet().incrementScore("post_set", postId, 1);
     }
 
     @Override
